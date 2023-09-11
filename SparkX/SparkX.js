@@ -11,7 +11,9 @@ export let SparkX = {
     
     ClearCanvas : async function(){
         SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.Resolution.x, SparkX.Resolution.y)
-    }
+    },
+    RenderStart : [],
+    RenderLoop : [],
 }
 
 let canvas = SparkX.Canvas;
@@ -27,6 +29,9 @@ setInterval(() => {
     if (SparkX.Rendering == true){
         if (StartRan == false){
             StartRan = true;
+            SparkX.RenderStart.forEach(element => {
+                
+            });
         }
     
         canvas.width = SparkX.Resolution.x;

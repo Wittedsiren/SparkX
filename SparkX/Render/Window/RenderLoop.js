@@ -1,3 +1,4 @@
+import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 
@@ -15,15 +16,14 @@ setInterval(() => {
     if (StartRan == false){
         StartRan = true;
 
+        SparkX.ClientScreenRes = new Vector2(screen.width, screen.height)
         AspectRatioWindow.DetermineAspectRatio();
 
-        SparkX.RenderStart.forEach(element => {
+        SparkX.RenderStarts.forEach(element => {
             
         });
+        
     }
-
-    canvas.width = SparkX.Resolution.x;
-    canvas.height = SparkX.Resolution.y;
 
     SparkX.ClearCanvas()
     // Objects style
@@ -32,8 +32,14 @@ setInterval(() => {
     ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
     ctx.fillRect(0, 0, canvas.width, canvas.height)
  
+    SparkX.RenderLoops.forEach(element => {
+        element();
+    })
+
+    console.log(AspectRatioWindow.Ratio)
+
     var currentUpdate = Date.now();
-    SparkX.Settings.DeltaTime = currentUpdate - lastUpdate;
+    SparkX.ConstSettings.DeltaTime = currentUpdate - lastUpdate;
     lastUpdate = currentUpdate;
  }, 1000 / SparkX.FramesPerSecond );
  

@@ -7,7 +7,6 @@ export let Draw = {
     line : function(a = Vector2, b = Vector2){
         let dx = SparkX.Resolution.x / 2
         let dy = SparkX.Resolution.y / 2
-
         const ctx = canvas.getContext('2d');
     
         // set line stroke and line width

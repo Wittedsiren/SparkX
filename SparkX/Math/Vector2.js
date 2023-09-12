@@ -1,4 +1,8 @@
 export class Vector2 {    
+
+    static x = Number;
+    static y = Number;
+
     constructor(X = Number, Y = Number){
         this.x = X;
         this.y = Y;

@@ -9,7 +9,10 @@ export let AspectRatioWindow = {
     Ratio : Number,
 
     Update : function(){
-        SparkX.Resolution = new Vector2(SparkX.Canvas.clientWidth, SparkX.Canvas.clientHeight)
+        console.log("SparkX Res updated")
+        // SparkX.Resolution = new Vector2(SparkX.Canvas.width * SparkX.ConstSettings.AspectRatio, SparkX.Canvas.height * SparkX.ConstSettings.AspectRatio)
+        console.log(SparkX.Canvas.clientHeight)
+        console.log(SparkX.Resolution)
     },
 
     DetermineAspectRatio : function(){

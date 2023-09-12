@@ -7,6 +7,7 @@ export let Draw = {
     line : function(a = Vector2, b = Vector2){
         let dx = SparkX.Resolution.x / 2
         let dy = SparkX.Resolution.y / 2
+        console.log(dy)
         const ctx = canvas.getContext('2d');
     
         // set line stroke and line width
@@ -34,17 +35,17 @@ export let Draw = {
     //     ctx.closePath()
     //     ctx.fill()
     // },
-    point : function(a){
-        const ctx = canvas.getContext('2d');
+    // point : function(a){
+    //     const ctx = canvas.getContext('2d');
     
-        // set line stroke and line width
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 10;
+    //     // set line stroke and line width
+    //     ctx.strokeStyle = 'blue';
+    //     ctx.lineWidth = 10;
     
-        // draw a red line
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(a.x, a.y);
-        ctx.stroke();
-    }
+    //     // draw a red line
+    //     ctx.beginPath();
+    //     ctx.moveTo(a.x, a.y);
+    //     ctx.lineTo(a.x, a.y);
+    //     ctx.stroke();
+    // }
 }

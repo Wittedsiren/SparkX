@@ -10,13 +10,13 @@ export let SparkX = {
         Rendering : true,
     },
     
-    FramesPerSecond : 60,
+    FramesPerSecond : 1,
     Resolution : new Vector2(innerWidth, innerHeight),
     ClientScreenRes : Vector2,
     Canvas : document.getElementById("Screen"),
     
     ClearCanvas : async function(){
-        SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.Resolution.x, SparkX.Resolution.y)
+        SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
     },
     RenderStarts : [],
     RenderLoops : [],

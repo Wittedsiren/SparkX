@@ -20,6 +20,7 @@ export let AspectRatioWindow = {
     DetermineAspectRatio : function(){
         AspectRatioWindow.Ratio = SparkX.ClientScreenRes.x / SparkX.ClientScreenRes.y;
         SparkX.ConstSettings.AspectRatio = AspectRatioWindow.Ratio
+        AspectRatioWindow.Update()
         window.addEventListener("resize", AspectRatioWindow.Update);
     }
 }

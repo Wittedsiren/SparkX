@@ -11,7 +11,7 @@ export let SparkX = {
         Rendering : true,
     },
     
-    FramesPerSecond : 10,
+    FramesPerSecond : 60,
     Resolution : new Vector2(innerWidth, innerHeight),
     ClientScreenRes : new Vector2(screen.width, screen.height),
     Canvas : document.getElementById("Screen"),

@@ -11,10 +11,10 @@ export let AspectRatioWindow = {
 
     Update : function(){
         SparkX.Resolution = new Vector2(document.body.clientWidth, document.body.clientHeight)
-        let r = Vector2.Divide(SparkX.ClientScreenRes, SparkX.Resolution)
-        let x = Vector2.Divide(r, 1)
-        SparkX.ConstSettings.AspectZoom = x;
-        console.log(x)
+
+        let ratio = Vector2.Divide(SparkX.ClientScreenRes, SparkX.Resolution)
+        let refined_ratio = Vector2.Divide(ratio, 1)
+        SparkX.ConstSettings.AspectZoom = refined_ratio;
     },
 
     DetermineAspectRatio : function(){

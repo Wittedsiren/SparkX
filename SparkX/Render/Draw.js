@@ -3,30 +3,32 @@ import { SparkX } from "../SparkX.js";
 
 let canvas = SparkX.Canvas;
 
+let dx = Number;
+let dy = Number;
+let l_func = {
+    MakePosRelative : function(a){
+        let x1 = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
+        let x2 = new Vector2(x1.x + dx, -x1.y + dy)
+        return x2;
+    }
+}
+
 export let Draw = {
     line : function(a = Vector2, b = Vector2){
-        let dx = SparkX.Resolution.x / 2;
-        let dy = SparkX.Resolution.y / 2;
+        dx = SparkX.Resolution.x / 2;
+        dy = SparkX.Resolution.y / 2;
 
         const ctx = canvas.getContext('2d');
-    
-        console.log(SparkX.ConstSettings.AspectZoom)
-        //Make Scale Realitive
-        a = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
-        b = Vector2.Divide(b, SparkX.ConstSettings.AspectZoom);
-        
-        // set line stroke and line width
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
         
-        // draw a red line
+        a = l_func.MakePosRelative(a)
+        b = l_func.MakePosRelative(b)
+    
         ctx.beginPath();
-        ctx.moveTo( (a.x + dx), (-a.y + dy) );
-        ctx.lineTo( (b.x + dx), (-b.y + dy) );
+        ctx.moveTo( a.x, a.y );
+        ctx.lineTo( b.x, b.y );
         ctx.stroke();
-
-        //Idea to fix: Create a lerp function and get a ratio between the current res of the canvas and max res then multiply the vectors by that value
-
     },
 
     // triangle : function(a = Vector2, b = Vector2, c = Vector2){

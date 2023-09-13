@@ -7,9 +7,14 @@ export let Draw = {
     line : function(a = Vector2, b = Vector2){
         let dx = SparkX.Resolution.x / 2;
         let dy = SparkX.Resolution.y / 2;
-        console.log(dy)
+
         const ctx = canvas.getContext('2d');
     
+        console.log(SparkX.ConstSettings.AspectZoom)
+        //Make Scale Realitive
+        a = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
+        b = Vector2.Divide(b, SparkX.ConstSettings.AspectZoom);
+        
         // set line stroke and line width
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
@@ -19,6 +24,9 @@ export let Draw = {
         ctx.moveTo( (a.x + dx), (-a.y + dy) );
         ctx.lineTo( (b.x + dx), (-b.y + dy) );
         ctx.stroke();
+
+        //Idea to fix: Create a lerp function and get a ratio between the current res of the canvas and max res then multiply the vectors by that value
+
     },
 
     // triangle : function(a = Vector2, b = Vector2, c = Vector2){

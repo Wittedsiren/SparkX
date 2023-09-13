@@ -5,6 +5,7 @@ export let SparkX = {
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
+        AspectZoom : Vector2.Fill(1),
     },
     Settings : {
         Rendering : true,
@@ -12,7 +13,7 @@ export let SparkX = {
     
     FramesPerSecond : 10,
     Resolution : new Vector2(innerWidth, innerHeight),
-    ClientScreenRes : Vector2,
+    ClientScreenRes : new Vector2(screen.width, screen.height),
     Canvas : document.getElementById("Screen"),
     
     ClearCanvas : async function(){

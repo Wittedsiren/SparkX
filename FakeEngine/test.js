@@ -2,7 +2,7 @@ import { Vector2 } from "../SparkX/Math/Vector2.js";
 import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
-console.log("Hello")
+
 
 SparkX.RenderLoop(function(){
     

@@ -11,18 +11,23 @@ setInterval(() => {
     if (StartRan == false){
         StartRan = true;
 
-        SparkX.ClientScreenRes = new Vector2(screen.width, screen.height)
         
         AspectRatioWindow.DetermineAspectRatio();
 
         canvas.width = SparkX.ClientScreenRes.x;
         canvas.height = SparkX.ClientScreenRes.y;
+        canvas.style.width = SparkX.Resolution.x;
 
+        canvas.style.height = SparkX.Resolution.y;
         SparkX.RenderStarts.forEach(element => {
             
         });
         
     }
+
+    canvas.style.width = SparkX.Resolution.x;
+
+    canvas.style.height = SparkX.Resolution.y;
 
     SparkX.ClearCanvas()
     // Objects style

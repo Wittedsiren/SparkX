@@ -1,11 +1,17 @@
 import { Vector2 } from "./Math/Vector2.js"
 import { AspectRatioWindow } from "./Render/Window/AspectRatio.js";
 
+let cam = {
+    Position : Vector2.Zero(),
+    Rotation : 0
+}
+
 export let SparkX = {
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
         AspectZoom : Vector2.Fill(1),
+        Cam : cam
     },
     Settings : {
         Rendering : true,

@@ -9,7 +9,8 @@ let l_func = {
     MakePosRelative : function(a){
         let x1 = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
-        return x2;
+        let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), x2.y - SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
+        return x3;
     }
 }
 

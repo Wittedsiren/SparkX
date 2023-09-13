@@ -5,19 +5,19 @@ let canvas = SparkX.Canvas;
 
 export let Draw = {
     line : function(a = Vector2, b = Vector2){
-        let dx = SparkX.Resolution.x / 2
-        let dy = SparkX.Resolution.y / 2
+        let dx = SparkX.Resolution.x / 2;
+        let dy = SparkX.Resolution.y / 2;
         console.log(dy)
         const ctx = canvas.getContext('2d');
     
         // set line stroke and line width
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
-    
+        
         // draw a red line
         ctx.beginPath();
-        ctx.moveTo(a.x + dx , -a.y + dy);
-        ctx.lineTo(b.x + dx, -b.y + dy);
+        ctx.moveTo( (a.x + dx), (-a.y + dy) );
+        ctx.lineTo( (b.x + dx), (-b.y + dy) );
         ctx.stroke();
     },
 

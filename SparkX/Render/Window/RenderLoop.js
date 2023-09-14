@@ -6,14 +6,25 @@ let canvas = SparkX.Canvas;
 let lastUpdate = Date.now();
 let StartRan = false;
 
+let frame = 1;
+
 //RenderLoop
 setInterval(() => { 
     
-    SparkX.ClearCanvas()
+    if (SparkX.Settings.ReduceScreenTearing == true){
+        if ((frame / 10) == 1){
+            SparkX.ClearCanvas()
+            frame = 0;
+        } else {
+            frame++
+        }
+    } else {
+        SparkX.ClearCanvas()
+    }
 
     var ctx = canvas.getContext('2d');
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-    ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+    ctx.fillStyle = 'rgba(255, 0, 0, 0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     if (StartRan == false){

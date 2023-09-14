@@ -4,6 +4,10 @@ import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
 
+SparkX.RenderStart(function(){
+    
+}
+
 
 SparkX.RenderLoop(function(){
     
@@ -16,9 +20,16 @@ SparkX.RenderLoop(function(){
     Draw.line(new Vector2(-400, -400), new Vector2(400, -400))
     Draw.line(new Vector2(400, 400), new Vector2(-400, 400))
     Draw.line(new Vector2(400, 400), new Vector2(400, -400))
+
+    
+
     if (Input.Keyboard.GetKeyState('a')){
-        SparkX.ConstSettings.Cam.Position.x += 10
+        SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;
     } else if (Input.Keyboard.GetKeyState('d')){
-        SparkX.ConstSettings.Cam.Position.x -= 10
+        SparkX.ConstSettings.Cam.Position.x -= 1 * SparkX.ConstSettings.DeltaTime;
+    } else if (Input.Keyboard.GetKeyState('w')){
+        SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
+    } else if (Input.Keyboard.GetKeyState('s')){
+        SparkX.ConstSettings.Cam.Position.y -= 1 * SparkX.ConstSettings.DeltaTime;
     }
 })

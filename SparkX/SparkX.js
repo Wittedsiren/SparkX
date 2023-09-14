@@ -1,5 +1,4 @@
 import { Vector2 } from "./Math/Vector2.js"
-import { AspectRatioWindow } from "./Render/Window/AspectRatio.js";
 
 let cam = {
     Position : Vector2.Zero(),
@@ -15,9 +14,10 @@ export let SparkX = {
     },
     Settings : {
         Rendering : true,
+        ReduceScreenTearing : false
     },
     
-    FramesPerSecond : 60,
+    FramesPerSecond : 240,
     Resolution : new Vector2(innerWidth, innerHeight),
     ClientScreenRes : new Vector2(screen.width, screen.height),
     Canvas : document.getElementById("Screen"),

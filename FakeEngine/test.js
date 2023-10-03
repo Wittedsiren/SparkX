@@ -4,11 +4,6 @@ import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
 
-SparkX.RenderStart(function(){
-    
-}
-
-
 SparkX.RenderLoop(function(){
     
     Draw.line(Vector2.Zero(), new Vector2(0, 400))

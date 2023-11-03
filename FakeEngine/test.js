@@ -16,15 +16,19 @@ SparkX.RenderLoop(function(){
     Draw.line(new Vector2(400, 400), new Vector2(-400, 400))
     Draw.line(new Vector2(400, 400), new Vector2(400, -400))
 
+    SparkX.Settings.ReduceScreenTearing = true;
     
 
     if (Input.Keyboard.GetKeyState('a')){
         SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;
-    } else if (Input.Keyboard.GetKeyState('d')){
+    } 
+    if (Input.Keyboard.GetKeyState('d')){
         SparkX.ConstSettings.Cam.Position.x -= 1 * SparkX.ConstSettings.DeltaTime;
-    } else if (Input.Keyboard.GetKeyState('w')){
+    }
+    if (Input.Keyboard.GetKeyState('w')){
         SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
-    } else if (Input.Keyboard.GetKeyState('s')){
+    }
+    if (Input.Keyboard.GetKeyState('s')){
         SparkX.ConstSettings.Cam.Position.y -= 1 * SparkX.ConstSettings.DeltaTime;
     }
 })

@@ -21,7 +21,9 @@ This is a bool value where when set to true the screen will render a couple extr
 
 
 # Input Engine
-    SparkX contains its own highy customizable input engine. Similair to the one used in Unity
+SparkX contains its own highy customizable input engine. Similair to the one used in Unity
+## Keyboard Functions
+These are sets of fucntions that link to the users keyboard
 ### Detecting a key stroke
 ```JavaScript
 if (Input.Keyboard.GetKeyState('a')){
@@ -33,3 +35,5 @@ This is a simplistic way to detect key strokes but is only ran once. You would n
 ```JavaScript
 
 ```
+## Mouse Functions
+## Game Controller Function

@@ -63,3 +63,4 @@ export class Vector2 {
         return new Vector2(x, y);
     }
 }
+

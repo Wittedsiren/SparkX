@@ -20,7 +20,7 @@ export let Draw = {
         dx = SparkX.Resolution.x / 2;
         dy = SparkX.Resolution.y / 2;
 
-        const ctx = canvas.getContext('2d');
+        let ctx = canvas.getContext('2d');
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
         
@@ -30,20 +30,38 @@ export let Draw = {
         ctx.beginPath();
         ctx.moveTo( a.x, a.y );
         ctx.lineTo( b.x, b.y );
+        ctx.closePath()
         ctx.stroke();
+        
 
     },
 
-    square : function(a = Vector2, b = Vector2, r = Number){
-        dx = SparkX.Resolution.x / 2;
-        dy = SparkX.Resolution.y / 2;
-
-        const ctx = canvas.getContext('2d');
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 2;
+    square : function(a = Vector2, s = Vector2, r = Number){
+        console.log(Math.cos(r));
         
-        ctx.rotate(20 * Math.PI / 180);
-        ctx.fillRect(50, 20, 100, 50);
+        
+        // a.x * Math.cos(r) - a.y * Math.sin(r)
+        // a.y = a.x * Math.sin(r) + a.y * Math.cos(r)
+
+        //Top
+        this.line(
+            new Vector2(( a.x - s.x /2 ) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r) ),
+            new Vector2(( a.x + s.x / 2 ) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r) ))
+        //Bottom
+        this.line(
+            new Vector2(( a.x - s.x /2 ) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r) ),
+            new Vector2(( a.x + s.x / 2 ) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r) ))
+        //Right
+        this.line(
+            new Vector2((a.x + s.x / 2) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r)),
+            new Vector2((a.x + s.x / 2) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r)))
+        //Left
+        this.line(
+            new Vector2((a.x - s.x / 2) * Math.cos(r), (a.y - s.y / 2) * Math.sin(r) ),
+            new Vector2((a.x - s.x / 2) * Math.cos(r), (a.y + s.y / 2) * Math.sin(r) ))
+        
+        // ctx.rotate(20 * Math.PI / 180);
+        // ctx.restore()
         
     },
 
@@ -87,3 +105,4 @@ export let Draw = {
     //     ctx.stroke();
     // }
 }
+

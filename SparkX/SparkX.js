@@ -17,7 +17,7 @@ export let SparkX = {
         ReduceScreenTearing : false
     },
     
-    FramesPerSecond : 240,
+    FramesPerSecond : 60,
     Resolution : new Vector2(innerWidth, innerHeight),
     ClientScreenRes : new Vector2(screen.width, screen.height),
     Canvas : document.getElementById("Screen"),
@@ -33,5 +33,6 @@ export let SparkX = {
     RenderLoop : function(RenderFunction = Function){
         SparkX.RenderLoops.push(RenderFunction);
     },
+    
     
 }

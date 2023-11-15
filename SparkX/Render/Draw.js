@@ -37,7 +37,7 @@ export let Draw = {
     },
 
     square : function(a = Vector2, s = Vector2, r = Number){
-        console.log(Math.cos(r));
+        //console.log(Math.cos(r));
         
         
         // a.x * Math.cos(r) - a.y * Math.sin(r)

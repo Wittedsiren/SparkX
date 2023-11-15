@@ -11,7 +11,10 @@ let frame = 1;
 //RenderLoop
 setInterval(() => { 
     
-    if (SparkX.Settings.ReduceScreenTearing == true){
+    //get refresh Rate
+    SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
+
+    if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 10) == 1){
             SparkX.ClearCanvas()
             frame = 0;

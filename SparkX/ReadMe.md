@@ -1,10 +1,29 @@
 # Spark
 
 ## About
-SparkX is render API used for the web. It includeds an input engine and a 2D redner engine.
+SparkX is render API used for the web. It includeds an input engine and a 2D render engine.
+### Settings
+These are sets of settings inside of SparkX itself the influence the behavoir of the engine.
+#### FramesPerSecond (Number)
+```JavaScript
+SparkX.FramesPerSecond;
+```
+This is where you can change exaclty how many frames are rendered every second. By defualt this value is set to the users main screens refresh rate.
+#### Rendering (Boolean, true by defualt)
+```JavaScript
+SparkX.Settings.Rendering;
+```
+This bool value is as simple as whether or not the SparkX should render any of its given data.
+#### ReduceScreenTearing (Boolean, false by defualt)
+```JavaScript
+SparkX.Settings.ReduceScreenTearing;
+```
+This is a bool value where when set to true the screen will render a couple extra frames to then attempt to blur them all; creating a seamless transistion between frames, reducing screen tear.
+
+
 
 ## Input Engine
-SparkX contians its own highy customizable input engine. Similair to the one used in Unity
+SparkX contains its own highy customizable input engine. Similair to the one used in Unity
 ### Detecting a key stroke
 ```JavaScript
 if (Input.Keyboard.GetKeyState('a')){

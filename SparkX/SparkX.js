@@ -13,7 +13,7 @@ export let SparkX = {
         Cam : cam
     },
     Settings : {
-        Rendering : true,
+        Rendering : false,
         ReduceScreenTearing : false
     },
     
@@ -33,6 +33,10 @@ export let SparkX = {
     RenderLoop : function(RenderFunction = Function){
         SparkX.RenderLoops.push(RenderFunction);
     },
-    
+    GetRefreshRate : function(){
+        return new Promise(resolve =>
+            requestAnimationFrame(t1 =>
+            requestAnimationFrame(t2 => resolve(1000 / (t2 - t1)))))
+    },
     
 }

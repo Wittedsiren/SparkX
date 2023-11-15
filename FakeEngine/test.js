@@ -2,20 +2,17 @@ import { Input } from "../SparkX/Input/Input.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
 import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
+
+
 SparkX.FramesPerSecond = 60
 SparkX.Settings.ReduceScreenTearing = false
-SparkX.RenderStart(function(){
-    document.getElementById("Screen").style.background = "pink"
-    
-})
-
-
 
 let rotation = 0;
 
+SparkX.RenderStart(function(){
+    document.getElementById("Screen").style.background = "pink"
 
-
-
+})
 
 SparkX.RenderLoop(function(){
     
@@ -30,7 +27,7 @@ SparkX.RenderLoop(function(){
     Draw.line(new Vector2(400, 400), new Vector2(-400, 400))
     Draw.line(new Vector2(400, 400), new Vector2(400, -400))
 
-    SparkX.Settings.ReduceScreenTearing = true;
+    
     
     if (Input.Keyboard.GetKeyState('a')){
         SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;    
@@ -39,8 +36,8 @@ SparkX.RenderLoop(function(){
     }if (Input.Keyboard.GetKeyState('w')){
         SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
     }if (Input.Keyboard.GetKeyState('s')){
-        SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;
+        SparkX.ConstSettings.Cam.Position.y -= 1 * SparkX.ConstSettings.DeltaTime;
     } 
-  
+    console.log(SparkX.FramesPerSecond);
     rotation += 0.05
 })

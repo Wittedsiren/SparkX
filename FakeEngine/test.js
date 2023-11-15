@@ -41,14 +41,6 @@ SparkX.RenderLoop(function(){
     }if (Input.Keyboard.GetKeyState('s')){
         SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;
     } 
-    if (Input.Keyboard.GetKeyState('d')){
-        SparkX.ConstSettings.Cam.Position.x -= 1 * SparkX.ConstSettings.DeltaTime;
-    }
-    if (Input.Keyboard.GetKeyState('w')){
-        SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
-    }
-    if (Input.Keyboard.GetKeyState('s')){
-        SparkX.ConstSettings.Cam.Position.y -= 1 * SparkX.ConstSettings.DeltaTime;
-    }
+  
     rotation += 0.05
 })

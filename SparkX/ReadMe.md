@@ -17,10 +17,10 @@ This bool value is as simple as whether or not the SparkX should render any of i
 SparkX.Settings.ReduceScreenTearing;
 ```
 This is a bool value where when set to true the screen will render a couple extra frames to then attempt to blur them all; creating a seamless transistion between frames, reducing screen tear.
+#### 
 
 
-
-## Input Engine
+# Input Engine
 SparkX contains its own highy customizable input engine. Similair to the one used in Unity
 ### Detecting a key stroke
 ```JavaScript

@@ -1,6 +1,4 @@
-# Spark
-
-## About
+# SparkX
 SparkX is render API used for the web. It includeds an input engine and a 2D render engine.
 ### Settings
 These are sets of settings inside of SparkX itself the influence the behavoir of the engine.

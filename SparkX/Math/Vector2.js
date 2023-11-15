@@ -57,9 +57,41 @@ export class Vector2 {
         }
     }
 
+    static IsBiggerThen(a = Vector2, b = Vector2 || Number){
+        if (typeof(b) == "number"){
+            return { x : (a.x > b) ? true : false, y : (a.y > b) ? true : false};
+        } else {
+            return { x : (a.x > b.x) ? true : false, y : (a.y > b.y) ? true : false};
+        }
+    }
+
+    static IsSmallerThen(a = Vector2, b = Vector2 || Number){
+        if (typeof(b) == "number"){
+            return { x : (a.x < b) ? true : false, y : (a.y < b) ? true : false};
+        } else {
+            return { x : (a.x < b.x) ? true : false, y : (a.y < b.y) ? true : false};
+        }
+    }
+
+    static IsEqualTo(a = Vector2, b = Vector2 || Number){
+        if (typeof(b) == "number"){
+            return ((a.x == b && a.y == b ) ? true : false);
+        } else {
+            return ((a.x == b.x && a.y == b.y ) ? true : false);
+        }
+    }
+
+    static Round(a = Vector2){
+        return new Vector2(Math.round(a.x), Math.round(a.y))
+    }
+
+    static Floor(a = Vector2){
+        return new Vector2(Math.floor(a.x), Math.floor(a.y))
+    }
+
     static Lerp(a = Vector2, b = Vector2, t){
-        let x = (t - 1) * a.x + t * b.x;
-        let y = (t - 1) * a.y + t * b.y;
+        let x = (t - 1) * -a.x + t * b.x;
+        let y = (t - 1) * -a.y + t * b.y;
         return new Vector2(x, y);
     }
 }

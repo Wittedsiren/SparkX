@@ -10,7 +10,13 @@ SparkX.RenderStart(function(){
 })
 
 
+
 let rotation = 0;
+
+
+
+
+
 SparkX.RenderLoop(function(){
     
     Draw.square(Vector2.Zero(), new Vector2(1000, 1000), rotation)
@@ -24,6 +30,7 @@ SparkX.RenderLoop(function(){
     Draw.line(new Vector2(400, 400), new Vector2(-400, 400))
     Draw.line(new Vector2(400, 400), new Vector2(400, -400))
 
+    SparkX.Settings.ReduceScreenTearing = true;
     
     if (Input.Keyboard.GetKeyState('a')){
         SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;    
@@ -32,6 +39,15 @@ SparkX.RenderLoop(function(){
     }if (Input.Keyboard.GetKeyState('w')){
         SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
     }if (Input.Keyboard.GetKeyState('s')){
+        SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;
+    } 
+    if (Input.Keyboard.GetKeyState('d')){
+        SparkX.ConstSettings.Cam.Position.x -= 1 * SparkX.ConstSettings.DeltaTime;
+    }
+    if (Input.Keyboard.GetKeyState('w')){
+        SparkX.ConstSettings.Cam.Position.y += 1 * SparkX.ConstSettings.DeltaTime;
+    }
+    if (Input.Keyboard.GetKeyState('s')){
         SparkX.ConstSettings.Cam.Position.y -= 1 * SparkX.ConstSettings.DeltaTime;
     }
     rotation += 0.05

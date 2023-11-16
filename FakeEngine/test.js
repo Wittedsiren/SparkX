@@ -27,7 +27,8 @@ SparkX.RenderLoop(function(){
     Draw.line(new Vector2(400, 400), new Vector2(-400, 400))
     Draw.line(new Vector2(400, 400), new Vector2(400, -400))
 
-    
+    Draw.circle(new Vector2(0, 0), 100)
+
     
     if (Input.Keyboard.GetKeyState('a')){
         SparkX.ConstSettings.Cam.Position.x += 1 * SparkX.ConstSettings.DeltaTime;    

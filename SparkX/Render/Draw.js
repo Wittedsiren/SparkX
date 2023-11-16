@@ -1,3 +1,4 @@
+import { MathG } from "../Math/MathG.js";
 import { Vector2 } from "../Math/Vector2.js";
 import { SparkX } from "../SparkX.js";
 
@@ -16,7 +17,7 @@ let l_func = {
 }
 
 export let Draw = {
-    line : function(a = Vector2, b = Vector2){
+    line : function(position_a = Vector2, position_b = Vector2){
         dx = SparkX.Resolution.x / 2;
         dy = SparkX.Resolution.y / 2;
 
@@ -24,6 +25,9 @@ export let Draw = {
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
         
+        let a = position_a;
+        let b = position_b;
+
         a = l_func.MakePosRelative(a)
         b = l_func.MakePosRelative(b)
     
@@ -36,12 +40,16 @@ export let Draw = {
 
     },
 
-    square : function(a = Vector2, s = Vector2, r = Number){
+    square : function(position = Vector2, scale = Vector2, rotation = Number){
         //console.log(Math.cos(r));
         
         
         // a.x * Math.cos(r) - a.y * Math.sin(r)
         // a.y = a.x * Math.sin(r) + a.y * Math.cos(r)
+
+        let a = position;
+        let r = rotation;
+        let s = scale
 
         //Top
         this.line(
@@ -63,6 +71,15 @@ export let Draw = {
         // ctx.rotate(20 * Math.PI / 180);
         // ctx.restore()
         
+    },
+
+    circle : function(position = Vector2, radius = Number, rotation = Number){
+        let segments = 8 * SparkX.Settings.Fidelity;
+        for (let i = 0; i < segments; i++) {
+            let x = position.x + Math.cos(MathG.Rad(rotation)) * radius
+            let y = position.y + Math.sin(MathG.Rad(rotation)) * radius
+            this.line(new Vector2(x, y), new Vector2(0, 0));
+        }
     },
 
     image : function(){

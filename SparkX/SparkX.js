@@ -14,7 +14,8 @@ export let SparkX = {
     },
     Settings : {
         Rendering : false,
-        ReduceScreenTearing : false
+        ReduceScreenTearing : false,
+        Fidelity : 1,
     },
     
     FramesPerSecond : 60,

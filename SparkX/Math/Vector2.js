@@ -57,6 +57,10 @@ export class Vector2 {
         }
     }
 
+    static Avg(a = Vector2, b = Vector2){
+        return Vector2.Divide(new Vector2(a.x + b.x, a.y + b.y), 2)
+    }
+
     static Lerp(a = Vector2, b = Vector2, t){
         let x = (t - 1) * a.x + t * b.x;
         let y = (t - 1) * a.y + t * b.y;

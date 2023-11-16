@@ -11,13 +11,13 @@ let l_func = {
         let x1 = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
-                             x2.y - SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
+                             x2.y - -SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
         return x3;
     }
 }
 
 export let Draw = {
-    line : function(position_a = Vector2, position_b = Vector2){
+    line : function(position_a = Vector2, position_b = Vector2, rotation = Number = 0){
         dx = SparkX.Resolution.x / 2;
         dy = SparkX.Resolution.y / 2;
 
@@ -30,7 +30,7 @@ export let Draw = {
 
         a = l_func.MakePosRelative(a)
         b = l_func.MakePosRelative(b)
-    
+
         ctx.beginPath();
         ctx.moveTo( a.x, a.y );
         ctx.lineTo( b.x, b.y );
@@ -41,44 +41,38 @@ export let Draw = {
     },
 
     square : function(position = Vector2, scale = Vector2, rotation = Number){
-        //console.log(Math.cos(r));
-        
-        
-        // a.x * Math.cos(r) - a.y * Math.sin(r)
-        // a.y = a.x * Math.sin(r) + a.y * Math.cos(r)
-
         let a = position;
         let r = rotation;
-        let s = scale
+        let s = scale   
 
-        //Top
-        this.line(
-            new Vector2(( a.x - s.x /2 ) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r) ),
-            new Vector2(( a.x + s.x / 2 ) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r) ))
-        //Bottom
-        this.line(
-            new Vector2(( a.x - s.x /2 ) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r) ),
-            new Vector2(( a.x + s.x / 2 ) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r) ))
-        //Right
-        this.line(
-            new Vector2((a.x + s.x / 2) * Math.cos(r), ( a.y - s.y / 2 ) * Math.sin(r)),
-            new Vector2((a.x + s.x / 2) * Math.cos(r), ( a.y + s.y / 2 ) * Math.sin(r)))
-        //Left
-        this.line(
-            new Vector2((a.x - s.x / 2) * Math.cos(r), (a.y - s.y / 2) * Math.sin(r) ),
-            new Vector2((a.x - s.x / 2) * Math.cos(r), (a.y + s.y / 2) * Math.sin(r) ))
-        
-        // ctx.rotate(20 * Math.PI / 180);
-        // ctx.restore()
-        
+        let cenPos = a;
+
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation))
+        this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
     },
 
     circle : function(position = Vector2, radius = Number, rotation = Number){
-        let segments = 8 * SparkX.Settings.Fidelity;
+
+        let segments = (8) * SparkX.Settings.Fidelity;
+        let angle = (2 * Math.PI)/(segments); 
+        let count = 0;
+        let prevPos = new Vector2(Math.cos(angle * (segments - 1)) *  radius,
+                                  Math.sin(angle * (segments - 1)) * radius)
+
         for (let i = 0; i < segments; i++) {
-            let x = position.x + Math.cos(MathG.Rad(rotation)) * radius
-            let y = position.y + Math.sin(MathG.Rad(rotation)) * radius
-            this.line(new Vector2(x, y), new Vector2(0, 0));
+            console.log(angle * count);
+            let x = Math.cos(angle * count) * radius + position.x;
+            let y = Math.sin(angle * count) * radius + position.y;
+            count += 1
+            let pos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
+            this.line(pos, prevPos);
+            prevPos = pos
         }
     },
 

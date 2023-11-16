@@ -33,6 +33,13 @@ setInterval(() => {
     if (StartRan == false){
         StartRan = true;
         
+        // if (SparkX.Settings.Grid == true){
+        //     for (let i = 0; i < array.length; i++) {
+        //         const element = array[i];
+                
+        //     }
+        // }
+
         AspectRatioWindow.DetermineAspectRatio();
 
         canvas.width = SparkX.ClientScreenRes.x;

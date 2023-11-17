@@ -45,36 +45,36 @@ export let Draw = {
         let s = scale   
 
         let cenPos = a;
-        console.log(a);
-        this.line(Vector2.Sub(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), position), 
-        Vector2.Sub(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), position)
-        )
 
-        this.line(Vector2.Sub(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), position), 
-        Vector2.Sub(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation), position)
-        )
-        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2 + position.x, a.y + s.y/2 - position.y), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x - s.x/2 + position.x, a.y - s.y/2 - position.y), cenPos, rotation))
-        this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2 + position.x, a.y + s.y/2 - position.y), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x + s.x/2 + position.x, a.y - s.y/2 - position.y), cenPos, rotation))
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))
+
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
+
+        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation))
+
+        this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), 
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
     },
 
     circle : function(position = Vector2, radius = Number, rotation = Number){
 
-        let segments = (9) * SparkX.Settings.Fidelity;
+        let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
         let angle = (2 * Math.PI)/(segments); 
         let count = 0;
 
         let x = Math.cos(angle * (segments - 1) ) *  radius
         let y = Math.sin(angle * (segments - 1) ) * radius
 
-        let prevPos = Vector2.Add(MathG.RotateAroundPos(new Vector2(x, y), position, rotation), position)
+        let prevPos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
 
         for (let i = 0; i < segments; i++) {
             x = Math.cos(angle * count) * radius;
             y = Math.sin(angle * count) * radius;
             count += 1
-            let pos = Vector2.Add(MathG.RotateAroundPos(new Vector2(x, y), position, rotation))
+            let pos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
             this.line(pos, prevPos);
             prevPos = pos
         }

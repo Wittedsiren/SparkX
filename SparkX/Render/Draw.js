@@ -37,7 +37,6 @@ export let Draw = {
         ctx.lineTo( b.x, b.y );
         ctx.closePath()
         ctx.stroke();
-        
     },
 
     square : function(position = Vector2, scale = Vector2, rotation = Number = 0){

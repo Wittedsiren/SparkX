@@ -11,12 +11,10 @@ let frame = 1;
 
 //RenderLoop
 setInterval(() => { 
-    
-    //get refresh Rate
-    SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
+
 
     if (SparkX.Settings.ReduceScreenTearing){
-        if ((frame / 10) == 1){
+        if ((frame / 1000) == 1){
             SparkX.ClearCanvas()
             frame = 0;
         } else {
@@ -34,7 +32,8 @@ setInterval(() => {
     if (StartRan == false){
         StartRan = true;
         
-       
+        //get refresh Rate
+        SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
 
         AspectRatioWindow.DetermineAspectRatio();
 
@@ -46,25 +45,29 @@ setInterval(() => {
 
     if (SparkX.Settings.Grid == true){
         let res = 1000
-        Draw.line(new Vector2(0, -res), new Vector2(0, res))
-        Draw.line(new Vector2(-res, 0), new Vector2(res, 0))
+
+        let ctx = SparkX.Canvas.getContext('2d');
+        ctx.globalAlpha = 0.2;
+        Draw.line(new Vector2(0, -res), new Vector2(0, res), 'white')
+        Draw.line(new Vector2(-res, 0), new Vector2(res, 0), 'white')
         let boxSize = 50;
         let lines = res / boxSize
-
+        Draw.circle(Vector2.Zero(), 25, 0, 'white')
         for (let index = 0; index < lines; index++) {
-            Draw.line(new Vector2(-res, res), new Vector2(res, res))
-            Draw.line(new Vector2(-res, -res), new Vector2(res, -res))
-            Draw.line(new Vector2(res, -res), new Vector2(res, res))
-            Draw.line(new Vector2(-res, -res), new Vector2(-res, res))
+            Draw.line(new Vector2(-res, res), new Vector2(res, res), 'white')
+            Draw.line(new Vector2(-res, -res), new Vector2(res, -res), 'white')
+            Draw.line(new Vector2(res, -res), new Vector2(res, res), 'white')
+            Draw.line(new Vector2(-res, -res), new Vector2(-res, res), 'white')
 
-            Draw.line(new Vector2(-res, boxSize * index), new Vector2(res, boxSize * index ))
-            Draw.line(new Vector2(-res, -boxSize * index), new Vector2(res, -boxSize * index ))
+            Draw.line(new Vector2(-res, boxSize * index), new Vector2(res, boxSize * index ), 'white')
+            Draw.line(new Vector2(-res, -boxSize * index), new Vector2(res, -boxSize * index ), 'white')
 
-            Draw.line(new Vector2(boxSize * index, -res), new Vector2(boxSize * index, res))
-            Draw.line(new Vector2(-boxSize * index, -res), new Vector2(-boxSize * index, res))
-            Draw.circle(Vector2.Zero(), 50)
-
+            Draw.line(new Vector2(boxSize * index, -res), new Vector2(boxSize * index, res), 'white')
+            Draw.line(new Vector2(-boxSize * index, -res), new Vector2(-boxSize * index, res), 'white')
+            
         }
+        
+        ctx.globalAlpha = 1;
     }
 
     SparkX.RenderLoops.forEach(element => {element()})

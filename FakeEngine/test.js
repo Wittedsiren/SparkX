@@ -4,16 +4,20 @@ import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
 SparkX.Settings.ReduceScreenTearing = false
-SparkX.Settings.Fidelity = 0
+SparkX.Settings.Fidelity = 10
 SparkX.Settings.Grid = true
-
+SparkX.Settings.TimeScale = 1
+SparkX.FramesPerSecond = 60
 let rotation = 0;
 
 SparkX.RenderStart(() => {
+    
     document.getElementById("Screen").style.background = "pink"
 
     Input.Mouse.OnScrollWheelUp(() => {console.log("Hello")})
-    Input.Keyboard.OnKeyDown('f', () => {console.log("Hello")})
+    Input.Keyboard.OnKeyDown('f', () => {SparkX.Settings.ReduceScreenTearing = !SparkX.Settings.ReduceScreenTearing})
+    Input.Keyboard.OnKeyDown('q', () => {SparkX.ConstSettings.Cam.Zoom += 0.1})
+    Input.Keyboard.OnKeyDown('e', () => {SparkX.ConstSettings.Cam.Zoom -= 0.1})
 })
 
 SparkX.RenderLoop(() => {

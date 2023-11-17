@@ -8,21 +8,22 @@ let dx = Number;
 let dy = Number;
 let l_func = {
     MakePosRelative : function(a){
-        let x1 = Vector2.Divide(a, SparkX.ConstSettings.AspectZoom);
+        let x1 = Vector2.Divide(a , SparkX.ConstSettings.AspectZoom);
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
                              x2.y - -SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
+        SparkX.Resolution = Vector2.Multiply(SparkX.Resolution, SparkX.ConstSettings.Cam.Zoom)
         return x3;
     }
 }
 
 export let Draw = {
-    line : function(position_a = Vector2, position_b = Vector2, rotation = Number = 0){
+    line : function(position_a = Vector2, position_b = Vector2, color = String = "blue"){
         dx = SparkX.Resolution.x / 2;
         dy = SparkX.Resolution.y / 2;
 
         let ctx = canvas.getContext('2d');
-        ctx.strokeStyle = 'blue';
+        ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         
         let a = position_a;
@@ -37,10 +38,9 @@ export let Draw = {
         ctx.closePath()
         ctx.stroke();
         
-
     },
 
-    square : function(position = Vector2, scale = Vector2, rotation = Number){
+    square : function(position = Vector2, scale = Vector2, rotation = Number = 0){
         let a = position;
         let s = scale   
 
@@ -49,17 +49,17 @@ export let Draw = {
         this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
         MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))
 
-        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
+        // this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), 
+        // MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
 
-        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation))
+        // this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
+        // MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation))
 
-        this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
+        // this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), 
+        // MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
     },
 
-    circle : function(position = Vector2, radius = Number, rotation = Number){
+    circle : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue'){
 
         let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
         let angle = (2 * Math.PI)/(segments); 
@@ -75,7 +75,7 @@ export let Draw = {
             y = Math.sin(angle * count) * radius;
             count += 1
             let pos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
-            this.line(pos, prevPos);
+            this.line(pos, prevPos, color);
             prevPos = pos
         }
     },

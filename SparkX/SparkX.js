@@ -2,7 +2,8 @@ import { Vector2 } from "./Math/Vector2.js"
 
 let cam = {
     Position : Vector2.Zero(),
-    Rotation : 0
+    Rotation : 0,
+    Zoom : 1
 }
 
 export let SparkX = {
@@ -16,7 +17,8 @@ export let SparkX = {
         Rendering : false,
         ReduceScreenTearing : false,
         Fidelity : 1,
-        Grid : false
+        Grid : false,
+        TimeScale : 1,
     },
     
     FramesPerSecond : 60,

@@ -2,8 +2,8 @@
 SparkX is render API used for the web. It includeds an input engine and a 2D render engine.
 ## Render Engine
 This is the main aspect of SparkX, the render engine
-### Render Loop / Start
-The render start is ran at the start of the initlization of your code
+### The Render Loop / Start Function
+The render start function is ran at the start of the initlization of your program
 ```JavaScript
 SparkX.RenderStart(() => {
     //place code here
@@ -15,7 +15,34 @@ SparkX.RenderLoop(() => {
     //place code here
 }
 ```
-Feel free to place your varialbes outside of these. Just make sure not to set the varible if its going to be a dynamic value
+Feel free to place your variables outside of these. Just make sure not to set the variable if its going to be a dynamic value
+### Vector2 Class
+A vector2 is a custom made data tpye that holds an x value and a y value. perfect for laballing the position of a shape in 2d space.
+#### Creating one
+To create a vector 2 is as simple as making an instance any other class. You can set x and y to your desired position.
+```JavaScript
+new Vector2(x, y)
+```
+#### Features
+You can add, subtract, divide and even multiply vector2's by just calling the desired function.
+```JavaScript
+ // a and b are two seprate vector2's
+Vector2.Add(a, b)
+Vector2.Sub(a, b)  
+Vector2.Multiply(a, b) 
+Vector2.Divide(a, b)
+```
+These are definitly usefull however theres more.
+```JavaScript
+Vector2.Zero() // This creates a vector 2 with 0 for both x and y
+Vector2.Fill(x) // This creates a vector2 with the value you input for both x and y
+Vector2.Avg(a, b) // this will average the two given vector2's
+Vector2.Magnitude(a, b) // This will find the distance between two vector2's
+Vector2.Lerp(a, b, t) // This will use linear interpolation on the two vector2's with respect to t
+```
+### Draw Class
+This is a huge class that really shows off SparkX capablities.
+#### Draw.line(Vector2, Vector2)
 
 ### Settings
 These are sets of settings inside of SparkX itself the influence the behavoir of the engine.

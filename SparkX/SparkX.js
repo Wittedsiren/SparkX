@@ -17,7 +17,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.0.34",
+    Version : "0.0.35",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,

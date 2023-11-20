@@ -1,4 +1,14 @@
+console.log(`
+░██████╗██████╗░░█████╗░██████╗░██╗░░██╗██╗░░██╗
+██╔════╝██╔══██╗██╔══██╗██╔══██╗██║░██╔╝╚██╗██╔╝
+╚█████╗░██████╔╝███████║██████╔╝█████═╝░░╚███╔╝░
+░╚═══██╗██╔═══╝░██╔══██║██╔══██╗██╔═██╗░░██╔██╗░
+██████╔╝██║░░░░░██║░░██║██║░░██║██║░╚██╗██╔╝╚██╗
+╚═════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝`);
 import { Vector2 } from "./Math/Vector2.js"
+
+
+
 
 let cam = {
     Position : Vector2.Zero(),
@@ -7,7 +17,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.0.1",
+    Version : "0.0.2",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
@@ -46,3 +56,5 @@ export let SparkX = {
     },
     
 }
+console.log(`All Files Loaded. Running Veriosn: ${SparkX.Version}`);
+console.log(`Desinged and Programmed by Nathan Irwin`);

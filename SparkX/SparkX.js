@@ -10,7 +10,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.0.38",
+    Version : "0.1.38",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
@@ -24,6 +24,7 @@ export let SparkX = {
         Grid : false,
         TimeScale : 1,
         PixelsPerPoints : 50,
+        DefualtRenderColro : 'blue',
     },
     
     FramesPerSecond : 60,
@@ -58,4 +59,4 @@ console.log(`
 ██████╔╝██║░░░░░██║░░██║██║░░██║██║░╚██╗██╔╝╚██╗
 ╚═════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝`);
 console.log(`All Files Loaded. Running Veriosn: ${SparkX.Version}`);
-console.log(`Desinged and Programmed by Nathan Irwin`);
+//console.log(`Desinged and Programmed by Nathan Irwin`);

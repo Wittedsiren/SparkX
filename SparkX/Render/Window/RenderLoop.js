@@ -1,6 +1,6 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { Draw } from "../Draw.js";
+import { Draw } from "../Draw/Draw.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 
 let canvas = SparkX.Canvas;
@@ -45,15 +45,16 @@ setInterval(() => {
     }
 
     if (SparkX.Settings.Grid == true){
-        let res = 1000
+        let z = SparkX.ConstSettings.Cam.Zoom;
+        let res = 100
 
         let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = 0.2;
         Draw.line(new Vector2(0, -res), new Vector2(0, res), 'white')
         Draw.line(new Vector2(-res, 0), new Vector2(res, 0), 'white')
-        let boxSize = 50;
+        let boxSize = 1;
         let lines = res / boxSize
-        Draw.circle(Vector2.Zero(), 25, 0, 'white')
+        Draw.circle(Vector2.Zero(), 1, 0, 'white')
         for (let index = 0; index < lines; index++) {
             Draw.line(new Vector2(-res, res), new Vector2(res, res), 'white')
             Draw.line(new Vector2(-res, -res), new Vector2(res, -res), 'white')
@@ -76,6 +77,6 @@ setInterval(() => {
     var currentUpdate = Date.now();
     SparkX.ConstSettings.DeltaTime = currentUpdate - lastUpdate;
     lastUpdate = currentUpdate;
-    document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
+    //document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     
 }, 1000 / SparkX.FramesPerSecond );

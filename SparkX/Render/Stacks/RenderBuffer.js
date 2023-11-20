@@ -1,1 +1,1 @@
-export let Stack = []
+export let Buffer = []

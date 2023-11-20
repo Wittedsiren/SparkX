@@ -10,6 +10,7 @@ let StartRan = false;
 let frame = 1;
 
 //RenderLoop
+//Change to animation frame thing
 setInterval(() => { 
 
 
@@ -75,6 +76,6 @@ setInterval(() => {
     var currentUpdate = Date.now();
     SparkX.ConstSettings.DeltaTime = currentUpdate - lastUpdate;
     lastUpdate = currentUpdate;
+    document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     
 }, 1000 / SparkX.FramesPerSecond );
- 

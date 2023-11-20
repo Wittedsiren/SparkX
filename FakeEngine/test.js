@@ -4,15 +4,15 @@ import { Draw } from "../SparkX/Render/Draw.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
 SparkX.Settings.ReduceScreenTearing = false
-SparkX.Settings.Fidelity = 10
+SparkX.Settings.Fidelity = 1
 SparkX.Settings.Grid = true
 SparkX.Settings.TimeScale = 1
-SparkX.FramesPerSecond = 60
+
 let rotation = 0;
 
 SparkX.RenderStart(() => {
     
-    document.getElementById("Screen").style.background = "pink"
+    document.getElementById("Screen").style.background = "salmon"
 
     Input.Mouse.OnScrollWheelUp(() => {console.log("Hello")})
     Input.Keyboard.OnKeyDown('f', () => {SparkX.Settings.ReduceScreenTearing = !SparkX.Settings.ReduceScreenTearing})
@@ -21,11 +21,12 @@ SparkX.RenderStart(() => {
 })
 
 SparkX.RenderLoop(() => {
-    
-    Draw.square( Vector2.Zero(), new Vector2(500, 500), rotation )
-    Draw.circle( Vector2.Zero(), 200, rotation)
+    Draw.circle(Vector2.Zero(), 100, 0, 'darkblue')
+    Draw.line(Vector2.Zero(), new Vector2(1, 0))
+    // Draw.square( Vector2.Zero(), new Vector2(500, 500), rotation )
+    // Draw.circle( Vector2.Zero(), 200, rotation)
 
-    Draw.square( new Vector2(12.23, 0), new Vector2(500, 500), 0)
+    // Draw.square( new Vector2(12.23, 0), new Vector2(500, 500), 0)
 
     //Draw.square(new Vector2(100, 1000), new Vector2(1000, 1000), rotation)
     // Draw.square(Vector2.Zero(), new Vector2(900, 900), -rotation)

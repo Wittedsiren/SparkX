@@ -12,7 +12,7 @@ let l_func = {
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
                              x2.y - -SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
-        SparkX.Resolution = Vector2.Multiply(SparkX.Resolution, SparkX.ConstSettings.Cam.Zoom)
+        let x4 = Vector2.Multiply(x3, SparkX.Settings.PixelsPerPoints)
         return x3;
     }
 }

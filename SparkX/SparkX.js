@@ -7,6 +7,7 @@ let cam = {
 }
 
 export let SparkX = {
+    Version : "0.0.1",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
@@ -19,6 +20,7 @@ export let SparkX = {
         Fidelity : 1,
         Grid : false,
         TimeScale : 1,
+        PixelsPerPoints : 50,
     },
     
     FramesPerSecond : 60,

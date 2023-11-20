@@ -39,6 +39,7 @@ SparkX.RenderStart(() => {
 let position = new Vector2(0, 0)
 
 let shot = false
+let positionToBe = Vector2.Zero()
 SparkX.RenderLoop(() => {
     let deltaTime = SparkX.ConstSettings.DeltaTime;
     //console.log(Buffer[0]);
@@ -46,19 +47,19 @@ SparkX.RenderLoop(() => {
 
     Draw.line(Vector2.Zero(), new Vector2(position.x, 0))
 
-    Draw.line( MathG.RotateAroundPos(new Vector2(10, -5), Vector2.Zero(), rotation), 
-    MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), 'green')
-    Draw.line( MathG.RotateAroundPos(new Vector2(10, -5), Vector2.Zero(), rotation), 
-    MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), 'green')
-    Draw.line( MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), 
-    MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), 'green')
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(10 , -5), Vector2.Zero(), rotation), positionToBe), 
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), positionToBe), 'green')
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(10, -5), Vector2.Zero(), rotation), positionToBe),
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), positionToBe), 'green')
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), positionToBe),
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), positionToBe), 'green')
     //Draw.line(Vector2.Zero(), new Vector2())
     // Draw.square( Vector2.Zero(), new Vector2(500, 500), rotation )
     // Draw.circle( Vector2.Zero(), 200, rotation)
 
     // Draw.square( new Vector2(12.23, 0), new Vector2(500, 500), 0)
 
-    //Draw.square(new Vector2(100, 1000), new Vector2(1000, 1000), rotation)
+    Draw.rect(new Vector2(0, 0), new Vector2(10, 10), rotation)
     // Draw.square(Vector2.Zero(), new Vector2(900, 900), -rotation)
     // Draw.square(Vector2.Zero(), new Vector2(800, 800), rotation)
     // Draw.square(Vector2.Zero(), new Vector2(700, 700), -rotation)
@@ -80,16 +81,24 @@ SparkX.RenderLoop(() => {
 
     //Draw.circle(new Vector2(0, 10000), 200, 0)
 
-    
     if (Input.Keyboard.GetKeyState('a')){
-        SparkX.ConstSettings.Cam.Position.x -= 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;    
+        positionToBe.x -= 0.01 * SparkX.ConstSettings.DeltaTime;    
     }if (Input.Keyboard.GetKeyState('d')){
-        SparkX.ConstSettings.Cam.Position.x += 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
+        positionToBe.x += 0.01 * SparkX.ConstSettings.DeltaTime;
     }if (Input.Keyboard.GetKeyState('w')){
-        SparkX.ConstSettings.Cam.Position.y += 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
+        positionToBe.y += 0.01 * SparkX.ConstSettings.DeltaTime;
     }if (Input.Keyboard.GetKeyState('s')){
-        SparkX.ConstSettings.Cam.Position.y -= 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
-    } 
+        positionToBe.y -= 0.01 * SparkX.ConstSettings.DeltaTime;
+    }     
+    // if (Input.Keyboard.GetKeyState('a')){
+    //     SparkX.ConstSettings.Cam.Position.x -= 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;    
+    // }if (Input.Keyboard.GetKeyState('d')){
+    //     SparkX.ConstSettings.Cam.Position.x += 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
+    // }if (Input.Keyboard.GetKeyState('w')){
+    //     SparkX.ConstSettings.Cam.Position.y += 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
+    // }if (Input.Keyboard.GetKeyState('s')){
+    //     SparkX.ConstSettings.Cam.Position.y -= 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
+    // } 
     position.x += 1 * deltaTime
     
     

@@ -6,6 +6,11 @@ import { DrawObject } from "./DrawObject.js";
 
 let canvas = SparkX.Canvas;
 
+export let PositionType = {
+    Global : "g",
+    Local : 'l'
+}
+
 let dx = Number;
 let dy = Number;
 let l_func = {
@@ -44,11 +49,12 @@ export let Draw = {
         ctx.stroke();
     },
 
-    rect : function(position = Vector2, scale = Vector2, rotation = Number = 0){
+    rect : function(position = Vector2, scale = Vector2, rotation = Number = 0, positionType = PositionType = PositionType.Global){
         let a = position;
         let s = scale   
-
         let cenPos = a;
+
+        if (positionType == PositionType.Global)
 
         this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
         MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))

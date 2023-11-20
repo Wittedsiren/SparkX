@@ -78,9 +78,6 @@ SparkX.Settings.Grid
 ```
 When set to true, a grid will appear with each square within the grid being 50px bt 50px.
 
-##Draw Class
-This is where the fun happens. This class houses any 
-
 ## Input Engine
 SparkX contains its own highy customizable input engine. Similair to the one used in Unity
 ### Keyboard Functions
@@ -112,3 +109,23 @@ Input.Keyboard.OnKeyUp('a', => (){
 You would want to place this good
 ### Mouse Functions
 ### Game Controller Function
+
+## Getting Started
+### Preperation
+To start, make sure you put this in your main html file\
+```html
+    <script type="module" src="../SparkX/SparkX.js" ></script>
+    <script type="module" src="../SparkX/Render/Window/RenderLoop.js" ></script>
+```
+Then in your main file that will be using SparkX, make sure to import these files alogn with setting up your default render start and loop
+```JavaScript
+import { SparkX } from "../SparkX/SparkX.js";
+
+SparkX.RenderStart(() => {
+
+})
+
+SparkX.RenderLoop(() => {
+
+})
+```

@@ -1,7 +1,7 @@
+import { Input } from "./Input/Input.js"
+import { Keyboard } from "./Input/InputFiles/Keyboard.js"
+import { Mouse } from "./Input/InputFiles/Mouse.js"
 import { Vector2 } from "./Math/Vector2.js"
-
-
-
 
 let cam = {
     Position : Vector2.Zero(),
@@ -10,7 +10,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.0.36",
+    Version : "0.0.38",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,

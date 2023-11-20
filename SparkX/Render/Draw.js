@@ -1,6 +1,7 @@
 import { MathG } from "../Math/MathG.js";
 import { Vector2 } from "../Math/Vector2.js";
 import { SparkX } from "../SparkX.js";
+import { line } from "./DrawClasses/Line.js";
 
 let canvas = SparkX.Canvas;
 
@@ -37,9 +38,10 @@ export let Draw = {
         ctx.lineTo( b.x, b.y );
         ctx.closePath()
         ctx.stroke();
+        return new line(position_a, position_b, color)
     },
 
-    square : function(position = Vector2, scale = Vector2, rotation = Number = 0){
+    rect : function(position = Vector2, scale = Vector2, rotation = Number = 0){
         let a = position;
         let s = scale   
 

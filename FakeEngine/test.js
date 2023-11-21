@@ -7,7 +7,7 @@ import { Buffer } from "../SparkX/Render/Stacks/RenderBuffer.js"
 import { MathG } from "../SparkX/Math/MathG.js";
 
 SparkX.Settings.ReduceScreenTearing = false
-SparkX.Settings.Fidelity = 5
+SparkX.Settings.Fidelity = 10
 SparkX.Settings.Grid = true
 SparkX.Settings.TimeScale = 1
 SparkX.Settings.PixelsPerPoints = 25
@@ -29,11 +29,11 @@ SparkX.RenderStart(() => {
 
     Input.Mouse.OnScrollWheelUp(() => {console.log("Hello")})
     //Input.Keyboard.OnKeyDown('f', () => {SparkX.Settings.ReduceScreenTearing = !SparkX.Settings.ReduceScreenTearing})
-    Input.Keyboard.OnKeyDown('q', () => {SparkX.ConstSettings.Cam.Zoom += 0.1})
-    Input.Keyboard.OnKeyDown('e', () => {SparkX.ConstSettings.Cam.Zoom -= 0.1})
+    Input.Keyboard.OnKeyDown('q', () => {SparkX.Settings.PixelsPerPoints += 1})
+    Input.Keyboard.OnKeyDown('e', () => {SparkX.Settings.PixelsPerPoints -= 1})
     Input.Keyboard.OnKeyDown('f', () => {rotation += 1})
     Input.Keyboard.OnKeyDown('g', () => {rotation -= 1})
-    Input.Keyboard.OnKeyDown(' ', () => {shoot()})
+    
 })
 
 let position = new Vector2(0, 0)
@@ -47,17 +47,22 @@ SparkX.RenderLoop(() => {
 
     Draw.line(Vector2.Zero(), new Vector2(position.x, 0))
 
-    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(10 , -5), Vector2.Zero(), rotation), positionToBe), 
-    Vector2.Add(MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), positionToBe), 'green')
-    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(10, -5), Vector2.Zero(), rotation), positionToBe),
-    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), positionToBe), 'green')
-    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(-10, -5), Vector2.Zero(), rotation), positionToBe),
-    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 20), Vector2.Zero(), rotation), positionToBe), 'green')
+    
+    Draw.circle( new Vector2(0, 0), 1 )
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(5 , -5), Vector2.Zero(), rotation), positionToBe), 
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(-5, -5), Vector2.Zero(), rotation), positionToBe), 'green')
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(5, -5), Vector2.Zero(), rotation), positionToBe),
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 5), Vector2.Zero(), rotation), positionToBe), 'green')
+    Draw.line( Vector2.Add(MathG.RotateAroundPos(new Vector2(-5, -5), Vector2.Zero(), rotation), positionToBe),
+    Vector2.Add(MathG.RotateAroundPos(new Vector2(0, 5), Vector2.Zero(), rotation), positionToBe), 'green')
     //Draw.line(Vector2.Zero(), new Vector2())
     // Draw.square( Vector2.Zero(), new Vector2(500, 500), rotation )
     // Draw.circle( Vector2.Zero(), 200, rotation)
 
     // Draw.square( new Vector2(12.23, 0), new Vector2(500, 500), 0)
+
+    if (Input.Keyboard.GetKeyState(' ')){ shoot() }
+
 
     Draw.rect(new Vector2(0, 0), new Vector2(10, 10), rotation)
     // Draw.square(Vector2.Zero(), new Vector2(900, 900), -rotation)
@@ -100,6 +105,7 @@ SparkX.RenderLoop(() => {
     //     SparkX.ConstSettings.Cam.Position.y -= 0.1 * SparkX.ConstSettings.DeltaTime / SparkX.ConstSettings.Cam.Zoom;
     // } 
     position.x += 1 * deltaTime
-    
+    positionToBe.x = Input.Mouse.X
+    positionToBe.y = Input.Mouse.Y
     
 })

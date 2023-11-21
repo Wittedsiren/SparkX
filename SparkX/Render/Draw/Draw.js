@@ -49,12 +49,11 @@ export let Draw = {
         ctx.stroke();
     },
 
-    rect : function(position = Vector2, scale = Vector2, rotation = Number = 0, positionType = PositionType = PositionType.Global){
+    rect : function(position = Vector2, scale = Vector2, rotation = Number = 0){
         let a = position;
         let s = scale   
         let cenPos = a;
 
-        if (positionType == PositionType.Global)
 
         this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
         MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))
@@ -78,13 +77,13 @@ export let Draw = {
         let x = Math.cos(angle * (segments - 1) ) *  radius
         let y = Math.sin(angle * (segments - 1) ) * radius
 
-        let prevPos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
+        let prevPos = Vector2.Add(MathG.RotateAroundPos(position, position, rotation), new Vector2(x, y))
 
         for (let i = 0; i < segments; i++) {
             x = Math.cos(angle * count) * radius;
             y = Math.sin(angle * count) * radius;
             count += 1
-            let pos = MathG.RotateAroundPos(new Vector2(x, y), position, rotation)
+            let pos = Vector2.Add(MathG.RotateAroundPos(position, position, rotation), new Vector2(x, y))
             this.line(pos, prevPos, color);
             prevPos = pos
         }

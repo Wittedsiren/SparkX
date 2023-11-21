@@ -1,5 +1,7 @@
 # SparkX
-SparkX is render API used for the web. It includeds an input engine and a 2D render engine. This API is wirrten in pure ```JavaScript```
+SparkX is render library used for the web. It includeds an input engine and a 2D render engine. This library is wirrten in pure ```JavaScript```
+
+The current nomanclater is if a propertie of soemthing does NOT start with a capitial, then this propertie was not intended to be used by the user
 ## Render Engine
 This is the main aspect of SparkX, the render engine
 ### The Render Loop / Start Function

@@ -1,6 +1,7 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
+import { Buffer } from "../Stacks/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 
 let canvas = SparkX.Canvas;
@@ -12,7 +13,11 @@ let frame = 1;
 //RenderLoop
 //Change to animation frame thing
 setInterval(() => { 
-
+    //Actually render the Buffer
+    
+    Buffer.forEach(obj => {
+        Draw.render(obj)
+    });
 
     if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 1000) == 1){
@@ -34,7 +39,7 @@ setInterval(() => {
         StartRan = true;
         
         //get refresh Rate
-        SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
+        //SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
 
         AspectRatioWindow.DetermineAspectRatio();
 

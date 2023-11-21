@@ -26,7 +26,13 @@ let KeyStates = [
     ['x', false],
     ['y', false],
     ['z', false],
-
+    [' ', false],
+    ['LeftArrow', false],
+    ['RightArrow', false],
+    ['UpArrow', false],
+    ['DownArrow', false],
+    ['Shift', false],
+    ['Alt', false],
 ]
 
 let keyDowns = [];
@@ -60,6 +66,7 @@ export let Keyboard = {
 
     GetKeyState : function(key = String){
         let lowerCase = key.toLowerCase()
+        
         let keyState = false;
         KeyStates.forEach(state => {
             if (state[0] == lowerCase) {
@@ -72,9 +79,10 @@ export let Keyboard = {
 }
 
 document.addEventListener('keydown', function(event) {
-    console.log(event.key)
+    let key = event.key
+    console.log(key)
     keyDowns.forEach(element => {
-        if (event.key == element.key){
+        if (key == element.key){
             element.a()
         }
     });

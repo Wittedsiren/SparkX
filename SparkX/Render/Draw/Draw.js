@@ -1,8 +1,7 @@
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { Line } from "../Draw/Line.js"
-import { DrawObject } from "./DrawObject.js";
+import { drawObject } from "./DrawObject.js";
 
 let canvas = SparkX.Canvas;
 
@@ -32,6 +31,7 @@ let l_func = {
 
 export let Draw = {
     line : function(position_a = Vector2, position_b = Vector2, color = String = "blue"){
+        console.log(position_b);
         let ctx = canvas.getContext('2d');
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
@@ -128,8 +128,11 @@ export let Draw = {
     //     ctx.lineTo(a.x, a.y);
     //     ctx.stroke();
     // }
-    render : function(obj = DrawObject){
-
+    render : function(obj = drawObject){
+        if (obj.drawType == 'line'){
+            this.line(obj.Position_A, obj.Position_B, obj.Color)
+            console.log(obj.Position_A.x);
+        }
     }
 }
 

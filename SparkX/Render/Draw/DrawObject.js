@@ -1,5 +1,7 @@
 import { SparkX } from "../../SparkX.js";
 
-export class DrawObject{ 
-    static color = SparkX.Settings.DefaultRenderColor
+export class drawObject{ 
+    static Color = SparkX.Settings.DefaultRenderColor
+    static Rotation = 0;
+    static drawType = ''
 }

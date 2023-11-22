@@ -10,7 +10,7 @@ export let AspectRatioWindow = {
     Ratio : Number,
 
     Update : function(){
-        SparkX.Resolution = new Vector2(document.body.clientWidth, document.body.clientHeight)
+        SparkX.Resolution = new Vector2(SparkX.Canvas.clientWidth, SparkX.Canvas.clientHeight)
         //document.getElementById("html").style += `aspect-ratio: ${SparkX.ClientScreenRes.x / SparkX.ClientScreenRes.y}`
         let ratio = Vector2.Divide(SparkX.ClientScreenRes, SparkX.Resolution)
         let refined_ratio = Vector2.Divide(ratio, 1)
@@ -18,7 +18,7 @@ export let AspectRatioWindow = {
     },
 
     DetermineAspectRatio : function(){
-        document.body.style = `aspect-ratio: ${ SparkX.ClientScreenRes.x / SparkX.ClientScreenRes.y }`
+        document.body.style = `aspect-ratio: ${ SparkX.Resolution.x / SparkX.Resolution.y }`
         AspectRatioWindow.Ratio = SparkX.ClientScreenRes.x / SparkX.ClientScreenRes.y;
         SparkX.ConstSettings.AspectRatio = AspectRatioWindow.Ratio
         AspectRatioWindow.Update()

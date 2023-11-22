@@ -10,7 +10,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.1.40",
+    Version : "0.2.40",
     ConstSettings : {
         DeltaTime : Number,
         AspectRatio : Number,
@@ -27,10 +27,10 @@ export let SparkX = {
         DefaultRenderColor : 'blue',
     },
     
-    FramesPerSecond : 1,
-    Resolution : new Vector2(innerWidth, innerHeight),
-    ClientScreenRes : new Vector2(screen.width, screen.height),
+    FramesPerSecond : 60,
     Canvas : document.getElementById("Screen"),
+    Resolution : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
+    ClientScreenRes : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
     
     ClearCanvas : async function(){
         SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)

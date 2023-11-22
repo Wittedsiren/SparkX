@@ -13,12 +13,6 @@ let frame = 1;
 //RenderLoop
 //Change to animation frame thing
 setInterval(() => { 
-    //Actually render the Buffer
-    
-    Buffer.forEach(obj => {
-        Draw.render(obj)
-    });
-
     if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 1000) == 1){
             SparkX.ClearCanvas()
@@ -34,6 +28,12 @@ setInterval(() => {
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
     ctx.fillStyle = 'rgba(255, 0, 0, 0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    //Actually render the Buffer
+    
+    Buffer.forEach(obj => {
+        Draw.render(obj)
+    });
 
     if (StartRan == false){
         StartRan = true;

@@ -14,7 +14,7 @@ let dx = Number;
 let dy = Number;
 let l_func = {
     MakePosRelative : function(a){
-        let ppp = SparkX.Settings.PixelsPerPoints;
+        let ppp = Math.abs( SparkX.Settings.PixelsPerPoints );
         let z = SparkX.ConstSettings.Cam.Zoom;
         dx = SparkX.Resolution.x / 2 / ppp / z
         dy = SparkX.Resolution.y / 2 / ppp / z

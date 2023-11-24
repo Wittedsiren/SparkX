@@ -17,6 +17,19 @@ let l5 = new Line(new Vector2(-10, 10), new Vector2(-10, -10), 'green')
 let l6 = new Line(new Vector2(10, 10), new Vector2(10, -10), 'green')
 let l7 = new Line(new Vector2(10, 10), new Vector2(-10, 10), 'green')
 let l8 = new Line(new Vector2(10, -10), new Vector2(-10, -10), 'green')
+let c = new circle
+
+function zoomIn(){
+    SparkX.RenderLoop(()=>{
+       SparkX.Settings.PixelsPerPoints += Math.sin(1 - SparkX.FramesPerSecond) * 2
+    })
+}
+
+function zoomOut(){
+    SparkX.RenderLoop(()=>{
+        
+    })
+}
 
 SparkX.RenderStart(() => {
     
@@ -25,9 +38,21 @@ SparkX.RenderStart(() => {
     Input.Keyboard.OnKeyDown('a', ()=> {l.Position_A.x--})
     Input.Keyboard.OnKeyDown('w', ()=> {l.Position_A.y++})
     Input.Keyboard.OnKeyDown('s', ()=> {l.Position_A.y--})
+    Input.Keyboard.OnKeyDown('q', ()=> {zoomOut()})
+    Input.Keyboard.OnKeyDown('e', ()=> {zoomIn()})
+    Input.Keyboard.OnKeyDown('ArrowLeft', ()=> {SparkX.ConstSettings.Cam.Position.x--})
+    Input.Keyboard.OnKeyDown('ArrowRight', ()=> {SparkX.ConstSettings.Cam.Position.x++})
+    Input.Keyboard.OnKeyDown('ArrowUp', ()=> {SparkX.ConstSettings.Cam.Position.y++})
+    Input.Keyboard.OnKeyDown('ArrowDown', ()=> {SparkX.ConstSettings.Cam.Position.y--})
+    Input.Keyboard.OnKeyDown('i', ()=> {SparkX.Settings.PixelsPerPoints = 25})
+    Input.Keyboard.OnKeyDown('o', ()=> {SparkX.Settings.PixelsPerPoints = 10})
+    Input.Keyboard.OnKeyDown('p', ()=> {SparkX.Settings.PixelsPerPoints = -25})
 })
 
 SparkX.RenderLoop(() => {
-    console.log(SparkX.ClientScreenRes);
+    // console.log(SparkX.ClientScreenRes);
     //Draw.line(new Vector2(0.1 ,0), new Vector2(10, 10), 'yellow')
+    document.getElementById('PosDisplay').innerText = SparkX.ConstSettings.Cam.Position.x + ', ' + SparkX.ConstSettings.Cam.Position.y;
+
+    Draw.circle(new Vector2(5, 0), 5)
 })

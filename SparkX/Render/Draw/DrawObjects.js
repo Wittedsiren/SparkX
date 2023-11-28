@@ -1,27 +1,28 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { Buffer } from "../Stacks/RenderBuffer.js";
-    
+import { RenderBuffer } from "../Stacks/RenderBuffer.js";
+
 export class drawObject{ 
     static Color = SparkX.Settings.DefaultRenderColor
     static Rotation = 0;
     static drawType = ''
+    static PositionType ='global'
 }
 
 export class Circle extends drawObject{
-    static LocalPosition = Vector2.Zero();
-    static GlobalPosition = Vector2.Zero();
+    static Position = Vector2.Zero();
     static Radius = Number;
     
     constructor(position = Vector2, radius = Number, rotation = 0, color = String = SparkX.Settings.DefaultRenderColor){
         super()
-        this.GlobalPosition = position;
+        this.Position = position
         this.Rotation = rotation;
         this.Radius = radius;
         this.Color = color
+
         this.drawType = "circle";
 
-        Buffer.push(this);
+        RenderBuffer.push(this);
         return this
     }
 }
@@ -36,7 +37,7 @@ export class Line extends drawObject{
         this.Position_B = position_b
         // this.Rotation = rotation
         this.drawType = "line"
-        Buffer.push(this);
+        RenderBuffer.push(this);
         return this
     }
 }

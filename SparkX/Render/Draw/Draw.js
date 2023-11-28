@@ -1,20 +1,15 @@
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { drawObject } from "./DrawObject.js";
+import { drawObject } from "./DrawObjects.js";
 
 let canvas = SparkX.Canvas;
-
-export let PositionType = {
-    Global : "g",
-    Local : 'l'
-}
 
 let dx = Number;
 let dy = Number;
 let l_func = {
     MakePosRelative : function(a){
-        let ppp = Math.abs( SparkX.Settings.PixelsPerPoints );
+        let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
         let z = SparkX.ConstSettings.Cam.Zoom;
         dx = SparkX.Resolution.x / 2 / ppp / z
         dy = SparkX.Resolution.y / 2 / ppp / z
@@ -67,7 +62,9 @@ export let Draw = {
         MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
     },
 
-    circle : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue'){
+    circle : function(g_position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue'){
+
+        console.log(rotation);
 
         let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
         let angle = (2 * Math.PI)/(segments); 
@@ -76,13 +73,19 @@ export let Draw = {
         let x = Math.cos(angle * (segments - 1) ) *  radius
         let y = Math.sin(angle * (segments - 1) ) * radius
 
-        let prevPos = Vector2.Add(MathG.RotateAroundPos(position, position, rotation), new Vector2(x, y))
+        let prevPos = new Vector2(x, y)
+        prevPos = MathG.RotateAroundPos(prevPos, Vector2.Zero(), rotation)
+        prevPos = Vector2.Add(prevPos, g_position)
+        
 
         for (let i = 0; i < segments; i++) {
             x = Math.cos(angle * count) * radius;
             y = Math.sin(angle * count) * radius;
             count += 1
-            let pos = Vector2.Add(MathG.RotateAroundPos(position, position, rotation), new Vector2(x, y))
+            let pos = new Vector2(x, y)
+            pos = MathG.RotateAroundPos(pos, Vector2.Zero(), rotation)
+            pos = Vector2.Add(pos, g_position)
+            
             this.line(pos, prevPos, color);
             prevPos = pos
         }
@@ -130,6 +133,8 @@ export let Draw = {
     render : function(obj = drawObject){
         if (obj.drawType == 'line'){
             this.line(obj.Position_A, obj.Position_B, obj.Color)
+        } else if (obj.drawType == 'circle'){
+            this.circle(obj.Position, obj.Radius, obj.Rotation, obj.Color)
         }
     }
 }

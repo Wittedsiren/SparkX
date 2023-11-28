@@ -1,7 +1,7 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
-import { Buffer } from "../Stacks/RenderBuffer.js";
+import { RenderBuffer } from "../Stacks/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 
 let canvas = SparkX.Canvas;
@@ -31,7 +31,7 @@ setInterval(() => {
 
     //Actually render the Buffer
     
-    Buffer.forEach(obj => {
+    RenderBuffer.forEach(obj => {
         Draw.render(obj)
     });
 

@@ -1,5 +1,7 @@
+import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-
+import { Buffer } from "../Stacks/RenderBuffer.js";
+    
 export class drawObject{ 
     static Color = SparkX.Settings.DefaultRenderColor
     static Rotation = 0;

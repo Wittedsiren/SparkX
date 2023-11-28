@@ -1,13 +1,14 @@
 import { Input } from "../SparkX/Input/Input.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
 import { Draw } from "../SparkX/Render/Draw/Draw.js";
-import { Line } from "../SparkX/Render/Draw/Line.js";
+
 import { SparkX } from "../SparkX/SparkX.js";
 import { Buffer } from "../SparkX/Render/Stacks/RenderBuffer.js"
 import { MathG } from "../SparkX/Math/MathG.js";
+import { Line } from "../SparkX/Render/Draw/DrawObject.js";
 
 SparkX.Settings.Grid = true;
-SparkX.Settings.PixelsPerPoints = 25
+SparkX.Settings.PixelsPerPoint = 25
 let startPos = Vector2.Zero()
 let l = new Line(startPos, new Vector2(10, -10), 'green')
 let l2 = new Line(startPos, new Vector2(10, 10), 'green')
@@ -17,11 +18,11 @@ let l5 = new Line(new Vector2(-10, 10), new Vector2(-10, -10), 'green')
 let l6 = new Line(new Vector2(10, 10), new Vector2(10, -10), 'green')
 let l7 = new Line(new Vector2(10, 10), new Vector2(-10, 10), 'green')
 let l8 = new Line(new Vector2(10, -10), new Vector2(-10, -10), 'green')
-let c = new circle
+
 
 function zoomIn(){
     SparkX.RenderLoop(()=>{
-       SparkX.Settings.PixelsPerPoints += Math.sin(1 - SparkX.FramesPerSecond) * 2
+       SparkX.Settings.PixelsPerPoint += Math.sin(1 - SparkX.FramesPerSecond) * 2
     })
 }
 
@@ -44,9 +45,9 @@ SparkX.RenderStart(() => {
     Input.Keyboard.OnKeyDown('ArrowRight', ()=> {SparkX.ConstSettings.Cam.Position.x++})
     Input.Keyboard.OnKeyDown('ArrowUp', ()=> {SparkX.ConstSettings.Cam.Position.y++})
     Input.Keyboard.OnKeyDown('ArrowDown', ()=> {SparkX.ConstSettings.Cam.Position.y--})
-    Input.Keyboard.OnKeyDown('i', ()=> {SparkX.Settings.PixelsPerPoints = 25})
-    Input.Keyboard.OnKeyDown('o', ()=> {SparkX.Settings.PixelsPerPoints = 10})
-    Input.Keyboard.OnKeyDown('p', ()=> {SparkX.Settings.PixelsPerPoints = -25})
+    Input.Keyboard.OnKeyDown('i', ()=> {SparkX.Settings.PixelsPerPoint = 25})
+    Input.Keyboard.OnKeyDown('o', ()=> {SparkX.Settings.PixelsPerPoint = 10})
+    Input.Keyboard.OnKeyDown('p', ()=> {SparkX.Settings.PixelsPerPoint = -25})
 })
 
 SparkX.RenderLoop(() => {

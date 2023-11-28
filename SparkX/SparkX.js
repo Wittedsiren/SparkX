@@ -23,7 +23,7 @@ export let SparkX = {
         Fidelity : 1,
         Grid : true,
         TimeScale : 1,
-        PixelsPerPoints : 25,
+        PixelsPerPoint : 25,
         DefaultRenderColor : 'blue',
     },
     

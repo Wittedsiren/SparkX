@@ -1,7 +1,7 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
-import { RenderBuffer } from "../Stacks/RenderBuffer.js";
+import { renderBuffer } from "../Stacks/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 
 let canvas = SparkX.Canvas;
@@ -31,7 +31,7 @@ setInterval(() => {
 
     //Actually render the Buffer
     
-    RenderBuffer.forEach(obj => {
+    renderBuffer.forEach(obj => {
         Draw.render(obj)
     });
 
@@ -46,7 +46,7 @@ setInterval(() => {
         canvas.width = SparkX.ClientScreenRes.x;
         canvas.height = SparkX.ClientScreenRes.y;
         
-        SparkX.RenderStarts.forEach(element => {element()});
+        SparkX.renderStarts.forEach(start => {start()});
     }
 
     if (SparkX.Settings.Grid == true){
@@ -77,7 +77,19 @@ setInterval(() => {
         ctx.globalAlpha = 1;
     }
 
-    SparkX.RenderLoops.forEach(element => {element()})
+    SparkX.renderLoops.forEach(element => {
+        element.renderFunction();
+        if (element.exitFunction.toString() != '()=>{}') {
+            if (element.exitFunction() == true){
+                let index = SparkX.renderLoops.indexOf(element);
+                if (index > -1) {
+                    SparkX.renderLoops.splice(index, 1); 
+                } else {
+                    console.warn('Could not find this function in the Render Loop. Contact the library devloper if this problem consists');
+                }
+            }
+        }
+    })
 
     var currentUpdate = Date.now();
     SparkX.ConstSettings.DeltaTime = currentUpdate - lastUpdate;

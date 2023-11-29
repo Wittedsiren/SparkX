@@ -1,6 +1,6 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { RenderBuffer } from "../Stacks/RenderBuffer.js";
+import { renderBuffer } from "../Stacks/RenderBuffer.js";
 
 export class drawObject{ 
     static Color = SparkX.Settings.DefaultRenderColor
@@ -22,7 +22,7 @@ export class Circle extends drawObject{
 
         this.drawType = "circle";
 
-        RenderBuffer.push(this);
+        renderBuffer.push(this);
         return this
     }
 }
@@ -37,7 +37,7 @@ export class Line extends drawObject{
         this.Position_B = position_b
         // this.Rotation = rotation
         this.drawType = "line"
-        RenderBuffer.push(this);
+        renderBuffer.push(this);
         return this
     }
 }

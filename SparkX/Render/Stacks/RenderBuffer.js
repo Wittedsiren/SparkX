@@ -1,1 +1,1 @@
-export let RenderBuffer = []
+export let renderBuffer = []

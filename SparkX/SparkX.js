@@ -25,7 +25,8 @@ export let SparkX = {
         TimeScale : 1,
         PixelsPerPoint : 25,
         DefaultRenderColor : 'blue',
-        UseGPU : false
+        UseGPU : false,
+        SmoothingSteps : 10,
     },
     
     FramesPerSecond : 60,
@@ -38,13 +39,17 @@ export let SparkX = {
     ClearCanvas : async function(){
         SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
     },
-    RenderStarts : [],
-    RenderLoops : [],
+    renderStarts : [],
+    renderLoops : [],
     RenderStart : function(RenderFunction = Function){
-        SparkX.RenderStarts.push(RenderFunction);
+        SparkX.renderStarts.push(RenderFunction);
     },
-    RenderLoop : function(RenderFunction = Function){
-        SparkX.RenderLoops.push(RenderFunction);
+    RenderLoop : function(RenderFunction = Function, ExitFunction = ()=>{}){
+        SparkX.renderLoops.push({
+            'renderFunction' : RenderFunction,
+            'exitFunction' : ExitFunction,
+            'id' : (((1+Math.random())*0x10000)|0).toString(16).substring(1),
+        });
     },
     GetRefreshRate : function(){
         return new Promise(resolve =>

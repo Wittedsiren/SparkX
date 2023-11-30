@@ -7,6 +7,11 @@ export class drawObject{
     static Rotation = 0;
     static drawType = ''
     static PositionType ='global'
+    // static Fill = ()=>{
+    //     if (this.drawType == 'circle'){
+
+    //     }
+    // }
 }
 
 export class Circle extends drawObject{
@@ -39,5 +44,22 @@ export class Line extends drawObject{
         this.drawType = "line"
         renderBuffer.push(this);
         return this
+    }
+
+}
+
+export class Rect extends drawObject{
+    static Position = Vector2.Zero();
+    static Scale = Vector2.Zero();
+
+    constructor(position = Vector2, scale = Vector2, rotation = 0, color = SparkX.Settings.DefaultRenderColor){
+        super()
+        this.Position = position;
+        this.Scale = scale;
+        this.Rotation = rotation
+        this.Color = color
+        this.drawType = 'rect'
+        renderBuffer.push(this)
+        return this;
     }
 }

@@ -48,9 +48,10 @@ export let Draw = {
         let s = scale   
         let cenPos = a;
 
+        let x1 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation)
+        let y1 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation)
 
-        this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation))
+        this.line()        
 
         this.line(MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation), 
         MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
@@ -59,7 +60,7 @@ export let Draw = {
         MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), cenPos, rotation))
 
         this.line(MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), cenPos, rotation), 
-        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation))
+        MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), cenPos, rotation)) 
     },
 
     circle : function(g_position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue'){
@@ -85,8 +86,56 @@ export let Draw = {
             pos = Vector2.Add(pos, g_position)
             
             this.line(pos, prevPos, color);
+            this.triangle_filled(pos, prevPos, g_position, color)
             prevPos = pos
         }
+    },
+
+    triangle : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = String = "blue"){
+        let ctx = canvas.getContext('2d');
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        
+        let a = position_a;
+        let b = position_b;
+        let c = position_c;
+
+        a = l_func.MakePosRelative(a);
+        b = l_func.MakePosRelative(b);
+        c = l_func.MakePosRelative(c);
+
+        ctx.beginPath();
+        ctx.moveTo( a.x, a.y );
+        ctx.lineTo( b.x, b.y );
+        ctx.lineTo( c.x, c.y );
+        ctx.closePath()
+        ctx.stroke();
+    },
+
+    triangle_filled : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = SparkX.Settings.DefaultRenderColor){
+        let ctx = canvas.getContext('2d');
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        
+        let a = position_a;
+        let b = position_b;
+        let c = position_c;
+
+        a = l_func.MakePosRelative(a);
+        b = l_func.MakePosRelative(b);
+        c = l_func.MakePosRelative(c);
+
+        let region = new Path2D();
+        region.moveTo( a.x, a.y );
+        region.lineTo( b.x, b.y );
+        region.lineTo( c.x, c.y );
+        
+        region.closePath()
+        ctx.fillStyle = color;
+        ctx.fill(region)
+        
+        
+
     },
 
     image : function(){
@@ -133,6 +182,8 @@ export let Draw = {
             this.line(obj.Position_A, obj.Position_B, obj.Color)
         } else if (obj.drawType == 'circle'){
             this.circle(obj.Position, obj.Radius, obj.Rotation, obj.Color)
+        } else if (obj.drawType == 'rect'){
+            this.rect(obj.Position, obj.Scale, obj.Rotation)
         }
     }
 }

@@ -133,9 +133,6 @@ export let Draw = {
         region.closePath()
         ctx.fillStyle = color;
         ctx.fill(region)
-        
-        
-
     },
 
     image : function(){

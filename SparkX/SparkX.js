@@ -28,6 +28,9 @@ export let SparkX = {
         UseGPU : false,
         SmoothingSteps : 10,
     },
+    InputSettings : {
+        IgnoreCaps : false,
+    },
     
     FramesPerSecond : 60,
     Canvas : document.getElementById("Screen"),

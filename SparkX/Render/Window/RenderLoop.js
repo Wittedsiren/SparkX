@@ -52,7 +52,7 @@ setInterval(() => {
     if (SparkX.Settings.Grid == true){
         let z = SparkX.ConstSettings.Cam.Zoom;
         let res = 100
-
+        
         let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = 0.2;
         Draw.line(new Vector2(0, -res), new Vector2(0, res), 'white')
@@ -61,6 +61,7 @@ setInterval(() => {
         let lines = res / boxSize
         Draw.circle(Vector2.Zero(), 1, 0, 'white')
         for (let index = 0; index < lines; index++) {
+            ctx.globalAlpha = 0.2;
             Draw.line(new Vector2(-res, res), new Vector2(res, res), 'white')
             Draw.line(new Vector2(-res, -res), new Vector2(res, -res), 'white')
             Draw.line(new Vector2(res, -res), new Vector2(res, res), 'white')

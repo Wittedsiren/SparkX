@@ -65,8 +65,7 @@ export let Draw = {
     },
 
     circle : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
-        console.log(color);
-        console.log(parent);
+        
         position = Vector2.Add(position, parent)
         let ctx = canvas.getContext('2d');
         ctx.globalAlpha = opacity

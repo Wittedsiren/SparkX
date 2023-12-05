@@ -12,7 +12,8 @@ let frame = 1;
 
 //RenderLoop
 //Change to animation frame thing
-setInterval(() => { 
+
+function render(){
     if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 1000) == 1){
             SparkX.ClearCanvas()
@@ -36,6 +37,7 @@ setInterval(() => {
     });
 
     if (StartRan == false){
+        
         StartRan = true;
         
         //get refresh Rate
@@ -45,7 +47,7 @@ setInterval(() => {
 
         canvas.width = SparkX.ClientScreenRes.x;
         canvas.height = SparkX.ClientScreenRes.y;
-        
+
         SparkX.renderStarts.forEach(start => {start()});
     }
 
@@ -97,4 +99,18 @@ setInterval(() => {
     lastUpdate = currentUpdate;
     //document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     
+}
+
+setInterval(() => { 
+    //render()
 }, 1000 / SparkX.FramesPerSecond );
+
+function renderLoop(){
+    setTimeout(function(){
+        render()
+        renderLoop();
+        console.log('Frame');
+    }, 1000 / SparkX.FramesPerSecond / SparkX.Settings.TimeScale)
+}
+
+renderLoop()

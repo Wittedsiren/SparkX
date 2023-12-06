@@ -95,7 +95,7 @@ function render(){
     })
 
     var currentUpdate = Date.now();
-    SparkX.ConstSettings.DeltaTime = currentUpdate - lastUpdate;
+    SparkX.DeltaTime = (currentUpdate - lastUpdate) / 1000;
     lastUpdate = currentUpdate;
     //document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     

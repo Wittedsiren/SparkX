@@ -1,6 +1,3 @@
-import { Input } from "./Input/Input.js"
-import { Keyboard } from "./Input/InputFiles/Keyboard.js"
-import { Mouse } from "./Input/InputFiles/Mouse.js"
 import { Vector2 } from "./Math/Vector2.js"
 
 let cam = {
@@ -12,7 +9,6 @@ let cam = {
 export let SparkX = {
     Version : "0.2.40",
     ConstSettings : {
-        DeltaTime : Number,
         AspectRatio : Number,
         AspectZoom : Vector2.Fill(1),
         Cam : cam,
@@ -31,6 +27,8 @@ export let SparkX = {
     InputSettings : {
         IgnoreCaps : false,
     },
+    
+    DeltaTime : 0,
     
     FramesPerSecond : 60,
     Canvas : document.getElementById("Screen"),

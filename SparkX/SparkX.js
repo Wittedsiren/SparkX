@@ -23,7 +23,13 @@ export let SparkX = {
         DefaultRenderColor : 'blue',
         UseGPU : false,
         SmoothingSteps : 10,
-        Cursor : false
+        Cursor : false,
+        Optimization : {
+            MathAccuracy : 0.001
+        },
+        Graphing : {
+            
+        }
     },
     InputSettings : {
         IgnoreCaps : false,

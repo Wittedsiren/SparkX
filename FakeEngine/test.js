@@ -18,11 +18,13 @@ let pause = false;
 SparkX.Settings.PixelsPerPoint = 100
 let PositionToBe = new Vector2(10, 10)
 let plot = 10;
-let points = 1;
+let points = 1
 SparkX.Settings.Cursor = true;
 function placePoint(pos){
   new Circle(Vector2.Floor(pos))
 }
+// SparkX.Settings.Optimization.MathAccuracy = 0.1
+// console.log(Math.round(Math.abs(1 / (SparkX.Settings.Optimization.MathAccuracy * 100))));
 
 function drawGraph( a ){
   SparkX.RenderLoop(()=>{
@@ -32,7 +34,6 @@ function drawGraph( a ){
       
       Draw.line(new Vector2(prevPointX, prevPointY), new Vector2((index + 1) / points, a((index + 1) / points)), 'red');
       // Draw.circle(new Vector2(prevPointX, prevPointY) , 0.1)
-      console.log('drawline');
       prevPointX = (index + 1) / points;
       prevPointY = a((index + 1) / points)
     }
@@ -46,7 +47,6 @@ function drawGraph( a ){
       
       Draw.line(new Vector2(prevPointX, prevPointY), new Vector2((-index - 1) / points, a((-index - 1) / points)), 'red');
       // Draw.circle(new Vector2(prevPointX, prevPointY) , 0.1)
-      console.log('drawline');
       prevPointX = (-index - 1) / points;
       prevPointY = a((-index - 1) / points)
     }
@@ -54,10 +54,13 @@ function drawGraph( a ){
   })
 }
 
+let cosder = MathG.Derivative(x => Math.sin(x));
+
 SparkX.RenderStart((()=>{
     SparkX.Settings.Grid = true 
-    drawGraph( (x)=>{ return ( Math.pow(x, 3) )  } )
+    //drawGraph( (x)=>{ return ( Math.pow(x, 3) )  } )
     drawGraph( (x)=>{ return ( Math.sin(x) )  } )
+    drawGraph( (x)=>{ return ( Math.cos(x) )  } )
     document.getElementById("Screen").style.background = "salmon"
     Input.Keyboard.OnKeyDown(' ', ()=>{ pause = !pause })
     Input.Keyboard.OnKeyDown('r', ()=>{points++})
@@ -70,10 +73,9 @@ SparkX.RenderStart((()=>{
     Input.Keyboard.OnKeyDown('s', ()=>{SparkX.ConstSettings.Cam.Position.y-=1})
     Input.Keyboard.OnKeyDown('w', ()=>{SparkX.ConstSettings.Cam.Position.y+=1})
     Input.Keyboard.OnKeyDown(' ', ()=>{SparkX.ConstSettings.Cam.Position = Input.Mouse.Position})
-    
+    console.log(cosder(1));
     //c.AddBasicMovementWASD();
     // newCirlce.Parent = cursor.Position
-    
 }))
 
 let timeElapsed = 0;
@@ -81,6 +83,8 @@ let lerpDuration = 3;
 let startValue= 0;
 let endValue= 10;
 let valueToLerp;
+
+
 
 SparkX.RenderLoop(()=>{
     //console.log(Input.Mouse.Position);
@@ -102,6 +106,6 @@ SparkX.RenderLoop(()=>{
     // }
     // console.log(valueToLerp);
     // c.Position.x = valueToLerp
-    document.getElementById('PosDisplay').innerText = Math.round(1000 / (1000 * SparkX.DeltaTime));
+    document.getElementById('PosDisplay').innerText = "Derivitive of circle pos is: " + cosder(cursor.Position.x);
     
 })

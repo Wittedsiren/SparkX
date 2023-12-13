@@ -80,7 +80,7 @@ export let Keyboard = {
 
 document.addEventListener('keydown', function(event) {
     let key = event.key
-    console.log(key)
+    //console.log(key)
     keyDowns.forEach(element => {
         if (key == element.key){
             element.a()

@@ -13,7 +13,6 @@ export class Vector2 {
             if (timeElapsed < t)
             {
                 valueToLerp = Vector2.Lerp(new Vector2(this.x, this.y), a, timeElapsed / t);
-                
                 console.log(valueToLerp);
                 this.x = valueToLerp.x;
                 this.y = valueToLerp.y

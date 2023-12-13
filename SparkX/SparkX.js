@@ -23,6 +23,7 @@ export let SparkX = {
         DefaultRenderColor : 'blue',
         UseGPU : false,
         SmoothingSteps : 10,
+        Cursor : false
     },
     InputSettings : {
         IgnoreCaps : false,
@@ -30,7 +31,11 @@ export let SparkX = {
     
     DeltaTime : 0,
     
-    FramesPerSecond : 60,
+    FramesPerSecond : 1,
+    Information : {
+        TriangleCount : 0,
+        VerticeCount : 0,
+    },
     Canvas : document.getElementById("Screen"),
     Resolution : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
     ClientScreenRes : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),

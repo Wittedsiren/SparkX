@@ -16,9 +16,10 @@ let l_func = {
         let x1 = Vector2.Divide(a , SparkX.ConstSettings.AspectZoom);
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
-                             x2.y - -SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
+                             x2.y +SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
         let x4 = Vector2.Multiply(x3, ppp * z)
         //let x5 = MathG.RotateAroundPos(x4, SparkX.ConstSettings.Cam.Position, SparkX.ConstSettings.Cam.Rotation)
+
         return x4;
     }
 }

@@ -20,11 +20,17 @@ window.addEventListener("wheel", event => {
         a()
     });
 });
-window.addEventListener("mousemove", event => {
-    let pos = new Vector2(event.x, event.y)
-    pos.x = SparkX.Resolution.x/2 - event.x / SparkX.Settings.PixelsPerPoint
-    pos.y = SparkX.Resolution.y/2 - event.y / SparkX.Settings.PixelsPerPoint
+window.addEventListener("mousemove", event => {   
+    let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
+    let c = SparkX.ConstSettings.Cam 
+    let pos = new Vector2(event.x + window.scrollX, -event.y)
+    pos.x -= SparkX.Resolution.x/2  
+    pos.y += SparkX.Resolution.y/2
+    pos = Vector2.Divide(pos, ppp * c.Zoom)
+    pos.x += c.Position.x;
+    pos.y += c.Position.y
     
-    Mouse.Position.x = pos.x;
-    Mouse.Position.y = pos.y;
+
+
+    Mouse.Position = pos;
 });

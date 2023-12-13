@@ -1,8 +1,9 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
-import { renderBuffer } from "../Stacks/RenderBuffer.js";
+import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
+import { frameBuffer } from "../Buffers/FrameBuffer.js";
 
 let canvas = SparkX.Canvas;
 let lastUpdate = Date.now();
@@ -14,6 +15,9 @@ let frame = 1;
 //Change to animation frame thing
 
 function render(){
+
+    if (!SparkX.Settings.Cursor){ SparkX.Canvas.style.cursor = 'none' }
+
     if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 1000) == 1){
             SparkX.ClearCanvas()
@@ -99,6 +103,7 @@ function render(){
     lastUpdate = currentUpdate;
     //document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     
+    
 }
 
 setInterval(() => { 
@@ -109,8 +114,7 @@ function renderLoop(){
     setTimeout(function(){
         render()
         renderLoop();
-        console.log('Frame');
-    }, 1000 / SparkX.FramesPerSecond / SparkX.Settings.TimeScale)
+    }, SparkX.FramesPerSecond / 1000)
 }
 
 renderLoop()

@@ -1,7 +1,7 @@
 import { Input } from "../../Input/Input.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { renderBuffer } from "../Stacks/RenderBuffer.js";
+import { renderBuffer } from "../Buffers/RenderBuffer.js";
 
 export class drawObject{ 
     Color = SparkX.Settings.DefaultRenderColor
@@ -33,9 +33,9 @@ export class drawObject{
 export class Circle extends drawObject{
     static Radius = Number;
     
-    constructor(position = Vector2, radius = Number, rotation = 0, color = String = SparkX.Settings.DefaultRenderColor, opacity = 1){
+    constructor(position = Vector2, radius = 1, rotation = 0, color = String = SparkX.Settings.DefaultRenderColor, opacity = 1){
         super()
-        this.Position = position
+        this.Position = position || Vector2.Zero()
         this.Rotation = rotation;
         this.Radius = radius;
         this.Color = color

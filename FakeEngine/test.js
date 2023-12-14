@@ -8,18 +8,19 @@ import { SparkX } from "../SparkX/SparkX.js";
 
 SparkX.Settings.Fidelity = 2
 
-//let c = new Circle(Vector2.Zero(), 5, 0, 'red', .5)
+// let c = new Circle(Vector2.Zero(), 5, 0, 'red', .5)
 // let leftSide = new Rect(new Vector2(-14, 0), new Vector2(2, 20), 0, 'green')
 // let rightSide = new Rect(new Vector2(14, 0), new Vector2(2, 20), 0, 'green')
 // let base = new Rect(new Vector2(0, -10), new Vector2(30, 2))
 let cursor = new Circle(Vector2.Zero(), 1, 0, 'yellow')
-//let newCirlce = new Circle(Vector2.Zero())
+let newCirlce = new Circle(Vector2.Zero())
 let pause = false;
 SparkX.Settings.PixelsPerPoint = 100
 let PositionToBe = new Vector2(10, 10)
-let plot = 10;
+let plot = 100;
 let points = 1
 SparkX.Settings.Cursor = true;
+
 function placePoint(pos){
   new Circle(Vector2.Floor(pos))
 }
@@ -54,13 +55,15 @@ function drawGraph( a ){
   })
 }
 
-let cosder = MathG.Derivative(x => Math.sin(x));
+let cosder = MathG.Derivative(x => Math.pow(Math.E ,x));
 
 SparkX.RenderStart((()=>{
+    
+    //newCirlce.Position.MoveTo(new Vector2(1, 1), 100)
     SparkX.Settings.Grid = true 
     //drawGraph( (x)=>{ return ( Math.pow(x, 3) )  } )
     drawGraph( (x)=>{ return ( Math.sin(x) )  } )
-    drawGraph( (x)=>{ return ( Math.cos(x) )  } )
+    drawGraph( (x)=>{ return ( Math.pow(Math.E, x) )  } )
     document.getElementById("Screen").style.background = "salmon"
     Input.Keyboard.OnKeyDown(' ', ()=>{ pause = !pause })
     Input.Keyboard.OnKeyDown('r', ()=>{points++})
@@ -72,7 +75,9 @@ SparkX.RenderStart((()=>{
     Input.Keyboard.OnKeyDown('a', ()=>{SparkX.ConstSettings.Cam.Position.x-=1})
     Input.Keyboard.OnKeyDown('s', ()=>{SparkX.ConstSettings.Cam.Position.y-=1})
     Input.Keyboard.OnKeyDown('w', ()=>{SparkX.ConstSettings.Cam.Position.y+=1})
-    Input.Keyboard.OnKeyDown(' ', ()=>{SparkX.ConstSettings.Cam.Position = Input.Mouse.Position})
+    Input.Keyboard.OnKeyDown(' ', ()=>{newCirlce.Position.MoveTo(Input.Mouse.Position, 0.1)})
+    Input.Keyboard.OnKeyDown('h', ()=>{SparkX.ConstSettings.Cam.Position.MoveTo(new Vector2(SparkX.ConstSettings.Cam.Position.x, SparkX.ConstSettings.Cam.Position.y + 1), 1)})
+    Input.Keyboard.OnKeyDown('b', ()=>{SparkX.ConstSettings.Cam.Position.MoveTo(new Vector2(SparkX.ConstSettings.Cam.Position.x, SparkX.ConstSettings.Cam.Position.y - 1), 1)})
     console.log(cosder(1));
     //c.AddBasicMovementWASD();
     // newCirlce.Parent = cursor.Position
@@ -89,13 +94,13 @@ let valueToLerp;
 SparkX.RenderLoop(()=>{
     //console.log(Input.Mouse.Position);
     //SparkX.ConstSettings.Cam.Position = new Vector2(c.Position.x, c.Position.y - 10)
-    cursor.Position.x = Input.Mouse.Position.x
-    cursor.Position.y = ((Math.abs(Input.Mouse.Position.x) > plot) ) ? Input.Mouse.Position.y : Math.sin(Input.Mouse.Position.x)
-    // if (Vector2.Magnitude(c.Position, Vector2.Floor(Input.Mouse.Position)) <= 5 + cursor.Radius){
+    //cursor.Position.MoveTo(Input.Mouse.Position, 0.1)
+    cursor.Position.y = ((Math.abs(Input.Mouse.Position.x) > plot) ) ? Input.Mouse.Position.y : Math.pow(Math.E, Input.Mouse.Position.x)
+    // if (Vector2.Magnitude(c.Position, Vector2.Floor(Input.Mouse.Position)) <= cursor.Radius){
     //   console.log('Hey');
     //   c.Radius = 6
     // } else {
-    //   c.Radius = 5
+    //   c.Radius = 1.1
     // }
 
     // if (timeElapsed < lerpDuration)

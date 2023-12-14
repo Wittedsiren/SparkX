@@ -37,7 +37,7 @@ export let SparkX = {
     
     DeltaTime : 0,
     
-    FramesPerSecond : 1,
+    FramesPerSecond : 60,
     Information : {
         TriangleCount : 0,
         VerticeCount : 0,

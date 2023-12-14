@@ -106,15 +106,15 @@ function render(){
     
 }
 
-setInterval(() => { 
-    //render()
-}, 1000 / SparkX.FramesPerSecond );
+// setInterval(() => { 
+//     //render()
+// }, 1000 / SparkX.FramesPerSecond );
 
 function renderLoop(){
     setTimeout(function(){
         render()
         renderLoop();
-    }, SparkX.FramesPerSecond / 1000)
+    }, 1000 / SparkX.FramesPerSecond)
 }
 
 renderLoop()

@@ -4,28 +4,45 @@ export class Vector2 {
 
     x = Number;
     y = Number;
-
+    #moving = false;
+    #cancel = false;
     MoveTo(a, t){
-        let timeElapsed = 0;
-        let valueToLerp;
-
-        SparkX.RenderLoop(()=>{
-            if (timeElapsed < t)
-            {
-                valueToLerp = Vector2.Lerp(new Vector2(this.x, this.y), a, timeElapsed / t);
-                console.log(valueToLerp);
-                this.x = valueToLerp.x;
-                this.y = valueToLerp.y
-                timeElapsed += SparkX.DeltaTime;
-            }    
-        }, ()=>{
-            if (Vector2.IsEqualTo(new Vector2(this.x, this.y), a)){
-                console.log('IT SHOULD END');
-                this.x = a.x;
-                this.y = a.y;
-                return true
-            }
-        })
+        console.log('called');
+        if (this.#moving == false){
+            this.#moving = true
+            let timeElapsed = 0;
+            let valueToLerp = 0;
+            console.log(new Vector2(this.x, this.y), a);
+            SparkX.RenderLoop(()=>{
+                if (timeElapsed < t){
+                    valueToLerp = Vector2.Lerp(new Vector2(this.x, this.y), a, timeElapsed / t);
+                    this.x = valueToLerp.x;
+                    this.y = valueToLerp.y
+                    timeElapsed += SparkX.DeltaTime;
+                    //console.log(SparkX.DeltaTime);
+                } else if (!Vector2.IsEqualTo(new Vector2(this.x, this.y), a)){
+                    this.#moving = false
+                    this.x = a.x;
+                    this.y = a.y;
+                }
+            }, ()=>{
+                if (Vector2.IsEqualTo(new Vector2(this.x, this.y), a)){
+                    this.#moving = false
+                    this.x = a.x;
+                    this.y = a.y;
+                    return true
+                } 
+                if (this.#cancel) {
+                    console.log('cancelled to call another moveto');
+                    this.#cancel = false; 
+                    return true
+                }
+            })
+        } else {
+            this.#cancel = true;
+            this.#moving = false;
+            this.MoveTo(a, t)
+        }
     }
 
     constructor(X = Number, Y = Number){
@@ -87,8 +104,8 @@ export class Vector2 {
     }
 
     static Lerp(a = Vector2, b = Vector2, t = Number){
-        let x = (t - 1) * a.x + t * b.x;
-        let y = (t - 1) * a.y + t * b.y;
+        let x = a.x * (1 - t) + b.x * t;
+        let y = a.y * (1 - t) + b.y * t;
         return new Vector2(x, y);
     }
 

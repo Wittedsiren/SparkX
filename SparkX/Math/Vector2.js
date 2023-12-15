@@ -11,13 +11,14 @@ export class Vector2 {
     y = Number;
     #moving = false;
     #cancel = false;
+
     /**
      * This function will set this vector to the given vector over the set period of time
      * @param {Vector2} a the vector you want this vector 2 to go towards 
      * @param {Number} t this is how long you want this procces to take in seconds
      */
-    MoveTo(a = Vector2, t = Number){
-        console.log('called');
+    async MoveTo(a = Vector2, t = Number){
+        console.log('called');  
         if (this.#moving == false){
             this.#moving = true
             let timeElapsed = 0;
@@ -43,14 +44,16 @@ export class Vector2 {
                     return true
                 } 
                 if (this.#cancel) {
-                    console.log('cancelled to call another moveto');
+                    //console.log('cancelled to call another moveto');
                     this.#cancel = false; 
+                    //this.MoveTo(a, t)
                     return true
                 }
             })
         } else {
             this.#cancel = true;
             this.#moving = false;
+            console.log('Cancelled and calling another');
             this.MoveTo(a, t)
         }
     }
@@ -117,7 +120,7 @@ export class Vector2 {
 /**
  * multiplys either two vectors or a vector and a number
  * @param {Vector2} a the vector you want b to be added to
- * @param {Number} b can be both a vector 2 and a number. add it to vector a 
+ * @param {Number|Vector2} b can be both a vector 2 and a number. add it to vector a 
  * @returns the added vector
  */
     static Multiply(a = Vector2, b = Number){

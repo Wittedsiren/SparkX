@@ -73,10 +73,10 @@ SparkX.RenderStart((()=>{
     Input.Keyboard.OnKeyDown('t', ()=>{SparkX.Settings.PixelsPerPoint++})
     Input.Keyboard.OnKeyDown('g', ()=>{SparkX.Settings.PixelsPerPoint--})
     //Input.Keyboard.OnKeyDown('d', ()=>{PositionToBe.x ++; c.Position.MoveTo(PositionToBe, 0.1)})
-    Input.Keyboard.OnKeyDown('d', ()=>{PositionToBe.x+=1})
-    Input.Keyboard.OnKeyDown('a', ()=>{PositionToBe.x-=1})
-    Input.Keyboard.OnKeyDown('s', ()=>{PositionToBe.y-=1})
-    Input.Keyboard.OnKeyDown('w', ()=>{PositionToBe.y+=1})
+    Input.Keyboard.OnKeyDown('d', ()=>{PositionToBe.x+=100 * SparkX.DeltaTime})
+    Input.Keyboard.OnKeyDown('a', ()=>{PositionToBe.x-=100 * SparkX.DeltaTime})
+    Input.Keyboard.OnKeyDown('s', ()=>{PositionToBe.y-=100 * SparkX.DeltaTime})
+    Input.Keyboard.OnKeyDown('w', ()=>{PositionToBe.y+=100 * SparkX.DeltaTime})
     Input.Keyboard.OnKeyDown(' ', ()=>{newCirlce.Position.MoveTo(Input.Mouse.Position, 0.1)})
     Input.Keyboard.OnKeyDown('h', ()=>{SparkX.ConstSettings.Cam.Position.MoveTo(new Vector2(SparkX.ConstSettings.Cam.Position.x, SparkX.ConstSettings.Cam.Position.y + 1), 1)})
     Input.Keyboard.OnKeyDown('b', ()=>{SparkX.ConstSettings.Cam.Position.MoveTo(new Vector2(SparkX.ConstSettings.Cam.Position.x, SparkX.ConstSettings.Cam.Position.y - 1), 1)})
@@ -95,7 +95,7 @@ let valueToLerp;
 
 SparkX.RenderLoop(()=>{
   
-  SparkX.ConstSettings.Cam.Position = Vector2.Lerp(SparkX.ConstSettings.Cam.Position, PositionToBe, 0.5)
+  SparkX.ConstSettings.Cam.Position = Vector2.Lerp(SparkX.ConstSettings.Cam.Position, PositionToBe, 1)
     //console.log(Input.Mouse.Position);
     //SparkX.ConstSettings.Cam.Position = new Vector2(c.Position.x, c.Position.y - 10)
     //cursor.Position.MoveTo(Input.Mouse.Position, 0.1)

@@ -1,12 +1,22 @@
 import { SparkX } from "../SparkX.js";
 
-export class Vector2 {    
-
+export class Vector2 { 
+    /**
+     * @param x The x value of the vector
+     */
     x = Number;
+    /**
+     * @param y The y value of the vector
+     */
     y = Number;
     #moving = false;
     #cancel = false;
-    MoveTo(a, t){
+    /**
+     * This function will set this vector to the given vector over the set period of time
+     * @param {Vector2} a the vector you want this vector 2 to go towards 
+     * @param {Number} t this is how long you want this procces to take in seconds
+     */
+    MoveTo(a = Vector2, t = Number){
         console.log('called');
         if (this.#moving == false){
             this.#moving = true
@@ -50,7 +60,12 @@ export class Vector2 {
         this.y = Y;
         return this;
     }
-
+/**
+ * gives you the distance between both vectors
+ * @param {Vector2} a vector A
+ * @param {Vector2} b vector B
+ * @returns the distance
+ */
     static Magnitude(a = Vector2, b = Vector2){
         let vec1 = Math.pow(b.x - a.x, 2);
         let vec2 = Math.pow(b.y - a.y, 2);
@@ -58,15 +73,27 @@ export class Vector2 {
         let Answer = Math.sqrt(vec1 + vec2);
         return Answer
     }
-
+/**
+ * gives you a vector 2 with 0 for the x and y cord
+ * @returns a vector 2
+ */
     static Zero(){
         return new Vector2(0, 0);
     }
-
+/**
+ * gives you a vector 2 with the same given value for x and y
+ * @param {Number} a Will be set to the x and y cord
+ * @returns a vector 2
+ */
     static Fill(a = Number){
         return new Vector2(a, a);
     }
-
+/**
+ * adds either two vectors or a vector and a number
+ * @param {Vector2} a the vector you want b to be added to
+ * @param {*} b can be both a vector 2 and a number. adds it to vector a 
+ * @returns the added vector
+ */
     static Add(a = Vector2, b = Vector2 || Number){
         if (typeof(b) == "number"){
             return new Vector2(a.x + b, a.y + b);
@@ -74,7 +101,12 @@ export class Vector2 {
             return new Vector2(a.x + b.x, a.y + b.y);
         }
     }
-
+/**
+ * subs either two vectors or a vector and a number
+ * @param {Vector2} a the vector you want b to be subbed from
+ * @param {*} b can be both a vector 2 and a number. subs it fom vector a 
+ * @returns the subbed vector
+ */
     static Sub(a= Vector2, b = Vector2 || Number){
         if (typeof(b) == "number"){
             return new Vector2(a.x - b, a.y - b);
@@ -82,8 +114,13 @@ export class Vector2 {
             return new Vector2(a.x - b.x, a.y - b.y);
         }
     }
-
-    static Multiply(a = Vector2, b = Vector2 || Number){
+/**
+ * multiplys either two vectors or a vector and a number
+ * @param {Vector2} a the vector you want b to be added to
+ * @param {Number} b can be both a vector 2 and a number. add it to vector a 
+ * @returns the added vector
+ */
+    static Multiply(a = Vector2, b = Number){
         if (typeof(b) == "number"){
             return new Vector2(a.x * b, a.y * b);
         } else {

@@ -22,10 +22,13 @@ export let SparkX = {
         PixelsPerPoint : 25,
         DefaultRenderColor : 'blue',
         UseGPU : false,
-        SmoothingSteps : 10,
         Cursor : false,
         Optimization : {
-            MathAccuracy : 0.001
+            MathAccuracy : 0.001,
+            Frames : {
+                FramePerfection : true,
+                PerfectionBufferSize : 10,
+            }
         },
         Graphing : {
             

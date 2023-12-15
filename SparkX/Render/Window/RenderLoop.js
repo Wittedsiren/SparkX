@@ -110,11 +110,16 @@ function render(){
 //     //render()
 // }, 1000 / SparkX.FramesPerSecond );
 
+let Buffer = 0
+
 function renderLoop(){
     setTimeout(function(){
         render()
         renderLoop();
-    }, 1000 / SparkX.FramesPerSecond)
+        if (SparkX.Settings.Optimization.Frames.FramePerfection){
+            Buffer = SparkX.Settings.Optimization.Frames.PerfectionBufferSize;
+        }   
+    }, (1000 / (SparkX.FramesPerSecond + Buffer)) )
 }
 
 renderLoop()

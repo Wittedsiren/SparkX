@@ -17,7 +17,6 @@ export let MathG = {
         let y = rotationPoint.x + Math.sin(rotation) * (position.x - rotationPoint.x) + Math.cos(rotation) * (position.y - rotationPoint.y)
         return new Vector2(x, y)
     },
-
     Derivative : function( eq = Function ){
         return ( x ) => {
             return ( eq( x + SparkX.Settings.Optimization.MathAccuracy ) - eq( x ) ) / SparkX.Settings.Optimization.MathAccuracy;

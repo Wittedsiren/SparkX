@@ -1,6 +1,7 @@
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
+import { lightCompute } from "../Light/LightCompute.js";
 import { drawObject } from "./DrawObjects.js";
 
 let canvas = SparkX.Canvas;
@@ -97,6 +98,38 @@ export let Draw = {
         ctx.globalAlpha = 1
     },
 
+    circle_unfilled : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
+        
+        position = Vector2.Add(position, parent)
+        let ctx = canvas.getContext('2d');
+        ctx.globalAlpha = opacity
+        let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
+        let angle = (2 * Math.PI)/(segments); 
+        let count = 0;
+
+        let x = Math.cos(angle * (segments - 1) ) *  radius
+        let y = Math.sin(angle * (segments - 1) ) * radius
+
+        let prevPos = new Vector2(x, y)
+        prevPos = MathG.RotateAroundPos(prevPos, Vector2.Zero(), rotation)
+        prevPos = Vector2.Add(prevPos, position)
+        
+
+        for (let i = 0; i < segments; i++) {
+            x = Math.cos(angle * count) * radius;
+            y = Math.sin(angle * count) * radius;
+            count += 1
+            let pos = new Vector2(x, y)
+            pos = MathG.RotateAroundPos(pos, Vector2.Zero(), rotation)
+            pos = Vector2.Add(pos, position)
+            
+            this.line(pos, prevPos, color);
+            
+            prevPos = pos
+        }
+        ctx.globalAlpha = 1
+    },
+
     triangle_unfilled : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = String = "blue"){
         let ctx = canvas.getContext('2d');
         ctx.strokeStyle = color;
@@ -159,6 +192,8 @@ export let Draw = {
             this.circle(obj.Position, obj.Radius, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
         } else if (obj.drawType == 'rect'){
             this.rect(obj.Position, obj.Scale, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
+        } else if (obj.drawType == 'pointlight'){
+            lightCompute.render.spotLight(obj);
         }
     }
 }

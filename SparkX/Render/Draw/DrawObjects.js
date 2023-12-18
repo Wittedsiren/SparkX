@@ -12,6 +12,22 @@ export class drawObject{
     Opacity = 1;
     Parent = Vector2.Zero();
 
+    constructor(){
+        renderBuffer.push(this);
+    }
+
+    Remove = ()=>{
+        let index = 0;
+        renderBuffer.forEach(obj =>{
+            if (obj == this){
+                renderBuffer[index] = null
+                return
+            }
+            index++
+        })
+
+    }
+
     SetZIndex(index){
         
     }
@@ -42,7 +58,7 @@ export class Circle extends drawObject{
         this.Opacity = opacity
         this.drawType = "circle";
 
-        renderBuffer.push(this);
+        
         return this
     }
 }
@@ -58,7 +74,7 @@ export class Rect extends drawObject{
         this.Color = color
         this.Opacity = opacity
         this.drawType = 'rect'
-        renderBuffer.push(this)
+        
         return this;
     }
 }

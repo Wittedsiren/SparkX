@@ -37,7 +37,11 @@ function render(){
     //Actually render the Buffer
     
     renderBuffer.forEach(obj => {
-        Draw.render(obj)
+        try {
+            Draw.render(obj)
+        } catch (error) {
+            
+        }
     });
 
     if (StartRan == false){

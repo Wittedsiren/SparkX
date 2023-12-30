@@ -10,6 +10,9 @@ export class PointLight extends drawObject{
         super();
         this.drawType = 'pointlight'
         this.Position = position
+        this.Brightness = 1;
+        
+        return this;
     }
 
 }

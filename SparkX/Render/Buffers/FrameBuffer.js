@@ -2,8 +2,25 @@ export class renderFrame{
     renderBuffer = []
     constructor (RenderBuffer = Array){
         this.renderBuffer = renderBuffer
-        frameBuffer.push(this)
+        frameBuffer.frames.push(this)
+    }
+
+    renderToScreen(){
+
     }
 }
 
-export let frameBuffer = []
+export let frameBuffer = {
+    frames : [
+
+    ],
+    currentFrame : frameBuffer.frames[frameBuffer.frames.length - 1]
+}
+
+
+
+
+
+
+
+

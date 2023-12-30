@@ -165,7 +165,15 @@ export class Vector2 {
         return new Vector2(Math.floor(a.x), Math.floor(a.y))
     }
 
+    static Abs(a = Vector2){
+        return new Vector2(Math.abs(a.x), Math.abs(a.y))
+    }
 
+    static GetNormal(a, b){
+        let x = b.x - a.x;
+        let y = b.y - a.y;
+        
+    }
      
 }
 

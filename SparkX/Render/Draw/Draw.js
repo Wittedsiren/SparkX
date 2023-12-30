@@ -66,7 +66,7 @@ export let Draw = {
         ctx.globalAlpha = 1
     },
 
-    circle : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
+    circle : function(position = Vector2, radius = Number = 1, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
         
         position = Vector2.Add(position, parent)
         let ctx = canvas.getContext('2d');

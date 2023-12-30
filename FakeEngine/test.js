@@ -10,17 +10,18 @@ import { SparkX } from "../SparkX/SparkX.js";
 //let player = new Circle(new Vector2(0, 1), 1)
 let playerPostionToBe = new Vector2(0 ,1)
 let camToBe = new Vector2(0, 0)
-//let obstacal = new Rect(new Vector2(0, 0), new Vector2(10, 10))
-let obstacal2 = new Rect(new Vector2(0, 0), new Vector2(10, 10), 0, 'red', 0.5)
+// let obstacal = new Rect(new Vector2(0, 0), new Vector2(10, 10))
+let obstacal2 = new Rect(new Vector2(0, 0), new Vector2(10, 10), 0, 'yellow', 0.5)
 let cursor = new Rect(Vector2.Zero(), new Vector2(1, 1))
 let obsOri = Vector2.Zero()
+let posForLightToBe = new Circle(Vector2.Zero());
 SparkX.Settings.Grid = true
 SparkX.Settings.Cursor = false  
 SparkX.Settings.PixelsPerPoint = 25
 let placeType = 'rect'
 let clickedPos = Vector2.Zero();
 let clicked = false
-
+SparkX.FramesPerSecond = 60
 Input.Mouse.OnButton1Down(()=>{
   clicked = !clicked
   clickedPos = Vector2.Floor(Mouse.Position)
@@ -41,7 +42,8 @@ Input.Mouse.OnButton1Down(()=>{
 })
 
 
-
+posForLightToBe.AddBasicMovementArrow()
+posForLightToBe.Opacity = 0
 Keyboard.OnKeyDown('q', ()=>{ placeType = 'rect' })
 Keyboard.OnKeyDown('e', ()=>{ placeType = 'cir' })
 cursor.Opacity = 0.5
@@ -51,17 +53,12 @@ cursor.Color = 'red'
 SparkX.Settings.DefaultRenderColor = 'green'
 
 
-new PointLight(Vector2.Zero()).Brightness = 2
-
+let light = new PointLight(Vector2.Zero())
+light.Details = false;
+light.Brightness = 2
+SparkX.Settings.Lighting.Fidelity = 1
 SparkX.RenderLoop(()=>{  
 
-  if (! clicked){
-    obstacal2.Scale = (Vector2.Lerp(obstacal2.Scale, Vector2.Zero(), 0.5))
-    obstacal2.Position = Vector2.Lerp(obstacal2.Position, Mouse.Position, 0.5)
-  } else {
-    obstacal2.Position = Vector2.Lerp(obstacal2.Position, Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)), 1) // Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)) 
-    obstacal2.Scale = (Vector2.Lerp(obstacal2.Scale, Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos), 0.5)) //Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos) 
-  }
     for (let i = 0; i < 9; i++){
         if (Keyboard.GetKeyState((i + 1).toString())){
             console.log('log');
@@ -85,15 +82,39 @@ SparkX.RenderLoop(()=>{
     } if (Keyboard.GetKeyState('h')){
         obstacal.Scale.MoveTo(new Vector2(1, 1), 1)
     }
+    if (Keyboard.GetKeyState('j')){
+        light.Brightness ++
+    }
+    if (Keyboard.GetKeyState('k')){
+      light.Brightness --
+  }
+  if (Keyboard.GetKeyState('u')){
+    SparkX.Settings.Lighting.Fidelity += 0.1
+    console.log(SparkX.Settings.Lighting.Fidelity);
+}
+if (Keyboard.GetKeyState('i')){
+  SparkX.Settings.Lighting.Fidelity -= 0.1
+}
+
     
+  
     
     cursor.Position = Vector2.Lerp(cursor.Position, Vector2.Floor(Mouse.Position), 0.5)//Vector2.Floor(Mouse.Position)
     SparkX.ConstSettings.Cam.Position = Vector2.Lerp(SparkX.ConstSettings.Cam.Position, camToBe, 0.3)
     
+    SparkX.Settings.Fidelity = 5
     
     
-
+    light.Position = Vector2.Lerp(light.Position, posForLightToBe.Position, 0.1)
     document.getElementById('PosDisplay').innerText = 'Target Frame rate is: ' + SparkX.FramesPerSecond + ". But actualy rate is " + Math.floor(1 / SparkX.DeltaTime)
+
+    if (! clicked){
+      obstacal2.Scale = (Vector2.Lerp(obstacal2.Scale, Vector2.Zero(), 0.5))
+      obstacal2.Position = Vector2.Lerp(obstacal2.Position, Mouse.Position, 0.5)
+    } else {
+      obstacal2.Position = Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)) // Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)) 
+      obstacal2.Scale = Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos) //Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos) 
+    }
 })
 
 

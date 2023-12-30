@@ -3,7 +3,7 @@ import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
 import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
-import { frameBuffer } from "../Buffers/FrameBuffer.js";
+
 
 let canvas = SparkX.Canvas;
 let lastUpdate = Date.now();
@@ -14,7 +14,7 @@ let frame = 1;
 //RenderLoop
 //Change to animation frame thing
 
-function render(){
+async function render(){
 
     if (!SparkX.Settings.Cursor){ SparkX.Canvas.style.cursor = 'none' }
 
@@ -116,13 +116,19 @@ function render(){
 
 let Buffer = 0
 
-function renderLoop(){
+async function renderLoop(){
     setTimeout(function(){
         render()
         renderLoop();
         if (SparkX.Settings.Optimization.Frames.FramePerfection){
             Buffer = SparkX.Settings.Optimization.Frames.PerfectionBufferSize;
         }   
+        // if (Math.floor(1 / SparkX.DeltaTime) < SparkX.FramesPerSecond ){
+        //     SparkX.Settings.Optimization.Frames.PerfectionBufferSize += 1
+            
+        // } else {
+        //     SparkX.Settings.Optimization.Frames.PerfectionBufferSize -= 1
+        // }
     }, (1000 / (SparkX.FramesPerSecond + Buffer)) )
 }
 

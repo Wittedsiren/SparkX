@@ -16,6 +16,7 @@ export let SparkX = {
         AspectZoom : Vector2.Fill(1),
         Cam : cam,
     },
+    Camera : cam,
     Settings : {
         Rendering : false,
         ReduceScreenTearing : false,
@@ -28,10 +29,6 @@ export let SparkX = {
         Cursor : false,
         Optimization : {
             MathAccuracy : 0.001,
-            Frames : {
-                FramePerfection : true,
-                PerfectionBufferSize : 10,
-            }
         },
         Graphing : {
             
@@ -86,4 +83,4 @@ console.log(`
 ██████╔╝██║░░░░░██║░░██║██║░░██║██║░╚██╗██╔╝╚██╗
 ╚═════╝░╚═╝░░░░░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝`);
 console.log(`All Files Loaded. Running Veriosn: ${SparkX.Version}`);
-//console.log(`Desinged and Programmed by Nathan Irwin`);
+console.log(`Desinged and Programmed by Nathan Irwin`);

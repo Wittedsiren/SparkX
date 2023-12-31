@@ -65,7 +65,7 @@ export class lightCompute {
                             let collidePosition = new Vector2(trc.x, y);
                             if (collidePosition.y <= trc.y && collidePosition.y >= brc.y && cPos.x <= trc.x){
                                 cPos = collidePosition
-                                Draw.line(Vector2.Sub(collidePosition, light.Position), new Vector2(trc.x, (trc.x - light.Position.x) * -slopeOfLine + light.Position.y))
+                                //Draw.line(Vector2.Sub(collidePosition, light.Position), new Vector2(trc.x, (trc.x - light.Position.x) * -slopeOfLine + light.Position.y))
                                 //Draw.circle(new Vector2(trc.x, y), 1, 0, 'blue')
                                 return
                             }
@@ -81,7 +81,7 @@ export class lightCompute {
                         }
                     };
                 })
-                Draw.circle(cPos, 1)
+                if (!Vector2.IsEqualTo(rayPos, cPos)) Draw.circle(cPos, 1)
                 Draw.line(light.Position, cPos)  
             } 
             let lightRes = Vector2.Multiply(Vector2.Fill(2 * light.Brightness),1)

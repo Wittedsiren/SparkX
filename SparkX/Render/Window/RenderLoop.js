@@ -58,31 +58,35 @@ async function render(){
         canvas.height = SparkX.ClientScreenRes.y;
 
         SparkX.renderStarts.forEach(start => {start()});
+
+        //add logo
+        
     }
 
     if (SparkX.Settings.Grid == true){
         let z = SparkX.ConstSettings.Cam.Zoom;
         let res = 100
-        
+
+        let color = (document.getElementById("Screen").style.background == '' || document.getElementById("Screen").style.background == 'white') ? 'gray' : 'white'
         let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = 0.2;
-        Draw.line(new Vector2(0, -res), new Vector2(0, res), 'white')
-        Draw.line(new Vector2(-res, 0), new Vector2(res, 0), 'white')
+        Draw.line(new Vector2(0, -res), new Vector2(0, res), color)
+        Draw.line(new Vector2(-res, 0), new Vector2(res, 0), color)
         let boxSize = 1;
         let lines = res / boxSize
-        Draw.circle(Vector2.Zero(), 1, 0, 'white')
+        Draw.circle(Vector2.Zero(), 1, 0, color)
         for (let index = 0; index < lines; index++) {
             ctx.globalAlpha = 0.2;
-            Draw.line(new Vector2(-res, res), new Vector2(res, res), 'white')
-            Draw.line(new Vector2(-res, -res), new Vector2(res, -res), 'white')
-            Draw.line(new Vector2(res, -res), new Vector2(res, res), 'white')
-            Draw.line(new Vector2(-res, -res), new Vector2(-res, res), 'white')
+            Draw.line(new Vector2(-res, res), new Vector2(res, res), color)
+            Draw.line(new Vector2(-res, -res), new Vector2(res, -res), color)
+            Draw.line(new Vector2(res, -res), new Vector2(res, res), color)
+            Draw.line(new Vector2(-res, -res), new Vector2(-res, res), color)
 
-            Draw.line(new Vector2(-res, boxSize * index), new Vector2(res, boxSize * index ), 'white')
-            Draw.line(new Vector2(-res, -boxSize * index), new Vector2(res, -boxSize * index ), 'white')
+            Draw.line(new Vector2(-res, boxSize * index), new Vector2(res, boxSize * index ), color)
+            Draw.line(new Vector2(-res, -boxSize * index), new Vector2(res, -boxSize * index ), color)
 
-            Draw.line(new Vector2(boxSize * index, -res), new Vector2(boxSize * index, res), 'white')
-            Draw.line(new Vector2(-boxSize * index, -res), new Vector2(-boxSize * index, res), 'white')
+            Draw.line(new Vector2(boxSize * index, -res), new Vector2(boxSize * index, res), color)
+            Draw.line(new Vector2(-boxSize * index, -res), new Vector2(-boxSize * index, res), color)
             
         }
         
@@ -115,22 +119,32 @@ async function render(){
 //     //render()
 // }, 1000 / SparkX.FramesPerSecond );
 
-let Buffer = 0
+let buffer = 0
+let setBuffer = 10
 
 async function renderLoop(){
     setTimeout(function(){
         render()
-        requestAnimationFrame(renderLoop)
-        if (SparkX.Settings.Optimization.Frames.FramePerfection){
-            Buffer = SparkX.Settings.Optimization.Frames.PerfectionBufferSize;
-        }   
+        requestAnimationFrame(renderLoop) 
         if (Math.floor(1 / SparkX.DeltaTime) < SparkX.FramesPerSecond ){
-            SparkX.Settings.Optimization.Frames.PerfectionBufferSize += 1
-            
+            setBuffer += 1
         } else {
-            SparkX.Settings.Optimization.Frames.PerfectionBufferSize -= 1
+            setBuffer -= 1
         }
-    }, (1000 / (SparkX.FramesPerSecond + Buffer)) )
+        buffer = setBuffer;
+    }, (1000 / (SparkX.FramesPerSecond + buffer)) )
 }
 
-requestAnimationFrame(renderLoop)
+let img = new Image();
+
+img.style.maxHeight = SparkX.Canvas.clientHeight;
+img.style.maxWidth = SparkX.Canvas.clientWidth;
+
+img.src = '../../../Spark Made With.png';
+img.style.backgroundSize = "cover"
+document.body.appendChild(img)
+
+setTimeout(function(){
+    document.body.removeChild(img)
+    requestAnimationFrame(renderLoop)    
+}, 1000)

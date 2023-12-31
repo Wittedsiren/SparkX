@@ -1,1 +1,8 @@
-export let renderBuffer = []
+export let renderBuffer = {
+    buffer : [
+
+    ],
+    comp : `
+    
+    `,
+}

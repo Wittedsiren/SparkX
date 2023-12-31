@@ -102,7 +102,7 @@ if (Keyboard.GetKeyState('i')){
     cursor.Position = Vector2.Lerp(cursor.Position, Vector2.Floor(Mouse.Position), 0.5)//Vector2.Floor(Mouse.Position)
     SparkX.ConstSettings.Cam.Position = Vector2.Lerp(SparkX.ConstSettings.Cam.Position, camToBe, 0.3)
     
-    SparkX.Settings.Fidelity = 5
+    SparkX.Settings.Fidelity = 0
     
     
     light.Position = Vector2.Lerp(light.Position, posForLightToBe.Position, 0.1)

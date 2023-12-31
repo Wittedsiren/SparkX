@@ -25,7 +25,7 @@ export class lightCompute {
                 let rayPos = new Vector2(xPos, yPos);
                 let cPos = rayPos
                 
-                renderBuffer.forEach(obj =>{
+                renderBuffer.buffer.forEach(obj =>{
                     if (obj.drawType == 'rect' && obj.Color == 'green'){
 
                         let p = obj.Position;
@@ -46,7 +46,8 @@ export class lightCompute {
                             let collidePosition = new Vector2(x, blc.y);
                             if (collidePosition.x >= blc.x && collidePosition.x <= brc.x && cPos.y >= blc.y){
                                 cPos = collidePosition
-                                Draw.circle(new Vector2(x, blc.y), 1 ,0, 'purple')
+                                
+                                //Draw.circle(new Vector2(x, blc.y), 1 ,0, 'purple')
                                 return
                             }
                         }
@@ -55,7 +56,7 @@ export class lightCompute {
                             let collidePosition = new Vector2(x, tlc.y);
                             if (collidePosition.x >= tlc.x && collidePosition.x <= trc.x && cPos.y <= trc.y){
                                 cPos = collidePosition
-                                Draw.circle(new Vector2(x, tlc.y), 1, 0, 'yellow')
+                                //Draw.circle(new Vector2(x, tlc.y), 1, 0, 'yellow')
                                 return
                             }
                         }
@@ -64,7 +65,8 @@ export class lightCompute {
                             let collidePosition = new Vector2(trc.x, y);
                             if (collidePosition.y <= trc.y && collidePosition.y >= brc.y && cPos.x <= trc.x){
                                 cPos = collidePosition
-                                Draw.circle(new Vector2(trc.x, y), 1, 0, 'blue')
+                                Draw.line(Vector2.Sub(collidePosition, light.Position), new Vector2(trc.x, (trc.x - light.Position.x) * -slopeOfLine + light.Position.y))
+                                //Draw.circle(new Vector2(trc.x, y), 1, 0, 'blue')
                                 return
                             }
                         }
@@ -73,12 +75,13 @@ export class lightCompute {
                             let collidePosition = new Vector2(tlc.x, y);
                             if (collidePosition.y <= tlc.y && collidePosition.y >= blc.y && cPos.x >= tlc.x){
                                 cPos = collidePosition
-                                Draw.circle(new Vector2(tlc.x, y), 1, 0, 'red')
+                                //Draw.circle(new Vector2(tlc.x, y), 1, 0, 'red')
                                 return
                             }
                         }
                     };
                 })
+                Draw.circle(cPos, 1)
                 Draw.line(light.Position, cPos)  
             } 
             let lightRes = Vector2.Multiply(Vector2.Fill(2 * light.Brightness),1)

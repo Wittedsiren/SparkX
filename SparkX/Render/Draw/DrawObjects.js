@@ -13,14 +13,14 @@ export class drawObject{
     Parent = Vector2.Zero();
 
     constructor(){
-        renderBuffer.push(this);
+        renderBuffer.buffer.push(this);
     }
 
     Remove = ()=>{
         let index = 0;
-        renderBuffer.forEach(obj =>{
+        renderBuffer.buffer.forEach(obj =>{
             if (obj == this){
-                renderBuffer[index] = null
+                renderBuffer.buffer[index] = null
                 return
             }
             index++

@@ -36,13 +36,14 @@ async function render(){
 
     //Actually render the Buffer
     
-    renderBuffer.forEach(obj => {
+    renderBuffer.buffer.forEach(obj => {
         try {
             Draw.render(obj)
         } catch (error) {
             
         }
     });
+    eval(renderBuffer.comp)
 
     if (StartRan == false){
         

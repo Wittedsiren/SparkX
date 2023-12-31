@@ -1,6 +1,7 @@
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
+import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { lightCompute } from "../Light/LightCompute.js";
 import { drawObject } from "./DrawObjects.js";
 

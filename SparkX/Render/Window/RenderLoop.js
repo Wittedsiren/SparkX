@@ -119,17 +119,17 @@ let Buffer = 0
 async function renderLoop(){
     setTimeout(function(){
         render()
-        renderLoop();
+        requestAnimationFrame(renderLoop)
         if (SparkX.Settings.Optimization.Frames.FramePerfection){
             Buffer = SparkX.Settings.Optimization.Frames.PerfectionBufferSize;
         }   
-        // if (Math.floor(1 / SparkX.DeltaTime) < SparkX.FramesPerSecond ){
-        //     SparkX.Settings.Optimization.Frames.PerfectionBufferSize += 1
+        if (Math.floor(1 / SparkX.DeltaTime) < SparkX.FramesPerSecond ){
+            SparkX.Settings.Optimization.Frames.PerfectionBufferSize += 1
             
-        // } else {
-        //     SparkX.Settings.Optimization.Frames.PerfectionBufferSize -= 1
-        // }
+        } else {
+            SparkX.Settings.Optimization.Frames.PerfectionBufferSize -= 1
+        }
     }, (1000 / (SparkX.FramesPerSecond + Buffer)) )
 }
 
-renderLoop()
+requestAnimationFrame(renderLoop)

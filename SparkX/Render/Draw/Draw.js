@@ -52,20 +52,43 @@ export let Draw = {
         let s = scale   
         let cenPos = a;
 
-        let x1 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), Vector2.Zero(), rotation);
-        let x2 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), Vector2.Zero(), rotation);
-        let x3 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), Vector2.Zero(), rotation);
-        let x4 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), Vector2.Zero(), rotation);
-        let x5 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), Vector2.Zero(), rotation);
-        let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), Vector2.Zero(), rotation);
-        let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), Vector2.Zero(), rotation);
-        let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), Vector2.Zero(), rotation);
+        let x1 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), position, rotation);
+        let x2 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
+        let x3 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
+        let x4 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
+        let x5 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), position, rotation);
+        let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
+        let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
+        let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
 
-        this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
+        //this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
         this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
         
         ctx.globalAlpha = 1
     },
+
+    rect_unfilled : function(position = Vector2, scale = Vector2, rotation = Number, color = SparkX.Settings.DefaultRenderColor, opacity = Number){
+        let ctx = canvas.getContext('2d');
+        ctx.globalAlpha = opacity
+        let a = position;
+        let s = scale   
+        let cenPos = a;
+
+        let x1 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), position, rotation);
+        let x2 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
+        let x3 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
+        let x4 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
+        let x5 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), position, rotation);
+        let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
+        let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
+        let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
+
+        this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
+        //this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
+        
+        ctx.globalAlpha = 1
+    },
+
 
     circle : function(position = Vector2, radius = Number = 1, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
         
@@ -92,11 +115,10 @@ export let Draw = {
             pos = MathG.RotateAroundPos(pos, Vector2.Zero(), rotation)
             pos = Vector2.Add(pos, position)
             
-            this.line(pos, prevPos, color);
+            //this.line(pos, prevPos, color);
             this.triangle(pos, prevPos, position, color)
             prevPos = pos
         }
-        ctx.globalAlpha = 1
     },
 
     circle_unfilled : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
@@ -191,11 +213,16 @@ export let Draw = {
     render : function(obj = drawObject){
         if (obj.drawType == 'circle'){
             this.circle(obj.Position, obj.Radius, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
+        } else if (obj.drawType == 'circle_unfill'){
+            this.circle_unfilled(obj.Position, obj.Radius, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
         } else if (obj.drawType == 'rect'){
             this.rect(obj.Position, obj.Scale, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
+        } else if (obj.drawType == 'rect_unfill'){
+            this.rect_unfilled(obj.Position, obj.Scale, obj.Rotation, obj.Color, obj.Opacity, obj.Parent)
         } else if (obj.drawType == 'pointlight'){
             lightCompute.render.spotLight(obj);
         }
     }
 }
+
 

@@ -1,33 +1,26 @@
-import { Input } from "../SparkX/Input/Input.js";
 import { Mouse } from "../SparkX/Input/InputFiles/Mouse.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
+import { renderBuffer } from "../SparkX/Render/Buffers/RenderBuffer.js";
 import { Circle, Rect } from "../SparkX/Render/Draw/DrawObjects.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
-SparkX.Settings.Cursor = false;
-SparkX.Settings.Grid = true;
+let circle = new Circle(new Vector2(15, 10), 5)
+let circle2 = new Circle(new Vector2(5, 10), 5)
+let rect = new Rect(new Vector2(10, 10), new Vector2(10, 10))
+SparkX.Settings.Cursor = true;
 
-let player = new Rect(new Vector2(0, 0.5), Vector2.Fill(1));
-let playerPositionToBe = new Vector2(0, 0.5)
-let customCurosr = new Circle(Vector2.Zero(), 0.1)
 
-let ground = new Rect(new Vector2(0, -0.5), new Vector2(100, 1), 0, 'green')
-let camOffset = new Vector2(0, 2)
-let playerSpeed = 20
-
-Mouse.OnButton1Down(()=>{
-    //new Circle(Mouse.Position)
-    SparkX.Camera.Position.MoveTo(Mouse.Position, 1)
-})
+circle.AddBasicMovementArrow()
+//circle.Color = 'red'
+// circle.UnFill();
+SparkX.Settings.Fidelity = 3
 
 SparkX.RenderLoop(()=>{
-    //SparkX.Camera.Position = Vector2.Lerp(SparkX.ConstSettings.Cam.Position, Vector2.Add(camOffset, player.Position), 0.1)
-    player.Position = Vector2.Lerp(player.Position, playerPositionToBe, 0.5)
-    if (Input.Keyboard.GetKeyState('d')){
-        playerPositionToBe.x += playerSpeed * SparkX.DeltaTime
-    } if (Input.Keyboard.GetKeyState('a')){
-        playerPositionToBe.x -= playerSpeed * SparkX.DeltaTime
-    }
+    //document.getElementById('PosDisplay').innerText = SparkX.Information.TriangleCount;
+    circle.Position = Vector2.Lerp(circle.Position, Mouse.Position, 1)
+})
 
-    customCurosr.Position = Vector2.Lerp(customCurosr.Position, Mouse.Position, 1)
+Mouse.OnButton1Down(()=>{
+    circle2.Position.MoveTo(Mouse.Position, 1)
+    
 })

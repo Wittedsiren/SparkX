@@ -52,7 +52,7 @@ async function render(){
         //get refresh Rate
         //SparkX.GetRefreshRate().then(rr => SparkX.FramesPerSecond = Math.round(rr));
 
-        AspectRatioWindow.DetermineAspectRatio();
+        //AspectRatioWindow.DetermineAspectRatio();
 
         canvas.width = SparkX.ClientScreenRes.x;
         canvas.height = SparkX.ClientScreenRes.y;
@@ -135,16 +135,40 @@ async function renderLoop(){
     }, (1000 / (SparkX.FramesPerSecond + buffer)) )
 }
 
-let img = new Image();
+function displayWaterMark(){
+    let img = new Image();
+    img.style.maxHeight = SparkX.ClientScreenRes.y;
+    img.style.maxWidth = SparkX.ClientScreenRes.x;
+    img.style.top = '50%';
+    img.style.left = '50%';
+    img.src = '../../../Spark Made With.png';
+    img.style.transform = 'translate(-50%, -50%)'
+    img.style.position = 'absolute'
+    document.body.appendChild(img)
+    let o = 1;
+    function LowerO (){
+        setTimeout(function(){
+            if (o >= 0){
+                o -= 0.01;
+                img.style.opacity = o
 
-img.style.maxHeight = SparkX.Canvas.clientHeight;
-img.style.maxWidth = SparkX.Canvas.clientWidth;
+                LowerO()
+            } else {
+                o = 0;
+                return
+            }
+        }, 1)
+    }
+    
+    setTimeout(function(){
+        LowerO()
+    }, 500)
 
-img.src = '../../../Spark Made With.png';
-img.style.backgroundSize = "cover"
-document.body.appendChild(img)
+    setTimeout(function(){
+        document.body.removeChild(img)
+        if (SparkX.Settings.Rendering) requestAnimationFrame(renderLoop)    
+    }, 1000)   
+}
 
-setTimeout(function(){
-    document.body.removeChild(img)
-    requestAnimationFrame(renderLoop)    
-}, 1000)
+displayWaterMark();
+//requestAnimationFrame(renderLoop)    

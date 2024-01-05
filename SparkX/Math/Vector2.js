@@ -18,19 +18,16 @@ export class Vector2 {
      * @param {Number} t this is how long you want this procces to take in seconds
      */
     async MoveTo(a = Vector2, t = Number){
-        console.log('called');  
         if (this.#moving == false){
             this.#moving = true
             let timeElapsed = 0;
             let valueToLerp = 0;
-            console.log(new Vector2(this.x, this.y), a);
             SparkX.RenderLoop(()=>{
                 if (timeElapsed < t){
                     valueToLerp = Vector2.Lerp(new Vector2(this.x, this.y), a, timeElapsed / t);
                     this.x = valueToLerp.x;
                     this.y = valueToLerp.y
                     timeElapsed += SparkX.DeltaTime;
-                    //console.log(SparkX.DeltaTime);
                 } else if (!Vector2.IsEqualTo(new Vector2(this.x, this.y), a)){
                     this.#moving = false
                     this.x = a.x;
@@ -44,16 +41,13 @@ export class Vector2 {
                     return true
                 } 
                 if (this.#cancel) {
-                    //console.log('cancelled to call another moveto');
                     this.#cancel = false; 
-                    //this.MoveTo(a, t)
                     return true
                 }
             })
         } else {
             this.#cancel = true;
             this.#moving = false;
-            console.log('Cancelled and calling another');
             this.MoveTo(a, t)
         }
     }

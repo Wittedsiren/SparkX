@@ -7,7 +7,7 @@ let cam = {
 }
 
 export let SparkX = {
-    Version : "0.2.40",
+    Version : "0.7.0",
     Canvas : document.getElementById("Screen"),
     Resolution : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
     ClientScreenRes : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
@@ -18,7 +18,7 @@ export let SparkX = {
     },
     Camera : cam,
     Settings : {
-        Rendering : false,
+        Rendering : true,
         ReduceScreenTearing : false,
         Fidelity : 1,
         Grid : true,
@@ -41,7 +41,7 @@ export let SparkX = {
         IgnoreCaps : false,
     },
     
-    DeltaTime : 0,
+    DeltaTime : 420.69,
     
     FramesPerSecond : 60,
     Information : {

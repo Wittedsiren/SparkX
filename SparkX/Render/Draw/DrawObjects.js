@@ -11,7 +11,7 @@ export class drawObject{
     Position = Vector2.Zero();
     Opacity = 1;
     Parent = Vector2.Zero();
-
+    #isFilled = true;
     constructor(){
         renderBuffer.buffer.push(this);
     }
@@ -29,7 +29,23 @@ export class drawObject{
     }
 
     SetZIndex(index){
-        
+        for (let i = 0; i < renderBuffer.buffer.length; i++) {
+            let ri = renderBuffer.buffer.length - ( i + 1 )
+            let currentElem = renderBuffer.buffer[ri];
+            if (currentElem != this){
+                if (ri >= index){
+                   
+                    renderBuffer.buffer[ri + 1] = currentElem;
+                }
+            } else {
+                renderBuffer.buffer[ri] = null
+            }
+        }
+        renderBuffer.buffer[index] = this;
+    }
+
+    GetZIndex(){
+        return renderBuffer.buffer.indexOf(this);
     }
 
     AddBasicMovementWASD = ()=>{
@@ -44,6 +60,26 @@ export class drawObject{
         Input.Keyboard.OnKeyDown('ArrowLeft', ()=>{this.Position.x--})
         Input.Keyboard.OnKeyDown('ArrowRight', ()=>{this.Position.x++})
     }
+
+    Fill(){
+        this.#isFilled = true
+        if (this.drawType.indexOf('_unfill') != -1){
+            this.drawType = this.drawType.split('_')[0];
+            console.log(this.drawType);
+        }
+    }
+
+    UnFill(){
+        this.#isFilled = false
+        if (this.drawType.indexOf('_unfill') == -1){
+            this.drawType += "_unfill";
+        }
+    }
+
+    IsFilled(){
+        return this.#isFilled;
+    }
+
 }
 
 export class Circle extends drawObject{
@@ -57,7 +93,6 @@ export class Circle extends drawObject{
         this.Color = color
         this.Opacity = opacity
         this.drawType = "circle";
-
         
         return this
     }

@@ -3,6 +3,7 @@ import { Keyboard } from "../SparkX/Input/InputFiles/Keyboard.js";
 import { Mouse } from "../SparkX/Input/InputFiles/Mouse.js";
 import { MathG } from "../SparkX/Math/MathG.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
+import { Draw } from "../SparkX/Render/Draw/Draw.js";
 import { Circle, Rect } from "../SparkX/Render/Draw/DrawObjects.js";
 import { PointLight } from "../SparkX/Render/Light/Light.js";
 import { SparkX } from "../SparkX/SparkX.js";
@@ -15,7 +16,7 @@ let obstacal2 = new Rect(new Vector2(0, 0), new Vector2(10, 10), 0, 'yellow', 0.
 let cursor = new Rect(Vector2.Zero(), new Vector2(1, 1))
 let obsOri = Vector2.Zero()
 let posForLightToBe = new Circle(Vector2.Zero());
-SparkX.Settings.Grid = true
+SparkX.Settings.Grid = false
 SparkX.Settings.Cursor = false  
 SparkX.Settings.PixelsPerPoint = 25
 let placeType = 'rect'
@@ -65,8 +66,8 @@ SparkX.RenderLoop(()=>{
             SparkX.FramesPerSecond = (i + 1) * 10
         }
     }
-
-    SparkX.Canvas.style.backgroundColor = 'salmon'
+  
+    //SparkX.Canvas.style.backgroundColor = 'salmon'
 
     if (Input.Keyboard.GetKeyState('d')){
         camToBe.x += 10 *SparkX.DeltaTime
@@ -104,8 +105,8 @@ if (Keyboard.GetKeyState('i')){
     
     SparkX.Settings.Fidelity = 1
     
-    
-    light.Position = Vector2.Lerp(light.Position, posForLightToBe.Position, 0.1)
+    // /posForLightToBe.Position
+    light.Position = Vector2.Lerp(light.Position, Mouse.Position, 0.1)
     document.getElementById('PosDisplay').innerText = 'Target Frame rate is: ' + SparkX.FramesPerSecond + ". But actualy rate is " + Math.floor(1 / SparkX.DeltaTime)
 
     if (! clicked){
@@ -114,6 +115,17 @@ if (Keyboard.GetKeyState('i')){
     } else {
       obstacal2.Position = Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)) // Vector2.Add(clickedPos, Vector2.Divide(obstacal2.Scale, 2)) 
       obstacal2.Scale = Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos) //Vector2.Sub(Vector2.Floor(Mouse.Position), clickedPos) 
+    }
+    let pos1 = new Vector2(10, 10)
+    let pos2 = new Vector2(9, 7)
+    let pos3 = new Vector2(16, 15)
+    Draw.triangle_unfilled(pos1, pos2, pos3);
+    
+    let point = Mouse.Position;
+    if (MathG.IsWithinTriangle(pos1, pos2, pos3, point)){
+      console.log("IS IT");
+    } else {
+      
     }
 })
 

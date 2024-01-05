@@ -1,3 +1,5 @@
+import { Input } from "../../Input/Input.js";
+import { Mouse } from "../../Input/InputFiles/Mouse.js";
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
@@ -14,8 +16,8 @@ export class lightCompute {
             
             Draw.circle_unfilled(light.Position, light.Brightness, 0, 'black')
             
-            
-
+            let collidedPositions = [];
+            let lightRaySlopes = [];
             let numberOfLightRays = 8 + Math.abs(Math.round((f * 2))) + Math.round((f * 2))
             for (let i = 0; i < numberOfLightRays; i++) {
                 let angle = (2 * Math.PI) / numberOfLightRays * i
@@ -41,6 +43,7 @@ export class lightCompute {
                         Draw.circle(tlc, 0.3)
                       
                         let slopeOfLine = (rayPos.y - light.Position.y) / (rayPos.x - light.Position.x);
+                        lightRaySlopes.push(slopeOfLine);
                         if (brc.y > light.Position.y ){
                             let x = (blc.y - light.Position.y) / slopeOfLine + light.Position.x
                             let collidePosition = new Vector2(x, blc.y);
@@ -83,22 +86,31 @@ export class lightCompute {
                 })
                 if (!Vector2.IsEqualTo(rayPos, cPos)) Draw.circle(cPos, 1)
                 Draw.line(light.Position, cPos)  
+                collidedPositions.push(cPos)
             } 
+
             let lightRes = Vector2.Multiply(Vector2.Fill(2 * light.Brightness),1)
-            console.log(lightRes);
-            // for (let x = -lightRes.x/2; x < lightRes.x/2; x++) {
-            //     for (let y = -lightRes.x/2; y < lightRes.y/2; y++){
-            //         console.log('hey');
-            //         let pos = new Vector2(x + 0.5, y + 0.5);
-            //         let dist = Vector2.Magnitude(pos, light.Position);
-            //         let opacity = 1- dist/ light.Brightness;
-            //         if (dist < light.Brightness){
-            //             Draw.rect(pos, Vector2.Fill(0.8), 0, 'pink', opacity)    
 
-            //         }
-
-            //     }
-            // }
+            let prev = null;
+                
+            for (let cPoses = 0; cPoses < collidedPositions.length ; cPoses++) {
+                if (prev == null) prev = collidedPositions[collidedPositions.length - 1];
+                let cPos = collidedPositions[cPoses];
+                //Draw.line(cPos, prev)
+                //Draw.triangle(cPos, prev, light.Position, 'white')
+                
+                for (let x = -lightRes.x/2; x < lightRes.x/2; x++) {
+                    for (let y = -lightRes.x/2; y < lightRes.y/2; y++){
+                        let pos = new Vector2(x + light.Position.x + 0.5, y + light.Position.y + 0.5);
+                        if (MathG.IsWithinTriangle(cPos, prev, light.Position, pos)){
+                            let dist = Vector2.Magnitude(pos, light.Position);
+                            let opacity = 1 - (dist / light.Brightness)
+                            Draw.rect(pos, Vector2.Fill(1), 0, 'yellow', opacity) 
+                        }
+                    }
+                }   
+                prev = cPos       
+            }  
         }
     }
 }

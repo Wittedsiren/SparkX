@@ -26,7 +26,7 @@ export let SparkX = {
         PixelsPerPoint : 25,
         DefaultRenderColor : 'blue',
         UseGPU : false,
-        Cursor : false,
+        Cursor : true,
         Optimization : {
             MathAccuracy : 0.001,
         },
@@ -41,7 +41,7 @@ export let SparkX = {
         IgnoreCaps : false,
     },
     
-    DeltaTime : 420.69,
+    DeltaTime : 0,
     
     FramesPerSecond : 60,
     Information : {

@@ -4,11 +4,11 @@ export class Vector2 {
     /**
      * @param x The x value of the vector
      */
-    x = Number;
+    static x = Number;
     /**
      * @param y The y value of the vector
      */
-    y = Number;
+    static y = Number;
     #moving = false;
     #cancel = false;
 
@@ -64,6 +64,7 @@ export class Vector2 {
  * @returns the distance
  */
     static Magnitude(a = Vector2, b = Vector2){
+
         let vec1 = Math.pow(b.x - a.x, 2);
         let vec2 = Math.pow(b.y - a.y, 2);
 

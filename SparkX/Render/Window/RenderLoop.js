@@ -3,6 +3,7 @@ import { SparkX } from "../../SparkX.js";
 import { Draw } from "../Draw/Draw.js";
 import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
+import { renderFrame } from "../Buffers/FrameBuffer.js";
 
 
 let canvas = SparkX.Canvas;
@@ -29,21 +30,13 @@ async function render(){
         SparkX.ClearCanvas()
     }
 
+    let rf = new renderFrame(renderBuffer.buffer);
+    rf.renderToScreen();
+
     var ctx = canvas.getContext('2d');
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
     ctx.fillStyle = 'rgba(255, 0, 0, 0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-    //Actually render the Buffer
-    
-    renderBuffer.buffer.forEach(obj => {
-        try {
-            Draw.render(obj)
-        } catch (error) {
-            
-        }
-    });
-    eval(renderBuffer.comp)
 
     if (StartRan == false){
         
@@ -61,36 +54,6 @@ async function render(){
 
         //add logo
         
-    }
-
-    if (SparkX.Settings.Grid == true){
-        let z = SparkX.ConstSettings.Cam.Zoom;
-        let res = 100
-
-        let color = (document.getElementById("Screen").style.background == '' || document.getElementById("Screen").style.background == 'white') ? 'gray' : 'white'
-        let ctx = SparkX.Canvas.getContext('2d');
-        ctx.globalAlpha = 0.2;
-        Draw.line(new Vector2(0, -res), new Vector2(0, res), color)
-        Draw.line(new Vector2(-res, 0), new Vector2(res, 0), color)
-        let boxSize = 1;
-        let lines = res / boxSize
-        Draw.circle(Vector2.Zero(), 1, 0, color)
-        for (let index = 0; index < lines; index++) {
-            ctx.globalAlpha = 0.2;
-            Draw.line(new Vector2(-res, res), new Vector2(res, res), color)
-            Draw.line(new Vector2(-res, -res), new Vector2(res, -res), color)
-            Draw.line(new Vector2(res, -res), new Vector2(res, res), color)
-            Draw.line(new Vector2(-res, -res), new Vector2(-res, res), color)
-
-            Draw.line(new Vector2(-res, boxSize * index), new Vector2(res, boxSize * index ), color)
-            Draw.line(new Vector2(-res, -boxSize * index), new Vector2(res, -boxSize * index ), color)
-
-            Draw.line(new Vector2(boxSize * index, -res), new Vector2(boxSize * index, res), color)
-            Draw.line(new Vector2(-boxSize * index, -res), new Vector2(-boxSize * index, res), color)
-            
-        }
-        
-        ctx.globalAlpha = 1;
     }
 
     SparkX.renderLoops.forEach(element => {
@@ -112,17 +75,15 @@ async function render(){
     lastUpdate = currentUpdate;
     //document.getElementById("PosDisplay").innerText = `${SparkX.ConstSettings.Cam.Position.x}, ${SparkX.ConstSettings.Cam.Position.y}`
     
+    //Actually render the Buffer
     
+   
 }
-
-// setInterval(() => { 
-//     //render()
-// }, 1000 / SparkX.FramesPerSecond );
 
 let buffer = 0
 let setBuffer = 10
 
-async function renderLoop(){
+function renderLoop(){
     setTimeout(function(){
         render()
         requestAnimationFrame(renderLoop) 
@@ -170,5 +131,5 @@ function displayWaterMark(){
     }, 1000)   
 }
 
-displayWaterMark();
-//requestAnimationFrame(renderLoop)    
+//displayWaterMark();
+requestAnimationFrame(renderLoop)    

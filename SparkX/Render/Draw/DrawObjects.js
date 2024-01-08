@@ -8,7 +8,7 @@ export class drawObject{
     Rotation = 0;
     drawType = ''
     PositionType ='global'
-    Position = Vector2.Zero();
+    static Position = Vector2;
     Opacity = 1;
     Parent = Vector2.Zero();
     #isFilled = true;

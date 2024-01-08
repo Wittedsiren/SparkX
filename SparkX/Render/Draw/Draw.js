@@ -50,7 +50,6 @@ export let Draw = {
         ctx.globalAlpha = opacity
         let a = position;
         let s = scale   
-        let cenPos = a;
 
         let x1 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y + s.y/2), position, rotation);
         let x2 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
@@ -60,7 +59,22 @@ export let Draw = {
         let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
         let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
         let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
-
+        x1.y -= position.x; 
+        x1.y += position.y;
+        x2.y -= position.x; 
+        x2.y += position.y;
+        x3.y -= position.x; 
+        x3.y += position.y;
+        x4.y -= position.x; 
+        x4.y += position.y;
+        x5.y -= position.x; 
+        x5.y += position.y;
+        x6.y -= position.x; 
+        x6.y += position.y;
+        x7.y -= position.x; 
+        x7.y += position.y;
+        x8.y -= position.x; 
+        x8.y += position.y;
         //this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
         this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
         

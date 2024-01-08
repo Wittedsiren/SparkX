@@ -39,13 +39,13 @@ window.addEventListener("wheel", event => {
 });
 window.addEventListener("mousemove", event => {   
     let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
-    let c = SparkX.ConstSettings.Cam 
-    let pos = new Vector2(event.x + window.scrollX, -event.y)
-    pos.x -= SparkX.Resolution.x/2  
-    pos.y += SparkX.Resolution.y/2
-    pos = Vector2.Divide(pos, ppp * c.Zoom)
-    pos.x += c.Position.x;
-    pos.y += c.Position.y
+    let z = SparkX.Camera.Zoom;
+    let az = SparkX.ConstSettings.AspectZoom;
+    let rect = SparkX.Canvas.getBoundingClientRect();
+    let x = event.clientX - rect.left - SparkX.Resolution.x / 2;
+    let y = event.clientY - rect.top - SparkX.Resolution.y / 2;
+    let pos = new Vector2(x / ppp, -y / ppp);
+    pos = Vector2.Divide(pos, az)
     
 
 

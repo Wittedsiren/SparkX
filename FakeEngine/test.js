@@ -1,7 +1,7 @@
 import { Keyboard } from "../SparkX/Input/InputFiles/Keyboard.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
 import { Draw } from "../SparkX/Render/Draw/Draw.js";
-import { Circle, Rect, drawObject } from "../SparkX/Render/Draw/DrawObjects.js";
+import { Circle, Rect } from "../SparkX/Render/Draw/DrawObjects.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
 let pingpongball = new Circle(Vector2.Zero(), 1, 0, 'white')

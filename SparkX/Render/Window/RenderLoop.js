@@ -131,5 +131,5 @@ function displayWaterMark(){
     }, 1000)   
 }
 
-//displayWaterMark();
-requestAnimationFrame(renderLoop)    
+displayWaterMark();
+//requestAnimationFrame(renderLoop)    

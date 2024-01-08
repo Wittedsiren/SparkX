@@ -20,9 +20,9 @@ let l_func = {
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
                              x2.y +SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
         let x4 = Vector2.Multiply(x3, ppp * z)
-        //let x5 = MathG.RotateAroundPos(x4, SparkX.ConstSettings.Cam.Position, SparkX.ConstSettings.Cam.Rotation)
+        let x5 = MathG.RotateAroundPos(x4, Vector2.Zero(), SparkX.ConstSettings.Cam.Rotation)
 
-        return x4;
+        return x5;
     }
 }
 
@@ -59,23 +59,16 @@ export let Draw = {
         let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
         let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
         let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
-        x1.y -= position.x; 
-        x1.y += position.y;
-        x2.y -= position.x; 
-        x2.y += position.y;
-        x3.y -= position.x; 
-        x3.y += position.y;
-        x4.y -= position.x; 
-        x4.y += position.y;
-        x5.y -= position.x; 
-        x5.y += position.y;
-        x6.y -= position.x; 
-        x6.y += position.y;
-        x7.y -= position.x; 
-        x7.y += position.y;
-        x8.y -= position.x; 
-        x8.y += position.y;
+        x1.y -= position.x; x1.y += position.y;
+        x2.y -= position.x; x2.y += position.y;
+        x3.y -= position.x; x3.y += position.y;
+        x4.y -= position.x; x4.y += position.y;
+        x5.y -= position.x; x5.y += position.y;
+        x6.y -= position.x; x6.y += position.y;
+        x7.y -= position.x; x7.y += position.y;
+        x8.y -= position.x; x8.y += position.y;
         //this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
+        this.line(x2, x6, color)
         this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
         
         ctx.globalAlpha = 1
@@ -96,6 +89,14 @@ export let Draw = {
         let x6 = MathG.RotateAroundPos(new Vector2(a.x - s.x/2, a.y - s.y/2), position, rotation);
         let x7 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y + s.y/2), position, rotation);
         let x8 = MathG.RotateAroundPos(new Vector2(a.x + s.x/2, a.y - s.y/2), position, rotation);
+        x1.y -= position.x; x1.y += position.y;
+        x2.y -= position.x; x2.y += position.y;
+        x3.y -= position.x; x3.y += position.y;
+        x4.y -= position.x; x4.y += position.y;
+        x5.y -= position.x; x5.y += position.y;
+        x6.y -= position.x; x6.y += position.y;
+        x7.y -= position.x; x7.y += position.y;
+        x8.y -= position.x; x8.y += position.y;
 
         this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
         //this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
@@ -131,6 +132,7 @@ export let Draw = {
             
             //this.line(pos, prevPos, color);
             this.triangle(pos, prevPos, position, color)
+            this.line(pos, position, color);
             prevPos = pos
         }
     },

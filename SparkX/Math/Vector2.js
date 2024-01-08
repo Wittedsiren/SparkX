@@ -4,11 +4,11 @@ export class Vector2 {
     /**
      * @param x The x value of the vector
      */
-    static x = Number;
+    x = Number;
     /**
      * @param y The y value of the vector
      */
-    static y = Number;
+    y = Number;
     #moving = false;
     #cancel = false;
 
@@ -18,16 +18,19 @@ export class Vector2 {
      * @param {Number} t this is how long you want this procces to take in seconds
      */
     async MoveTo(a = Vector2, t = Number){
+        console.log('called');  
         if (this.#moving == false){
             this.#moving = true
             let timeElapsed = 0;
             let valueToLerp = 0;
+            console.log(new Vector2(this.x, this.y), a);
             SparkX.RenderLoop(()=>{
                 if (timeElapsed < t){
                     valueToLerp = Vector2.Lerp(new Vector2(this.x, this.y), a, timeElapsed / t);
                     this.x = valueToLerp.x;
                     this.y = valueToLerp.y
                     timeElapsed += SparkX.DeltaTime;
+                    //console.log(SparkX.DeltaTime);
                 } else if (!Vector2.IsEqualTo(new Vector2(this.x, this.y), a)){
                     this.#moving = false
                     this.x = a.x;
@@ -41,13 +44,16 @@ export class Vector2 {
                     return true
                 } 
                 if (this.#cancel) {
+                    //console.log('cancelled to call another moveto');
                     this.#cancel = false; 
+                    //this.MoveTo(a, t)
                     return true
                 }
             })
         } else {
             this.#cancel = true;
             this.#moving = false;
+            console.log('Cancelled and calling another');
             this.MoveTo(a, t)
         }
     }
@@ -64,7 +70,6 @@ export class Vector2 {
  * @returns the distance
  */
     static Magnitude(a = Vector2, b = Vector2){
-
         let vec1 = Math.pow(b.x - a.x, 2);
         let vec2 = Math.pow(b.y - a.y, 2);
 
@@ -160,15 +165,7 @@ export class Vector2 {
         return new Vector2(Math.floor(a.x), Math.floor(a.y))
     }
 
-    static Abs(a = Vector2){
-        return new Vector2(Math.abs(a.x), Math.abs(a.y))
-    }
-
-    static GetNormal(a, b){
-        let x = b.x - a.x;
-        let y = b.y - a.y;
-        
-    }
+    
      
 }
 

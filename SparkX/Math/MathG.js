@@ -1,4 +1,5 @@
 import { Draw } from "../Render/Draw/Draw.js";
+import { Circle, Rect } from "../Render/Draw/DrawObjects.js";
 import { SparkX } from "../SparkX.js";
 import { Vector2 } from "./Vector2.js";
 
@@ -31,5 +32,22 @@ export let MathG = {
                 (pos3.y - pos1.y);
         
         return (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1);
+    },
+
+    IsColliding(a = Rect || Circle, b = Rect || Circle){
+        const { Scale } = a, { Radius } = b;
+        if (b.Position.y - Radius  <= a.Position.y + Scale.y/2 && b.Position.y + Radius >= a.Position.y - Scale.y/2){
+            if (b.Position.x + Radius >= a.Position.x - Scale.x/2 && b.Position.x - Radius <= a.Position.x + Scale.x/2){
+                return true;
+            } else if (b.Position.x - Radius <= a.Position.x + Scale.x/2 && b.Position.x + Radius >= a.Position.x - Scale.x/2){
+                return true
+            }
+        }
+    
+        // if (b.Position.x + Radius >= rect.Position.x - Scale.x/2 && b.Position.x - Radius <= rect.Position.x + Scale.x/2){
+    
+        // }
+    
+        return false
     }
 }

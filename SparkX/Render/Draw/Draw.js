@@ -5,10 +5,10 @@ import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { lightCompute } from "../Light/LightCompute.js";
 import { drawObject } from "./DrawObjects.js";
 
-let canvas = SparkX.Canvas;
 
 let dx = Number;
 let dy = Number;
+// let canvas = SparkX.Canvas;
 let l_func = {
     MakePosRelative : function(a){
         let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
@@ -28,7 +28,7 @@ let l_func = {
 
 export let Draw = {
     line : function(position_a = Vector2, position_b = Vector2, color = String = "blue"){
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         
@@ -47,7 +47,7 @@ export let Draw = {
     },
 
     rect : function(position = Vector2, scale = Vector2, rotation = Number, color = SparkX.Settings.DefaultRenderColor, opacity = Number){
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = opacity
         let a = position;
         let s = scale   
@@ -76,7 +76,7 @@ export let Draw = {
     },
 
     rect_unfilled : function(position = Vector2, scale = Vector2, rotation = Number, color = SparkX.Settings.DefaultRenderColor, opacity = Number){
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = opacity
         let a = position;
         let s = scale   
@@ -109,7 +109,7 @@ export let Draw = {
     circle : function(position = Vector2, radius = Number = 1, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
         
         position = Vector2.Add(position, parent)
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = opacity
         let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
         let angle = (2 * Math.PI)/(segments); 
@@ -141,7 +141,7 @@ export let Draw = {
     circle_unfilled : function(position = Vector2, radius = Number, rotation = Number = 0, color = String = 'blue', opacity, parent = Vector2.Zero()){
         
         position = Vector2.Add(position, parent)
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = opacity
         let segments = Math.round ( (7) * SparkX.Settings.Fidelity ) + 3;
         let angle = (2 * Math.PI)/(segments); 
@@ -171,7 +171,7 @@ export let Draw = {
     },
 
     triangle_unfilled : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = String = "blue"){
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         
@@ -194,7 +194,7 @@ export let Draw = {
     },
 
     triangle : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = SparkX.Settings.DefaultRenderColor){
-        let ctx = canvas.getContext('2d');
+        let ctx = SparkX.Canvas.getContext('2d');
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         
@@ -222,7 +222,7 @@ export let Draw = {
         dx = SparkX.Resolution.x / 2;
         dy = SparkX.Resolution.y / 2;
 
-        const ctx = canvas.getContext('2d');
+        const ctx = SparkX.Canvas.getContext('2d');
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 2;
 

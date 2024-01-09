@@ -1,4 +1,4 @@
-import { Input } from "../../Input/Input.js";
+// import { Input } from "../../Input/Input.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { renderBuffer } from "../Buffers/RenderBuffer.js";
@@ -48,18 +48,18 @@ export class drawObject{
         return renderBuffer.buffer.indexOf(this);
     }
 
-    AddBasicMovementWASD = ()=>{
-        Input.Keyboard.OnKeyDown('w', ()=>{this.Position.y++})
-        Input.Keyboard.OnKeyDown('s', ()=>{this.Position.y--})
-        Input.Keyboard.OnKeyDown('a', ()=>{this.Position.x--})
-        Input.Keyboard.OnKeyDown('d', ()=>{this.Position.x++})
-    }
-    AddBasicMovementArrow = ()=>{
-        Input.Keyboard.OnKeyDown('ArrowUp', ()=>{this.Position.y++})
-        Input.Keyboard.OnKeyDown('ArrowDown', ()=>{this.Position.y--})
-        Input.Keyboard.OnKeyDown('ArrowLeft', ()=>{this.Position.x--})
-        Input.Keyboard.OnKeyDown('ArrowRight', ()=>{this.Position.x++})
-    }
+    // AddBasicMovementWASD = ()=>{
+    //     Input.Keyboard.OnKeyDown('w', ()=>{this.Position.y++})
+    //     Input.Keyboard.OnKeyDown('s', ()=>{this.Position.y--})
+    //     Input.Keyboard.OnKeyDown('a', ()=>{this.Position.x--})
+    //     Input.Keyboard.OnKeyDown('d', ()=>{this.Position.x++})
+    // }
+    // AddBasicMovementArrow = ()=>{
+    //     Input.Keyboard.OnKeyDown('ArrowUp', ()=>{this.Position.y++})
+    //     Input.Keyboard.OnKeyDown('ArrowDown', ()=>{this.Position.y--})
+    //     Input.Keyboard.OnKeyDown('ArrowLeft', ()=>{this.Position.x--})
+    //     Input.Keyboard.OnKeyDown('ArrowRight', ()=>{this.Position.x++})
+    // }
 
     Fill(){
         this.#isFilled = true

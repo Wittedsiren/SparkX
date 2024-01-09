@@ -1,0 +1,23 @@
+{
+  "name": "sparkx",
+  "version": "1.0.0",
+  "description": "SparkX is render library used for the web. It includeds an input engine and a 2D render engine. This library is wirrten in pure ```JavaScript```",
+  "main": "/SparkX/Bundle.js",
+  "scripts": {
+    "build": "rollup --config"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wittedsiren/SparkX.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wittedsiren/SparkX/issues"
+  },
+  "homepage": "https://github.com/Wittedsiren/SparkX#readme",
+  "devDependencies": {
+    "rollup": "^4.9.4"
+  }
+}

@@ -1,4 +1,5 @@
 import { Vector2 } from "./Math/Vector2.js"
+import {Init} from "./Render/Window/RenderLoop.js"
 
 let cam = {
     Position : Vector2.Zero(),
@@ -80,6 +81,8 @@ export let SparkX = {
         })
     }
 }
+
+Init()
 
 console.log(`
 ░██████╗██████╗░░█████╗░██████╗░██╗░░██╗██╗░░██╗

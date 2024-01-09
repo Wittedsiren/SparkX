@@ -1,12 +1,12 @@
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
-import { Draw } from "../Draw/Draw.js";
+// import { Draw } from "../Draw/Draw.js";
 import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { AspectRatioWindow } from "./AspectRatio.js";
 import { renderFrame } from "../Buffers/FrameBuffer.js";
 
 
-let canvas = SparkX.Canvas;
+
 let lastUpdate = Date.now();
 let StartRan = false;
 
@@ -16,11 +16,11 @@ let frame = 1;
 //Change to animation frame thing
 
 async function render(){
-
-    if (!SparkX.Settings.Cursor){ SparkX.Canvas.style.cursor = 'none' }
-
+    let canvas = SparkX.Canvas;
+    if (!SparkX.Settings.Cursor) {canvas.style.cursor = 'none' }
+    
     if (SparkX.Settings.ReduceScreenTearing){
-        if ((frame / 1000) == 1){
+        if ((frame / 10) == 1){
             SparkX.ClearCanvas()
             frame = 0;
         } else {
@@ -96,13 +96,13 @@ function renderLoop(){
     }, (1000 / (SparkX.FramesPerSecond + buffer)) )
 }
 
-function displayWaterMark(){
+export function Init(){
     let img = new Image();
     img.style.maxHeight = SparkX.ClientScreenRes.y;
     img.style.maxWidth = SparkX.ClientScreenRes.x;
     img.style.top = '50%';
     img.style.left = '50%';
-    img.src = '../../../Spark Made With.png';
+    img.src = '../Spark Made With.png'
     img.style.transform = 'translate(-50%, -50%)'
     img.style.position = 'absolute'
     document.body.appendChild(img)
@@ -131,5 +131,5 @@ function displayWaterMark(){
     }, 1000)   
 }
 
-//displayWaterMark();
-requestAnimationFrame(renderLoop)    
+// Init();
+//requestAnimationFrame(renderLoop)    

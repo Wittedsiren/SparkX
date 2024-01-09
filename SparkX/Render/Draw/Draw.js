@@ -43,6 +43,7 @@ export let Draw = {
         ctx.lineTo( b.x, b.y );
         ctx.closePath()
         ctx.stroke();
+        SparkX.Information.VerticeCount += 2;
     },
 
     rect : function(position = Vector2, scale = Vector2, rotation = Number, color = SparkX.Settings.DefaultRenderColor, opacity = Number){
@@ -188,6 +189,8 @@ export let Draw = {
         ctx.lineTo( c.x, c.y );
         ctx.closePath()
         ctx.stroke();
+        
+        SparkX.Information.VerticeCount += 3
     },
 
     triangle : function(position_a = Vector2, position_b = Vector2, position_c = Vector2, color = SparkX.Settings.DefaultRenderColor){
@@ -211,6 +214,8 @@ export let Draw = {
         region.closePath()
         ctx.fillStyle = color;
         ctx.fill(region)
+        SparkX.Information.VerticeCount += 3;
+        SparkX.Information.triangle += 3
     },
 
     image : function(){

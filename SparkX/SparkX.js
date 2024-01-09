@@ -54,6 +54,8 @@ export let SparkX = {
     
     ClearCanvas : async function(){
         SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
+        SparkX.Information.TriangleCount = 0;
+        SparkX.Information.VerticeCount = 0;
     },
     renderStarts : [],
     renderLoops : [],
@@ -72,7 +74,11 @@ export let SparkX = {
             requestAnimationFrame(t1 =>
             requestAnimationFrame(t2 => resolve(1000 / (t2 - t1)))))
     },
-    
+    LoadFile : function(FilePath){
+        fs.readFile(FilePath, (err, data)=>{
+            eval(data.toString());
+        })
+    }
 }
 
 console.log(`

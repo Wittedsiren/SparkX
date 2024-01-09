@@ -1,33 +1,27 @@
-import { Keyboard } from "../SparkX/Input/InputFiles/Keyboard.js";
 import { Vector2 } from "../SparkX/Math/Vector2.js";
-import { Draw } from "../SparkX/Render/Draw/Draw.js";
+import { renderBuffer } from "../SparkX/Render/Buffers/RenderBuffer.js";
 import { Circle, Rect } from "../SparkX/Render/Draw/DrawObjects.js";
 import { SparkX } from "../SparkX/SparkX.js";
 
-let pingpongball = new Circle(Vector2.Zero(), 1, 0, 'white')
-let posToBe = new Vector2(0, 0);
-let velocity = new Vector2(10, 0);
-
-let paddle1 = new Rect(new Vector2(30, 0), new Vector2(2, 10), 0, 'white')
-let paddle2 = new Rect(new Vector2(-30, 0), new Vector2(2, 10), 0, 'white')
-
-let paddle1ToBe = new Vector2(30, 0);
-let paddle2ToBe = new Vector2(-30, 0);
-
-let paddleSpeeds = 15
-
-let bg = new Rect(Vector2.Zero(), new Vector2(100, 100), 0, 'black')
+let walls = [
+    new Rect(new Vector2(35, 0), new Vector2(10, 100), 0, 'white'),
+    new Rect(new Vector2(-35, 0), new Vector2(10, 100), 0, 'white'),
+    new Rect(new Vector2(0, 25), new Vector2(100, 10), 0, 'white'),
+    new Rect(new Vector2(0, -25), new Vector2(100, 10), 0, 'white'),
+]
+let bg = new Rect(Vector2.Zero(), Vector2.Fill(100), 0, 'black')
 bg.SetZIndex(0)
 
-let top = new Rect(new Vector2(0, 22), new Vector2(100, 2), 0, 'gray')
-let bottom = new Rect(new Vector2(0, -22), new Vector2(100, 2), 0, 'gray')
+let ball = {
+    velocity : new Vector2(0.5, 0.5),
+    ball : new Circle(new Vector2(0, 0), 1, 0, 'white')
+}
 
-let cam = SparkX.Camera;
-let camDest = new Vector2(cam.Position.x, cam.Position.y);
-let camOffset = new Vector2(0, 0);
+SparkX.Settings.Fidelity = 10
 
-function isColliding(cir = Circle, rect = Rect){
-    //Since its pong there is no need for a perfect circle to rectangle collision :)
+let camToBe = new Vector2(0, 0);
+
+function isColliding(cir, rect){
     const { Scale } = rect, { Radius } = cir;
     if (cir.Position.y - Radius  <= rect.Position.y + Scale.y/2 && cir.Position.y + Radius >= rect.Position.y - Scale.y/2){
         if (cir.Position.x + Radius >= rect.Position.x - Scale.x/2 && cir.Position.x - Radius <= rect.Position.x + Scale.x/2){
@@ -36,52 +30,45 @@ function isColliding(cir = Circle, rect = Rect){
             return true
         }
     }
-
-    // if (cir.Position.x + Radius >= rect.Position.x - Scale.x/2 && cir.Position.x - Radius <= rect.Position.x + Scale.x/2){
-
-    // }
-
-    return false
+}
+let t = true;
+function onHit(){
+    if (t){
+        t = false;
+        walls.forEach(wall => wall.Color = 'black')
+        ball.ball.Color = 'black'
+        bg.Color = 'white'
+    } else {
+        t = true;
+        walls.forEach(wall => wall.Color = 'white')
+        ball.ball.Color = 'white'
+        bg.Color = 'black'
+    }
+    ball.ball.Radius -= .01
+    walls.forEach(wall => wall.Scale = Vector2.Add(wall.Scale, 1 * ball.ball.Radius))
 }
 
-let paddle1Prev, paddle2Prev;
-
-SparkX.RenderStart(()=>{
-    SparkX.Settings.Fidelity = 3;
-    
-})
-
 SparkX.RenderLoop(()=>{
-    paddle1Prev = paddle1.Position; paddle2Prev = paddle2.Position;
-
-    if (Keyboard.GetKeyState('i')){
-        paddle1ToBe.y += paddleSpeeds * SparkX.DeltaTime * Math.abs(velocity.x / 8);
-    }
-    if (Keyboard.GetKeyState('k')){
-        paddle1ToBe.y -= paddleSpeeds * SparkX.DeltaTime * Math.abs(velocity.x / 8);
-    }
-
-    if (Keyboard.GetKeyState('w')){
-        paddle2ToBe.y += paddleSpeeds * SparkX.DeltaTime * Math.abs(velocity.x / 8);
-    }
-    if (Keyboard.GetKeyState('s')){
-        paddle2ToBe.y -= paddleSpeeds * SparkX.DeltaTime * Math.abs(velocity.x / 8);
-    }
-
-    posToBe = Vector2.Add(posToBe, Vector2.Multiply(velocity, SparkX.DeltaTime))
-    pingpongball.Position = Vector2.Lerp(pingpongball.Position, posToBe, 0.5)
-    velocity.x += 0.001 * ( velocity.x / Math.abs(velocity.x))
-
-    paddle1.Position = Vector2.Lerp(paddle1.Position, paddle1ToBe, 0.5)
-    paddle2.Position = Vector2.Lerp(paddle2.Position, paddle2ToBe, 0.5)
-
-    let paddle1V = Vector2.Sub(paddle1.Position, paddle1Prev)
-    let paddle2V = Vector2.Sub(paddle2.Position, paddle2Prev)
-
-    if (isColliding(pingpongball, paddle1) && velocity.x >= 0) {velocity.x *= -1; velocity.y += paddle1V.y * 10; camOffset = new Vector2(1, paddle1.Position.y / 10);}
-    if (isColliding(pingpongball, paddle2) && velocity.x <= 0) {velocity.x *= -1; velocity.y += paddle2V.y * 10; camOffset = new Vector2(-1, paddle2.Position.y / 10);}
-    if (isColliding (pingpongball, top) && velocity.y >= 0) { velocity.y *= -1 }
-    if (isColliding (pingpongball, bottom) && velocity.y <= 0) { velocity.y *= -1; }
     
-    cam.Position = Vector2.Lerp(cam.Position, Vector2.Add(Vector2.Add(camDest, camOffset), Vector2.Divide(pingpongball.Position, 10)), 0.05)})
+        
+        if (isColliding(ball.ball, walls[0]) && ball.velocity.x >= 0) {ball.velocity.x *= -1; camToBe = new Vector2(1, 0); new Audio('../click-button-140881.mp3').play(); onHit()}
+        if (isColliding(ball.ball, walls[2]) && ball.velocity.y >= 0) {ball.velocity.y *= -1; camToBe = new Vector2(0, 1); new Audio('../click-button-140881.mp3').play(); onHit()}
+        if (isColliding(ball.ball, walls[1]) && ball.velocity.x <= 0) {ball.velocity.x *= -1; camToBe = new Vector2(-1, 0); new Audio('../click-button-140881.mp3').play(); onHit()}
+        if (isColliding(ball.ball, walls[3]) && ball.velocity.y <= 0) {ball.velocity.y *= -1; camToBe = new Vector2(0, -1); new Audio('../click-button-140881.mp3').play(); onHit()}
 
+
+    // if (Vector2.IsEqualTo(prevV, ball.velocity)){
+    //     ball.ball.Color = 'white';
+    //     walls.forEach(wall => wall.Scale = Vector2.Add(wall.Scale, 0.01))
+    // }
+
+        let vInc = new Vector2(0.001, 0.001)
+
+        ball.ball.Position = Vector2.Lerp(ball.ball.Position, Vector2.Add(ball.ball.Position, ball.velocity), 0.5)
+        ball.velocity = Vector2.Add(ball.velocity, Vector2.Multiply(vInc, Vector2.Divide(ball.velocity, new Vector2(Math.abs(ball.velocity.x), Math.abs(ball.velocity.y)))))
+       
+    
+    SparkX.Camera.Position = Vector2.Lerp(SparkX.Camera.Position, camToBe, 0.05);
+    
+    console.log(renderBuffer.buffer.length);
+})

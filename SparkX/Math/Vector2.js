@@ -4,11 +4,11 @@ export class Vector2 {
     /**
      * @param x The x value of the vector
      */
-    x = Number;
+    static x = Number;
     /**
      * @param y The y value of the vector
      */
-    y = Number;
+    static y = Number;
     #moving = false;
     #cancel = false;
 

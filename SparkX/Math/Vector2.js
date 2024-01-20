@@ -124,11 +124,13 @@ export class Vector2 {
  * @returns the added vector
  */
     static Multiply(a = Vector2, b = Number){
-        if (typeof(b) == "number"){
-            return new Vector2(a.x * b, a.y * b);
-        } else {
-            return new Vector2(a.x * b.x, a.y * b.y);
-        }
+        return new Vector2(a.x * b, a.y * b);
+    }
+
+    Multiply(a = Number){
+        this.x *= a;
+        this.y *= a;
+        return this
     }
 
     static Divide(a = Vector2, b = Vector2 || Number){
@@ -137,6 +139,12 @@ export class Vector2 {
         } else {
             return new Vector2(a.x / b.x, a.y / b.y);
         }
+    }
+
+    Divide(a = Number){
+        this.x /= a;
+        this.y /= a;
+        return this;
     }
 
     static Avg(a = Vector2, b = Vector2){
@@ -149,11 +157,27 @@ export class Vector2 {
         return new Vector2(x, y);
     }
 
+    Lerp(a = Vector2, t = Number){
+        let x = this.x * (1 - t) + a.x * t;
+        let y = this.y * (1 - t) + b.y * t;
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
     static IsEqualTo(a = Vector2, b = Vector2 || Number){
         if (typeof(b) == "number"){
             return ((a.x == b && a.y == b ) ? true : false);
         } else {
             return ((a.x == b.x && a.y == b.y ) ? true : false);
+        }
+    }
+
+    IsEqualTo(a = Vector2 || Number){
+        if (typeof(a) == "number"){
+            return ((a == this.x && a == this.y ) ? true : false);
+        } else {
+            return ((a.x == this.x && a.y == this.y ) ? true : false);
         }
     }
 
@@ -185,6 +209,7 @@ export class Vector2 {
         
         this.x = Math.cos(angle * (Math.PI / 180)) * vectorLength;
         this.y = Math.sin(angle * (Math.PI / 180)) * vectorLength;
+        return this
     }
      
 }

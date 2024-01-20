@@ -165,7 +165,27 @@ export class Vector2 {
         return new Vector2(Math.floor(a.x), Math.floor(a.y))
     }
 
-    
+    Round(){
+        return new Vector2(Math.round(this.x), Math.round(this.y))
+    }
+
+    Floor(){
+        return new Vector2(Math.floor(this.x), Math.floor(this.y))
+    }
+
+    Angle(){
+        return Math.asin(this.y / this.Length()) * (180 / Math.PI)
+    }
+
+    Length(){
+        return Math.sqrt(Math.pow(this.x ,2) + Math.pow(this.y ,2))
+    }
+     
+    SetAngle(angle, vectorLength){
+        
+        this.x = Math.cos(angle * (Math.PI / 180)) * vectorLength;
+        this.y = Math.sin(angle * (Math.PI / 180)) * vectorLength;
+    }
      
 }
 

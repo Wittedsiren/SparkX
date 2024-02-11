@@ -11,23 +11,26 @@ let lastUpdate = Date.now();
 let StartRan = false;
 
 let frame = 1;
+let prevCanvas;
 
 //RenderLoop
 //Change to animation frame thing
 
 async function render(){
+    if (prevCanvas != SparkX.Canvas) SparkX.ClearCanvas(prevCanvas)
+    prevCanvas = SparkX.Canvas
     let canvas = SparkX.Canvas;
     if (!SparkX.Settings.Cursor) {canvas.style.cursor = 'none' }
     
     if (SparkX.Settings.ReduceScreenTearing){
         if ((frame / 10) == 1){
-            SparkX.ClearCanvas()
+            SparkX.ClearCanvas(SparkX.Canvas)
             frame = 0;
         } else {
             frame++
         }
     } else {
-        SparkX.ClearCanvas()
+        SparkX.ClearCanvas(SparkX.Canvas)
     }
 
     let rf = new renderFrame(renderBuffer.buffer);

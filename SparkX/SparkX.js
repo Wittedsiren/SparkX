@@ -53,8 +53,9 @@ export let SparkX = {
     // MoniterRes : new Vector2(screen.width, screen.height),
     // WindowRes : new Vector2(document.inne),
     
-    ClearCanvas : async function(){
-        SparkX.Canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
+    ClearCanvas : async function(canvas){
+        
+        canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
         SparkX.Information.TriangleCount = 0;
         SparkX.Information.VerticeCount = 0;
     },

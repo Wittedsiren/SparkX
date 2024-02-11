@@ -47,6 +47,8 @@ export let Draw = {
     },
 
     rect : function(position = Vector2, scale = Vector2, rotation = Number, color = SparkX.Settings.DefaultRenderColor, opacity = Number){
+        // if (!position.x) {console.error('SparkX: Rect needs position vector');}
+        // if (!scale.x) {console.error('SparkX: Rect needs scale vector');}
         let ctx = SparkX.Canvas.getContext('2d');
         ctx.globalAlpha = opacity
         let a = position;
@@ -69,7 +71,7 @@ export let Draw = {
         x7.y -= position.x; x7.y += position.y;
         x8.y -= position.x; x8.y += position.y;
         //this.line(x1,x2, color); this.line(x3,x4, color); this.line(x5,x6, color); this.line(x7,x8, color);
-        this.line(x2, x6, color)
+        //this.line(x2, x6, color)
         this.triangle(x1, x2, x3, color); this.triangle(x4, x2, x6, color);
         
         ctx.globalAlpha = 1
@@ -133,7 +135,7 @@ export let Draw = {
             
             //this.line(pos, prevPos, color);
             this.triangle(pos, prevPos, position, color)
-            this.line(pos, position, color);
+            //this.line(pos, position, color);
             prevPos = pos
         }
     },

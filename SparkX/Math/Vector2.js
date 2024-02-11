@@ -4,11 +4,11 @@ export class Vector2 {
     /**
      * @param x The x value of the vector
      */
-    static x = Number;
+    x = Number;
     /**
      * @param y The y value of the vector
      */
-    static y = Number;
+    y = Number;
     #moving = false;
     #cancel = false;
 
@@ -151,19 +151,21 @@ export class Vector2 {
         return Vector2.Divide(new Vector2(a.x + b.x, a.y + b.y), 2)
     }
 
+    LerpFromThis(a = Vector2, t = Number){
+        let x = this.x * (1 - t) + a.x * t;
+        let y = this.y * (1 - t) + a.y * t;
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
     static Lerp(a = Vector2, b = Vector2, t = Number){
         let x = a.x * (1 - t) + b.x * t;
         let y = a.y * (1 - t) + b.y * t;
         return new Vector2(x, y);
     }
 
-    Lerp(a = Vector2, t = Number){
-        let x = this.x * (1 - t) + a.x * t;
-        let y = this.y * (1 - t) + b.y * t;
-        this.x = x;
-        this.y = y;
-        return this;
-    }
+    
 
     static IsEqualTo(a = Vector2, b = Vector2 || Number){
         if (typeof(b) == "number"){

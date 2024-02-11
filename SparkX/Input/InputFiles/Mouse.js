@@ -46,6 +46,7 @@ window.addEventListener("mousemove", event => {
     let y = event.clientY - rect.top - SparkX.Resolution.y / 2;
     let pos = new Vector2(x / ppp, -y / ppp);
     pos = Vector2.Divide(pos, az)
+    pos = Vector2.Add(pos, SparkX.Camera.Position)
     
 
 

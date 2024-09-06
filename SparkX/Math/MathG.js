@@ -49,5 +49,5 @@ export let MathG = {
         // }
     
         return false
-    }
+    },
 }

@@ -6,7 +6,7 @@ export class PointLight extends drawObject{
     Brightness = 1;
     Details = true;
 
-    constructor(position = Vector2){
+    constructor(position = Vector2.Zero()){
         super();
         this.drawType = 'pointlight'
         this.Position = position

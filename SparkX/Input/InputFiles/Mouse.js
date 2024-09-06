@@ -1,5 +1,6 @@
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
+import { mat } from "../../Render/Draw/mat.js";
 import { SparkX } from "../../SparkX.js";
 
 let scroll
@@ -37,17 +38,26 @@ window.addEventListener("wheel", event => {
         a()
     });
 });
-window.addEventListener("mousemove", event => {   
-    let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
-    let z = SparkX.Camera.Zoom;
-    let az = SparkX.ConstSettings.AspectZoom;
-    let rect = SparkX.Canvas.getBoundingClientRect();
-    let x = event.clientX - rect.left - SparkX.Resolution.x / 2;
-    let y = event.clientY - rect.top - SparkX.Resolution.y / 2;
-    let pos = new Vector2(x / ppp, -y / ppp);
-    pos = Vector2.Divide(pos, az)
-    pos = Vector2.Add(pos, SparkX.Camera.Position)
-    
+window.addEventListener("mousemove", event => {  
+    let rect = SparkX.Canvas.getBoundingClientRect(); 
+    let pos = new Vector2(event.clientX - rect.left, -(event.clientY - rect.top))
+    pos.x -= SparkX.Resolution.x/2;
+    pos.y += SparkX.Resolution.y/2;
+    pos = pos.Divide(SparkX.Settings.PixelsPerPoint)
+    pos.x += SparkX.Camera.Position.x;
+    pos.y += SparkX.Camera.Position.y;
+    // console.log(SparkX.Resolution)
+    // let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
+    // let z = SparkX.Camera.Zoom;
+    // let az = SparkX.ConstSettings.AspectZoom;
+    // let rect = SparkX.Canvas.getBoundingClientRect();
+    // let x = event.clientX - rect.left - SparkX.Resolution.x / 2;
+    // let y = event.clientY - rect.top - SparkX.Resolution.y / 2;
+    // let pos = new Vector2(x / ppp, -y / ppp);
+    // pos = Vector2.Divide(pos, az)
+    // pos = Vector2.Add(pos, SparkX.Camera.Position)
+    //pos = pos.MatriceTransform(mat)
+    // console.log(pos)
 
 
     Mouse.Position = pos;

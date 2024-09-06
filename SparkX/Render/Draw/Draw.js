@@ -1,21 +1,26 @@
+
 import { MathG } from "../../Math/MathG.js";
 import { Vector2 } from "../../Math/Vector2.js";
 import { SparkX } from "../../SparkX.js";
 import { renderBuffer } from "../Buffers/RenderBuffer.js";
 import { lightCompute } from "../Light/LightCompute.js";
 import { drawObject } from "./DrawObjects.js";
+import { mat } from "./mat.js";
 
 
 let dx = Number;
 let dy = Number;
 // let canvas = SparkX.Canvas;
 let l_func = {
-    MakePosRelative : function(a){
+    MakePosRelative : function(a = Vector2){
+        
+        // a = a.MatriceTransform(mat)
         let ppp = Math.abs( SparkX.Settings.PixelsPerPoint );
         let z = SparkX.ConstSettings.Cam.Zoom;
         dx = SparkX.Resolution.x / 2 / ppp / z
         dy = SparkX.Resolution.y / 2 / ppp / z
         let x1 = Vector2.Divide(a , SparkX.ConstSettings.AspectZoom);
+        
         let x2 = new Vector2(x1.x + dx, -x1.y + dy)
         let x3 = new Vector2(x2.x - (SparkX.ConstSettings.Cam.Position.x / SparkX.ConstSettings.AspectZoom.x), 
                              x2.y +SparkX.ConstSettings.Cam.Position.y/ SparkX.ConstSettings.AspectZoom.x)
@@ -245,6 +250,42 @@ export let Draw = {
         } else if (obj.drawType == 'pointlight'){
             lightCompute.render.spotLight(obj);
         }
+    },
+
+    vector : function(vector = Vector2.Zero(), components = false, visualDisplacement = Vector2.Zero()){
+        origin = SparkX.Origin;
+        Draw.line(origin.Add(visualDisplacement), vector.Add(visualDisplacement), 'black');
+
+        let arrowpartA = new Vector2(vector.x, vector.y);
+        let arrowpartB = new Vector2(vector.x, vector.y);
+        
+        let arrowAngle = 3;
+        let vectorLength = 10;
+        let unitVector = Math.abs(vector.x) / vector.x || 1        
+
+        arrowpartA.SetAngle(vector.GetAngle() * unitVector + arrowAngle, ( vector.Magnitude()/1.1) * unitVector);
+        Draw.line(arrowpartA.Add(visualDisplacement), vector.Add(visualDisplacement), 'black');
+
+        arrowpartB.SetAngle(vector.GetAngle() * unitVector - arrowAngle, ( vector.Magnitude()/1.1) * unitVector);
+        Draw.line(arrowpartB.Add(visualDisplacement), vector.Add(visualDisplacement), 'black');
+
+        //render
+        Draw.triangle(arrowpartA.Add(visualDisplacement), arrowpartB.Add(visualDisplacement), vector.Add(visualDisplacement), 'black');
+
+        if (components){
+            Draw.line(new Vector2(vector.x, 0).Add(visualDisplacement), new Vector2(vector.x, vector.y).Add(visualDisplacement))
+            Draw.line(new Vector2(vector.x, 0).Add(visualDisplacement), new Vector2(0, 0).Add(visualDisplacement))
+        }
+    },
+    text : function(text = String, position = Vector2.Zero()){
+        console.log('called')
+        let ctx = SparkX.Canvas.getContext("2d");
+        ctx.font = "50px Arial";
+        let pos = l_func.MakePosRelative(position);
+        ctx.lineWidth = 5
+        ctx.fillStyle = 'black'
+        ctx.fillText(text, pos.x, pos.y)
+        ctx.fillStyle = 'black'
     }
 }
 

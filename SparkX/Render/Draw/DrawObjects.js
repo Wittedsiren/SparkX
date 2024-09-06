@@ -85,9 +85,9 @@ export class drawObject{
 export class Circle extends drawObject{
     static Radius = Number;
     
-    constructor(position = Vector2, radius = 1, rotation = 0, color = String = SparkX.Settings.DefaultRenderColor, opacity = 1){
+    constructor(position = Vector2.Zero(), radius = 1, rotation = 0, color = String = SparkX.Settings.DefaultRenderColor, opacity = 1){
         super()
-        this.Position =  (position.Angle) ? position : Vector2.Zero()
+        this.Position = position;
         this.Rotation = rotation;
         this.Radius = radius;
         this.Color = color
@@ -101,9 +101,9 @@ export class Circle extends drawObject{
 export class Rect extends drawObject{
     static Scale = Vector2.Zero();
 
-    constructor(position = Vector2, scale = Vector2, rotation = 0, color = SparkX.Settings.DefaultRenderColor, opacity = 1){
+    constructor(position = Vector2.Zero(), scale = Vector2, rotation = 0, color = SparkX.Settings.DefaultRenderColor, opacity = 1){
         super()
-        this.Position = (position.x) ? position : Vector2.Zero()
+        this.Position = position
         this.Scale = (scale.x) ? scale : Vector2.Fill(1);
         this.Rotation = rotation
         this.Color = color

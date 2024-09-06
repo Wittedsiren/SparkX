@@ -11,13 +11,13 @@ let lastUpdate = Date.now();
 let StartRan = false;
 
 let frame = 1;
-let prevCanvas;
+let prevCanvas = null;
 
 //RenderLoop
 //Change to animation frame thing
 
 async function render(){
-    if (prevCanvas != SparkX.Canvas) SparkX.ClearCanvas(prevCanvas)
+    if (prevCanvas != SparkX.Canvas && prevCanvas != null) SparkX.ClearCanvas(prevCanvas)
     prevCanvas = SparkX.Canvas
     let canvas = SparkX.Canvas;
     if (!SparkX.Settings.Cursor) {canvas.style.cursor = 'none' }
@@ -39,7 +39,7 @@ async function render(){
     var ctx = canvas.getContext('2d');
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
     ctx.fillStyle = 'rgba(255, 0, 0, 0)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillRect(0, 0, SparkX.Resolution.x, SparkX.Resolution.y);
 
     if (StartRan == false){
         
@@ -50,8 +50,8 @@ async function render(){
 
         //AspectRatioWindow.DetermineAspectRatio();
 
-        canvas.width = SparkX.ClientScreenRes.x;
-        canvas.height = SparkX.ClientScreenRes.y;
+        // canvas.width = SparkX.ClientScreenRes.x;
+        // canvas.height = SparkX.ClientScreenRes.y;
 
         SparkX.renderStarts.forEach(start => {start()});
 
@@ -100,22 +100,25 @@ function renderLoop(){
 }
 
 export function Init(){
+    let {x, y} = SparkX.Resolution;
     let img = new Image();
-    img.style.maxHeight = SparkX.ClientScreenRes.y;
-    img.style.maxWidth = SparkX.ClientScreenRes.x;
-    img.style.top = '50%';
-    img.style.left = '50%';
+    img.style.maxHeight = SparkX.Resolution.y;
+    img.style.maxWidth = SparkX.Resolution.x;
+
     img.src = '../Spark Made With.png'
-    img.style.transform = 'translate(-50%, -50%)'
+    // img.style.transform = 'translate(50%, 50%)'
     img.style.position = 'absolute'
-    document.body.appendChild(img)
+    console.log(img.width)
+    img.style.top = `${x/2-img.height/2}px`
+    img.style.left = `${y/2-img.width/2}px`
+    SparkX.Canvas.parentElement.appendChild(img)
+    
     let o = 1;
     function LowerO (){
         setTimeout(function(){
             if (o >= 0){
                 o -= 0.01;
                 img.style.opacity = o
-
                 LowerO()
             } else {
                 o = 0;
@@ -129,7 +132,7 @@ export function Init(){
     }, 500)
 
     setTimeout(function(){
-        document.body.removeChild(img)
+        SparkX.Canvas.parentElement.removeChild(img)
         if (SparkX.Settings.Rendering) requestAnimationFrame(renderLoop)    
     }, 1000)   
 }

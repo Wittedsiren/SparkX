@@ -10,8 +10,9 @@ let cam = {
 export let SparkX = {
     Version : "0.7.0",
     Canvas : document.getElementById("Screen"),
-    Resolution : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
+    Resolution : new Vector2(document.getElementById("Screen").clientWidth, document.getElementById("Screen").clientHeight),
     ClientScreenRes : new Vector2(document.getElementById("Screen").width, document.getElementById("Screen").height),
+    Origin : Vector2.Zero(),
     ConstSettings : {
         AspectRatio : Number,
         AspectZoom : Vector2.Fill(1),
@@ -53,9 +54,9 @@ export let SparkX = {
     // MoniterRes : new Vector2(screen.width, screen.height),
     // WindowRes : new Vector2(document.inne),
     
-    ClearCanvas : async function(canvas){
+    ClearCanvas : function(canvas){
         
-        canvas.getContext('2d').clearRect(0, 0, SparkX.ClientScreenRes.x, SparkX.ClientScreenRes.y)
+        canvas.getContext('2d').clearRect(0, 0, SparkX.Resolution.x, SparkX.Resolution.y)
         SparkX.Information.TriangleCount = 0;
         SparkX.Information.VerticeCount = 0;
     },

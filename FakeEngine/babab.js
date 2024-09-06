@@ -35,6 +35,9 @@ let polyLerp = true;
 //let cir = new Circle(polynomialInterpolation(a, b, 2, 0.5))
 console.log();
 let angle = 0;
+
+let pos1 = new Vector2()
+
 SparkX.RenderLoop(()=>{
     thing.Position.SetAngle(angle, thing.Position.Length())
     // for (let index = 0; index < 10; index++) {

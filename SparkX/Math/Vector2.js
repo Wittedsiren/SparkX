@@ -57,17 +57,27 @@ export class Vector2 {
             this.MoveTo(a, t)
         }
     }
-
+/**
+ * 
+ * @param {*} X Can be a Vector2 as well, which will result in newly created Vector2 to be the same as the one inputed
+ * @param {*} Y 
+ * @returns 
+ */
     constructor(X = Number, Y = Number){
-        this.x = X;
-        this.y = Y;
+        if (typeof(X) == Vector2){
+            this.x = X.x;
+            this.y = X.y;
+        } else {
+            this.x = X;
+            this.y = Y;
+        }
         return this;
     }
 /**
  * gives you the distance between both vectors
  * @param {Vector2} a vector A
  * @param {Vector2} b vector B
- * @returns the distance
+ * @returns {Number}
  */
     static Magnitude(a = Vector2, b = Vector2){
         let vec1 = Math.pow(b.x - a.x, 2);
@@ -104,6 +114,13 @@ export class Vector2 {
             return new Vector2(a.x + b.x, a.y + b.y);
         }
     }
+    Add(a = Vector2 || Number){
+        if (typeof(a) == "number"){
+            return new Vector2(this.x + a, this.y + a);
+        } else {
+            return new Vector2(a.x + this.x, a.y + this.y);
+        }
+    }
 /**
  * subs either two vectors or a vector and a number
  * @param {Vector2} a the vector you want b to be subbed from
@@ -117,6 +134,13 @@ export class Vector2 {
             return new Vector2(a.x - b.x, a.y - b.y);
         }
     }
+    Sub(a = Vector2 || Number){
+        if (typeof(a) == "number"){
+            return new Vector2(this.x - a, this.y - a);
+        } else {
+            return new Vector2(this.x - a.x, this.y - a.y);
+        }
+    }
 /**
  * multiplys either two vectors or a vector and a number
  * @param {Vector2} a the vector you want b to be added to
@@ -128,8 +152,7 @@ export class Vector2 {
     }
 
     Multiply(a = Number){
-        this.x *= a;
-        this.y *= a;
+        this.x *= a; this.y *= a;
         return this
     }
 
@@ -199,13 +222,17 @@ export class Vector2 {
         return new Vector2(Math.floor(this.x), Math.floor(this.y))
     }
 
-    Angle(){
-        return Math.asin(this.y / this.Length()) * (180 / Math.PI)
+    //True Vector math
+
+    Magnitude(){
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))
     }
 
-    Length(){
-        return Math.sqrt(Math.pow(this.x ,2) + Math.pow(this.y ,2))
+    GetAngle(){
+        return Math.asin(this.y / this.Magnitude()) * (180 / Math.PI)
     }
+
+    
      
     SetAngle(angle, vectorLength){
         
@@ -213,6 +240,17 @@ export class Vector2 {
         this.y = Math.sin(angle * (Math.PI / 180)) * vectorLength;
         return this
     }
-     
+    static DotProduct(a = Vector2, b = Vector2){
+        let p  = a.x * b.x + a.y + b.y
+        return p;
+    }
+    MatriceTransform(mat = Array){
+        let vector = this;
+        let transVector = new Vector2(vector.x, vector.y);
+        transVector.x = vector.x * mat[0][0] + vector.y * mat[0][1];
+        transVector.y = vector.x * mat[1][0] + vector.y * mat[1][1];
+        return transVector;
+    }
+
 }
 
